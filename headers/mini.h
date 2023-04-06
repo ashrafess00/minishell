@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/03/30 16:39:44 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/06 20:45:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <termios.h>
-
+#include "libft.h"
 //i added something here
+
 #endif

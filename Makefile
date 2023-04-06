@@ -1,15 +1,34 @@
-OBJECTS	= main.c
-DEPO = mini.h
-OUZ	= $(OBJECTS:.c=.o)
-CFLAGS	= -Werror -Wextra -Wall
-NAME	= shell
+NAME = shell
 CC = cc
+CFLAGS = -Werror -Wextra -Wall
+SRCS_DIR = srcs/
+SRCS = main.c
+LIBFT_DIR = libft/
+LIBFT_A	= libft.a
+DEPO = mini.h
+OBJS_DIR = objs/
+HEADERS = headers/
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+INCLUDE = -I$(HEADERS) -I$(LIBFT_DIR)
+RM = rm -rf
+all: ${OBJS_DIR} ${NAME} 
 
-$(NAME):	$(OUZ)
-	$(CC) $^ -o $(NAME) -lreadline
-all:	${NAME} 
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(NAME): $(OBJS) $(LIBFT_A)
+	$(CC) $(OBJS) $(INCLUDE) $(LIBFT_DIR)$(LIBFT_A) -o $(NAME) -lreadline
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+	$(CC) $(INCLUDE) -c -o $@ $^
+
+$(LIBFT_A):
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	rm -rf ${OUZ}
+	$(RM) ${OBJS_DIR}
+	make clean -C $(LIBFT_DIR)
 fclean:
-	rm -rf ${OUZ} ${NAME}
+	$(RM) ${OBJS_DIR} ${NAME}
+	make fclean -C $(LIBFT_DIR)
+re: fclean all
