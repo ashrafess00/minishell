@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/06 20:45:01 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/10 01:04:58 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int main()
 			printf("khrj");
 			exit(1);
 		}
-		if(empty_command(input))
-			return(1);
+		// if(empty_command(input))
+		// 	return(1);
 		if(strlength(input) > 0)
 			add_history(input);
-		
+		lets_parse(input);
 	}
 	return(0);
 }

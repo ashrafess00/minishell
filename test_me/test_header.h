@@ -12,6 +12,12 @@
 #include <errno.h>
 #include <termios.h>
 #include "libft.h"
-//i added something here
+
+typedef struct s_dl
+{
+	int 		num;
+	struct s_dl	*next;
+	struct s_dl *prev;
+}   t_token;
 
 #endif
