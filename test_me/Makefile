@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Werror -Wextra -Wall
 SRCS = test_me.c
 LIBFT_DIR = ../libft/
-LIBFT_A	= libft.a
+LIBFT_A	= $(LIBFT_DIR)libft.a
 OBJS_DIR = objs/
 HEADERS = headers/
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
@@ -16,7 +16,7 @@ $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_A)
-	$(CC) $(OBJS) $(INCLUDE) $(LIBFT_DIR)$(LIBFT_A) -o $(NAME) -lreadline
+	$(CC) $(OBJS) $(INCLUDE) $(LIBFT_A) -o $(NAME) -lreadline
 
 $(OBJS_DIR)%.o: %.c
 	$(CC) $(INCLUDE) -c -o $@ $^

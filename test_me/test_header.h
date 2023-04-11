@@ -13,11 +13,18 @@
 #include <termios.h>
 #include "libft.h"
 
+enum e_chars
+{
+	WORD = -1,
+	JI = 5,
+};
+
 typedef struct s_dl
 {
-	int 		num;
-	struct s_dl	*next;
-	struct s_dl *prev;
+	int 			num;
+	enum e_chars	chars;
+	struct s_dl		*next;
+	struct s_dl 	*prev;
 }   t_token;
 
 #endif
