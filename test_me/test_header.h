@@ -12,6 +12,19 @@
 #include <errno.h>
 #include <termios.h>
 #include "libft.h"
-//i added something here
+
+enum e_chars
+{
+	WORD = -1,
+	JI = 5,
+};
+
+typedef struct s_dl
+{
+	int 			num;
+	enum e_chars	chars;
+	struct s_dl		*next;
+	struct s_dl 	*prev;
+}   t_token;
 
 #endif
