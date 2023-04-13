@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/13 18:38:32 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/13 20:33:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,47 @@ int	is_special(t_token **head, char *line, int *i, int *s_index, int size, int q
 		cr_token(head, line, *i, 1, RED_INPUT);
 		return (1);
 	}
+	else if ((q == 'c' || q == D_QUOTE) && line[*i] == '$' && line[*i + 1] == '?')
+	{
+		if (q == D_QUOTE)
+		{
+			cr_token(head, line, *s_index - 1, size - 1, NORMAL);
+			cr_token(head, line, *i - 1, 3, EXIT_STATUS);
+		}
+		else if (q == 'c')
+		{
+			cr_token(head, line, *s_index, size, NORMAL);
+			cr_token(head, line, *i, 2, EXIT_STATUS);
+		}
+		*i += 1;
+		return (1);
+	}
 	else if ((q == 'c' || q == D_QUOTE) && line[*i] == '$')
 	{
 		int si;
 	
 		si = 0;
-		
 		if (q == 'c')
 		{
 			cr_token(head, line, *s_index, size, NORMAL);
+			*s_index = *i;
 			while (line[*i] != ' ' && line[*i])
 			{
 				si++;
 				*i += 1;
 			}
 		}
-		// else if (q == D_QUOTE)
-		// {
-		// 	printf("jojo\n");
-		// 	while (line[*i] != D_QUOTE && line[*i])
-		// 	{
-		// 		si++;
-		// 		*i += 1;
-		// 	}
-		// }
-		cr_token(head, line, *s_index, si, ENV);
+		else if (q == D_QUOTE)
+		{
+			cr_token(head, line, *s_index, size - 1, NORMAL);
+			*s_index = *i - 1;
+			while (line[*i] != D_QUOTE && line[*i])
+			{
+				si++;
+				*i += 1;
+			}
+		}
+		cr_token(head, line, *s_index, si + 2, ENV);
 		return (1);
 	}
 	return (0);
