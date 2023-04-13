@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/06 20:45:01 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:55:22 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,20 @@ int main()
 	char *input;
 	while(1)
 	{
-		input = readline("/our@shell~: ");
+		//hadi 7ttitha hna 3la 7sab l color wsafi
+		printf("\e[0;31m/our@shell~: ");
+		input = readline("\e[0;37m");
 		if(!input)
 		{
 			printf("khrj");
 			exit(1);
 		}
-		if(empty_command(input))
-			return(1);
+		// if(empty_command(input))
+		// 	return(1);
 		if(strlength(input) > 0)
 			add_history(input);
-		
+		input = ft_strtrim(input, " ");
+		lets_tokenize(input);
 	}
 	return(0);
 }
