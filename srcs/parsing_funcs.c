@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/11 21:15:37 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:38:32 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,72 @@ void	cr_token(t_token **head, char *s, int s_index, int size, enum e_token type)
 	}
 }
 
-
-
 int	is_special(t_token **head, char *line, int *i, int *s_index, int size, int q)
 {
-	if (q == 'c' && is_pipe(line + *i, q))
+	int	index;
+
+	index = 0;
+	if (q == 'c' && line[*i] == '|')
 	{
 		cr_token(head, line, *s_index, size, NORMAL);
 		cr_token(head, line, *i, 1, PIPE);
-		*s_index = *i + 1;
+		return (1);
+	}
+	else if (q == 'c' && line[*i] == '<' && line[*i + 1] == '<')
+	{
+		cr_token(head, line, *s_index, size, NORMAL);
+		cr_token(head, line, *i, 2, HEREDOC);
 		*i += 1;
-		return(1);
+		return (1);
+	}
+	else if (q == 'c' && line[*i] == '>' && line[*i + 1] == '>')
+	{
+		cr_token(head, line, *s_index, size, NORMAL);
+		cr_token(head, line, *i, 2, RED_OUTPUT_APPEND);
+		*i += 1;
+		return (1);
+	}
+	else if (q == 'c' && line[*i] == '>')
+	{
+		cr_token(head, line, *s_index, size, NORMAL);
+		cr_token(head, line, *i, 1, RED_OUTPUT);
+		return (1);
+	}
+	else if (q == 'c' && line[*i] == '<')
+	{
+		cr_token(head, line, *s_index, size, NORMAL);
+		cr_token(head, line, *i, 1, RED_INPUT);
+		return (1);
+	}
+	else if ((q == 'c' || q == D_QUOTE) && line[*i] == '$')
+	{
+		int si;
+	
+		si = 0;
+		
+		if (q == 'c')
+		{
+			cr_token(head, line, *s_index, size, NORMAL);
+			while (line[*i] != ' ' && line[*i])
+			{
+				si++;
+				*i += 1;
+			}
+		}
+		// else if (q == D_QUOTE)
+		// {
+		// 	printf("jojo\n");
+		// 	while (line[*i] != D_QUOTE && line[*i])
+		// 	{
+		// 		si++;
+		// 		*i += 1;
+		// 	}
+		// }
+		cr_token(head, line, *s_index, si, ENV);
+		return (1);
 	}
 	return (0);
 }
-
 
 void	lets_tokenize(char *line)
 {
@@ -65,6 +116,9 @@ void	lets_tokenize(char *line)
 	int		size;
 	char	q;
 	t_token	*head;
+	int		br;
+
+	
 
 	head = NULL;
 	i = -1;
@@ -73,15 +127,23 @@ void	lets_tokenize(char *line)
 	s_index = 0;
 	while (line[++i])
 	{
+		br = 0;
 		size = 0;
 		while(line[i] == ' ' && line[i])
+		{
+			cr_token(&head, line, i, 1, SPACE);
 			i++;
+		}
 		if (line[i] == '\0')
 			break;
 		s_index = i;
 		while (line[i])
 		{
-			is_special(&head, line, &i, &s_index, size, q);
+			if (is_special(&head, line, &i, &s_index, size, q) == 1)
+			{
+				br = 1;
+				break;
+			}
 			if (line[i] == ' ' && q == 'c')
 				break;
 			else if (line[i] == D_QUOTE && q != D_QUOTE && q != S_QUOTE)
@@ -95,7 +157,10 @@ void	lets_tokenize(char *line)
 			i++;
 			size++;
 		}
-		cr_token(&head, line, s_index, size, NORMAL);
+		if (!br)
+			cr_token(&head, line, s_index, size, NORMAL);
+		if (line[i] == ' ')
+			cr_token(&head, line, i, 1, SPACE);
 		if (!line[i])
 			break ;
 	}
