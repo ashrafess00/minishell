@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/10 18:39:54 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:55:22 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int main()
 	char *input;
 	while(1)
 	{
-		input = readline("/our@shell~: ");
+		//hadi 7ttitha hna 3la 7sab l color wsafi
+		printf("\e[0;31m/our@shell~: ");
+		input = readline("\e[0;37m");
 		if(!input)
 		{
 			printf("khrj");
