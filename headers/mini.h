@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/13 17:15:41 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/16 20:49:32 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_token
 	int 			s_index;
 	int				size;
 	enum e_token	type;
+	char			**envs;
 	struct s_token	*next;
 	struct s_token *prev;
 }	t_token;
@@ -58,4 +59,7 @@ int is_heredoc(char *s, char q, int *error);
 int is_red_input_append(char *s, char q, int *error);
 int is_red_output(char *s, char q, int *error);
 int is_red_input(char *s, char q, int *error);
+int	is_env(t_token **head,  char *line, int *i, int *s_index, int size, char *q);
+
+void    print_tokens(t_token *head);
 #endif

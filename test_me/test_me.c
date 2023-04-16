@@ -1,71 +1,61 @@
 #include "test_header.h"
-
-
-void	new_dl(t_token **head, int c, enum e_chars	chars)
+int next_doubl(char *line, int i, char c)
 {
-	t_token *new_dl = malloc(sizeof(t_token));
-	t_token *last = *head;
-	new_dl->num = c;
-	new_dl->chars = chars;
-	new_dl->next = NULL;
-	if (*head == NULL)
-	{
-		new_dl->prev = NULL;
-		*head = new_dl;
-	}
-	else
-	{
-		while (last->next)
-			last = last->next;
-		last->next = new_dl;
-		new_dl->prev = last;
-	}
+    while(line[i])
+    {
+        if(line[i] == c)
+            return(i);
+        i++;
+    }
+    return(0);
 }
-
-int	is_pipe(char *s)
+int strln(char *line)
 {
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	if (s[0] == '|')
-	{
-		count += 1;
-		while (s[++i])
-		{
-			if (s[i] == '|')
-				count ++;
-			if (count == 2)
-			{
-				printf("syntax error\n");
-				return (0);
-			}
-			if (s[i] != ' ')
-				return (1);
-		}
-	}
-	return (0);
+    int i = 0;
+    while(line[i])
+        i++;
+    return(i);
 }
-
+char *closed_quote(char *line)
+{
+    int single = 0;
+    int dble = 0;
+    int d_po = next_doubl(line, 0, '"');
+    int n_do;
+    int i = 0;
+    int j = 0;
+    char *line2;
+    line2 =  malloc(strln(line) * sizeof(char *));
+    while(line[i])
+    {
+        if(i > n_do)
+        {
+            d_po = next_doubl(line, n_do + 1, '"');
+            n_do = next_doubl(line, d_po + 1, '"');
+        }
+        while(line[i] == 39 && (i > n_do || i < d_po))
+        {
+            i++;
+            single++;
+        }
+        while(line[i] == '"')
+        {
+            dble++;
+            i++;
+        }
+        line2[j] = line[i];
+        i++;
+        j++;
+    }
+    line2[j] = '\0';
+    if(dble % 2 != 0)
+        return NULL;
+    if(single % 2 != 0)
+        return NULL;
+    return (line2);
+}
 
 int main()
 {
-	printf("%d", is_pipe("|   \"|hello my name is ashraf"));
-	// t_token	*dl;
-	// dl = NULL;
-	// new_dl(&dl, 10, WORD);
-	// new_dl(&dl, 20, WORD);
-	// new_dl(&dl, 30, WORD);
-	// new_dl(&dl, 10, JI);
-	// new_dl(&dl, 20, WORD);
-	// new_dl(&dl, 30, WORD);
-
-	// while (dl)
-	// {
-	// 	printf("%d - add - [%d] - %p - next add %p - prev add %p\n", dl->chars, dl->num, dl, dl->next, dl->prev);
-	// 	dl = dl->next;
-	// }
-
-
+	printf("%s", closed_quote("'a's\"hr\"af"));
 }
