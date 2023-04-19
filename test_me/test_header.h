@@ -13,18 +13,36 @@
 #include <termios.h>
 #include "libft.h"
 
-enum e_chars
+typedef struct s_cmd
 {
-	WORD = -1,
-	JI = 5,
-};
+	char			**args;
+	int				a;
+	int				b;
+	struct s_cmd	*next;
+	char	*test;
+}	t_cmd;
 
-typedef struct s_dl
+typedef struct s_pipe
 {
-	int 			num;
-	enum e_chars	chars;
-	struct s_dl		*next;
-	struct s_dl 	*prev;
-}   t_token;
+	struct s_tree	*right;
+	struct s_tree	*left;
+}	t_pipe;
 
+typedef struct s_tree
+{
+	char				type;
+	struct s_cmd	*cmd;
+	struct s_pipe	*pipe;
+	struct s_tree	*next;
+}	t_tree;
+
+typedef struct	s_ast_root
+{
+	struct s_tree	*root;
+}	t_ast_root;
+
+t_cmd	*cr_cmd(int a);
+void	add_node(t_cmd **head, int a);
+void	push_cmd_to_tree(t_tree **tree, int a);
+void	push_pipe_to_tree(t_tree **tree, int l);
 #endif

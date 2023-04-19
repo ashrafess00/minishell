@@ -1,7 +1,7 @@
 NAME = test
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-SRCS = test_me.c
+SRCS = test_me.c utils.c
 LIBFT_DIR = ../libft/
 LIBFT_A	= $(LIBFT_DIR)libft.a
 OBJS_DIR = objs/

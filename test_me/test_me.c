@@ -1,61 +1,45 @@
 #include "test_header.h"
-int next_doubl(char *line, int i, char c)
-{
-    while(line[i])
-    {
-        if(line[i] == c)
-            return(i);
-        i++;
-    }
-    return(0);
-}
-int strln(char *line)
-{
-    int i = 0;
-    while(line[i])
-        i++;
-    return(i);
-}
-char *closed_quote(char *line)
-{
-    int single = 0;
-    int dble = 0;
-    int d_po = next_doubl(line, 0, '"');
-    int n_do;
-    int i = 0;
-    int j = 0;
-    char *line2;
-    line2 =  malloc(strln(line) * sizeof(char *));
-    while(line[i])
-    {
-        if(i > n_do)
-        {
-            d_po = next_doubl(line, n_do + 1, '"');
-            n_do = next_doubl(line, d_po + 1, '"');
-        }
-        while(line[i] == 39 && (i > n_do || i < d_po))
-        {
-            i++;
-            single++;
-        }
-        while(line[i] == '"')
-        {
-            dble++;
-            i++;
-        }
-        line2[j] = line[i];
-        i++;
-        j++;
-    }
-    line2[j] = '\0';
-    if(dble % 2 != 0)
-        return NULL;
-    if(single % 2 != 0)
-        return NULL;
-    return (line2);
-}
 
-int main()
+
+// void	sir(t_tree **tree, int c, char t)
+// {
+// 	t_cmd	*cmd;
+// 	if (c == 0)
+// 		return ;
+// 	if (t == 'c')
+// 	{
+// 		add_node(&cmd, 10);
+// 		if (!*tree)
+// 			*tree = cmd;
+// 		else
+// 		{
+// 			t_cmd	
+// 		}
+// 	}
+// }
+
+int main(int c, char **argv)
 {
-	printf("%s", closed_quote("'a's\"hr\"af"));
+	// t_ast_root	*root;
+	t_tree	*tree;
+
+	push_cmd_to_tree(&tree, 10);
+	push_cmd_to_tree(&tree, 20);
+	push_cmd_to_tree(&tree, 30);
+	push_pipe_to_tree(&tree, 1);
+	push_pipe_to_tree(&tree, 0);
+
+	while (tree)
+	{
+		if (tree->type == 'c')
+			printf("add: %-10p | next: %-10p | type: %-10c\n", tree, tree->next, tree->type);
+		else
+		{
+			printf("add: %-10p | next: %-10p | type: %-10c\n", tree, tree->next, tree->type);
+			printf("pipe left : %-10p | pipe right : %-10p\n", tree->pipe->left, tree->pipe->right);
+		}
+		printf("--------------------------------------\n");
+		tree = tree->next;
+	}
+
 }
