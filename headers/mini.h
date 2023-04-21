@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/20 18:04:55 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:58:39 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ enum e_token
 	HEREDOC,
 };
 
-typedef enum e_tree_type
-{
-	CMD,
-	PIPE_NODE,
-}	t_tree_type;
+
 
 typedef struct s_token
 {
@@ -56,6 +52,12 @@ typedef struct s_token
 	struct s_token *prev;
 }	t_token;
 
+typedef enum e_tree_type
+{
+	CMD_NODE = 'C',
+	PIPE_NODE = 'P',
+}	t_tree_type;
+
 typedef struct s_cmd
 {
 	char	**args;
@@ -63,27 +65,27 @@ typedef struct s_cmd
 
 typedef struct s_tree
 {
-	t_tree_type	type;
-	struct s_tree	*next;
-	// struct s_pipe	*pipe_node;
+	t_tree_type		type;
 	struct s_cmd	*cmd_node;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
 
+// typedef struct s_
+
+
 void	cr_token(t_token **head, char *s, int s_index, int size, enum e_token type);
-// void	lets_tokenize(char *line);
 t_token	*lets_tokenize(char *line);
 int empty_command(char *input);
 
-int	is_pipe(char *s, char q, int *error);
-int is_heredoc(char *s, char q, int *error);
-int is_red_input_append(char *s, char q, int *error);
-int is_red_output(char *s, char q, int *error);
-int is_red_input(char *s, char q, int *error);
-int	is_env(t_token **head,  char *line, int *i, int *s_index, int size, char *q);
-char *closed_quote(char *line);
-// void	lets_parse(t_token *tokens);
+int		is_pipe(char *s, char q, int *error);
+int 	is_heredoc(char *s, char q, int *error);
+int 	is_red_input_append(char *s, char q, int *error);
+int 	is_red_output(char *s, char q, int *error);
+int 	is_red_input(char *s, char q, int *error);
+int		is_env(t_token **head,  char *line, int *i, int *s_index, int size, char *q);
+char 	*closed_quote(char *line);
 void	lets_parse(t_token **tokens);
 void    print_tokens(t_token *head);
+void	print_my_tree(t_tree *tree);
 #endif

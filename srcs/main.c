@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/20 00:08:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:30:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int main()
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
-		// print_tokens(tokens);
-		lets_parse(&tokens);
+		print_tokens(tokens);
+		// lets_parse(&tokens);
 	}
 	return(0);
 }

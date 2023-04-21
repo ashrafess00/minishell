@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/16 23:35:26 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:15:25 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,30 @@ void	print_tokens(t_token *head)
 		if (head->type == EXIT_STATUS)
 			printf("TYPE : EXIT_CODE\n");
 		head = head->next;
+	}
+}
+
+void	print_my_tree(t_tree *tree)
+{
+	int	i;
+
+	if (!tree)
+		return ;
+	if (tree->type == CMD_NODE)
+	{
+		i = -1;
+		printf("%p - type : %c\n", tree, tree->type);
+		printf("commands args : \n");
+		while (tree->cmd_node->args[++i])
+		{
+			printf("[%s] ", tree->cmd_node->args[i]);
+		}
+		printf("\n------------------------------\n");
+	}
+	else
+	{
+		printf("%p - left %p - right %p - type %c\n", tree, tree->left, tree->right, tree->type);
+		print_my_tree(tree->left);
+		print_my_tree(tree->right);
 	}
 }
