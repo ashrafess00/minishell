@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_funcs.c                                    :+:      :+:    :+:   */
+/*   tokenizing_funcs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/16 23:41:06 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:58:07 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	is_special(t_token **head, char *line, int *i, int *s_index, int size, char 
 }
 
 
-void	lets_tokenize(char *line)
+t_token	*lets_tokenize(char *line)
 {
 	int		i;
 	int		s_index;
@@ -97,7 +97,6 @@ void	lets_tokenize(char *line)
 
 	head = NULL;
 	i = -1;
-	
 	q = 'c';
 	s_index = 0;
 	while (line[++i])
@@ -106,7 +105,7 @@ void	lets_tokenize(char *line)
 		size = 0;
 		while(line[i] == ' ' && q == 'c' && line[i])
 		{
-			cr_token(&head, line, i, 1, SPACE);
+			// cr_token(&head, line, i, 1, SPACE);
 			i++;
 		}
 		if (line[i] == '\0')
@@ -134,20 +133,12 @@ void	lets_tokenize(char *line)
 		}
 		if (!br)
 			cr_token(&head, line, s_index, size, NORMAL);
-		if (line[i] == ' ' && q == 'c')
-			cr_token(&head, line, i, 1, SPACE);
+		// if (line[i] == ' ' && q == 'c')
+		// 	cr_token(&head, line, i, 1, SPACE);
 		if (!line[i])
 			break ;
 	}
 
-	// t_token *to = head;
-	// while (to)
-	// {
-	// 	fill_envs(&to);
-	// 	to = to->next;
-	// }
-
-	// exit(0);
-	print_tokens(head);
+	return (head);
 }
 

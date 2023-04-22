@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/13 19:55:22 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:30:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int strlength(char *input)
 //finished prompt + check empty command + working history
 int main()
 {
-	char *input;
+	t_token	*tokens;
+	
+	char	*input;
 	while(1)
 	{
 		//hadi 7ttitha hna 3la 7sab l color wsafi
@@ -52,12 +54,12 @@ int main()
 			printf("khrj");
 			exit(1);
 		}
-		// if(empty_command(input))
-		// 	return(1);
 		if(strlength(input) > 0)
 			add_history(input);
 		input = ft_strtrim(input, " ");
-		lets_tokenize(input);
+		tokens = lets_tokenize(input);
+		print_tokens(tokens);
+		// lets_parse(&tokens);
 	}
 	return(0);
 }
