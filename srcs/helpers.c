@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/21 21:15:25 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:27:29 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_tokens(t_token *head)
 	// t_token *too = head;
 	while (head)
 	{
-		printf("arg : [%-10s]| i : %-5d| size : %-5d| ", head->s, head->s_index, head->size);
+		printf("arg : %-10s| i : %-5d| size : %-5d| ", head->s, head->s_index, head->size);
 		if (head->type == NORMAL)
 			printf("TYPE : NORMAL\n");
 		if (head->type == ENV)

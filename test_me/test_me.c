@@ -1,45 +1,35 @@
 #include "test_header.h"
 
+void	cr_token(t_token **head, char *s, int s_index, int size, enum e_token type)
+{
+	t_token	*new_dl;
+	t_token	*last;
 
-// void	sir(t_tree **tree, int c, char t)
-// {
-// 	t_cmd	*cmd;
-// 	if (c == 0)
-// 		return ;
-// 	if (t == 'c')
-// 	{
-// 		add_node(&cmd, 10);
-// 		if (!*tree)
-// 			*tree = cmd;
-// 		else
-// 		{
-// 			t_cmd	
-// 		}
-// 	}
-// }
+	if (size == 0)
+		return ;
+	new_dl = malloc(sizeof(t_token));
+	last = *head;
+	new_dl->s_index = s_index;
+	new_dl->s = ft_substr(s + s_index, 0, size);
+	//fl function dyalk siftliha (ft_substr(s + s_index, 0, size)), substr ghadi tjiblik string kif mma hwwa
+	new_dl->size = size;
+	new_dl->type = type;
+	new_dl->next = NULL;
+	if (*head == NULL)
+	{
+		new_dl->prev = NULL;
+		*head = new_dl;
+	}
+	else
+	{
+		while (last->next)
+			last = last->next;
+		last->next = new_dl;
+		new_dl->prev = last;
+	}
+}
 
 int main(int c, char **argv)
 {
-	// t_ast_root	*root;
-	t_tree	*tree;
-
-	push_cmd_to_tree(&tree, 10);
-	push_cmd_to_tree(&tree, 20);
-	push_cmd_to_tree(&tree, 30);
-	push_pipe_to_tree(&tree, 1);
-	push_pipe_to_tree(&tree, 0);
-
-	while (tree)
-	{
-		if (tree->type == 'c')
-			printf("add: %-10p | next: %-10p | type: %-10c\n", tree, tree->next, tree->type);
-		else
-		{
-			printf("add: %-10p | next: %-10p | type: %-10c\n", tree, tree->next, tree->type);
-			printf("pipe left : %-10p | pipe right : %-10p\n", tree->pipe->left, tree->pipe->right);
-		}
-		printf("--------------------------------------\n");
-		tree = tree->next;
-	}
 
 }
