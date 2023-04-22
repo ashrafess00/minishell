@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/21 21:58:07 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:27:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cr_token(t_token **head, char *s, int s_index, int size, enum e_token type)
 	last = *head;
 	new_dl->s_index = s_index;
 	new_dl->s = ft_substr(s + s_index, 0, size);
-	
+	//fl function dyalk siftliha (ft_substr(s + s_index, 0, size)), substr ghadi tjiblik string kif mma hwwa like ("ec"h"o"), new_dl->s khas ydkhl fiha (echo)
 	new_dl->size = size;
 	new_dl->type = type;
 	new_dl->next = NULL;
@@ -78,8 +78,8 @@ int	is_special(t_token **head, char *line, int *i, int *s_index, int size, char 
 		cr_token(head, line, *i, 1, RED_INPUT);
 		return (1);
 	}
-	else if (is_env(head, line, i, s_index, size, q))
-		return (1);
+	// else if (is_env(head, line, i, s_index, size, q))
+	// 	return (1);
 	return (0);
 }
 
@@ -104,10 +104,7 @@ t_token	*lets_tokenize(char *line)
 		br = 0;
 		size = 0;
 		while(line[i] == ' ' && q == 'c' && line[i])
-		{
-			// cr_token(&head, line, i, 1, SPACE);
 			i++;
-		}
 		if (line[i] == '\0')
 			break;
 		s_index = i;
@@ -133,8 +130,6 @@ t_token	*lets_tokenize(char *line)
 		}
 		if (!br)
 			cr_token(&head, line, s_index, size, NORMAL);
-		// if (line[i] == ' ' && q == 'c')
-		// 	cr_token(&head, line, i, 1, SPACE);
 		if (!line[i])
 			break ;
 	}
