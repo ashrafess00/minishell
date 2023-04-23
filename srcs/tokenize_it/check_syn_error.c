@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:51:12 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/18 16:51:35 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:11:59 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char *no_star(char *line)
 	return(line2);
 }
 
-char *closed_quote(char *line)
+char *closeDOUBLE_QUOTE(char *line)
 {
 	char *line2;
 	int i = 0;
