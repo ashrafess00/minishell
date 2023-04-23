@@ -1,6 +1,6 @@
 #include "test_header.h"
 
-void	cr_token(t_token **head, char *s, int s_index, int size, enum e_token type)
+void	add_token(t_token **head, char *s, int s_index, int size, enum e_token type)
 {
 	t_token	*new_dl;
 	t_token	*last;

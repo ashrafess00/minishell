@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/22 20:27:29 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:56:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	print_my_tree(t_tree *tree)
 		while (tree->cmd_node->args[++i])
 		{
 			printf("[%s] ", tree->cmd_node->args[i]);
+		}
+		printf("\nfile descriptors\n");
+		{
+			printf("fd out :[%d]\n", tree->cmd_node->fd_out);
 		}
 		printf("\n------------------------------\n");
 	}
