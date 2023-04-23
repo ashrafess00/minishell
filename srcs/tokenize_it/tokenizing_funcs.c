@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/23 14:50:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:06:05 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,16 @@
 
 int	is_special_char(t_token **head, char *line, int *i, int *s_index, int size, char q)
 {
-	int	index;
-
-	index = 0;
-	if (q == 'c' && line[*i] == '|')
-	{
-		add_pipe_token(head, line, i, s_index, size);
+	if (check_add_pipe_token(head, line, i, s_index, size, q))
 		return (1);
-	}
-	else if (q == 'c' && line[*i] == '<' && line[*i + 1] == '<')
-	{
-		add_heredoc_token(head, line, i, s_index, size);
+	else if (check_add_heredoc_token(head, line, i, s_index, size, q))
 		return (1);
-	}
-	else if (q == 'c' && line[*i] == '>' && line[*i + 1] == '>')
-	{
-		add_red_append_token(head, line, i, s_index, size);
+	else if (check_add_red_append_token(head, line, i, s_index, size, q))
 		return (1);
-	}
-	else if (q == 'c' && line[*i] == '>')
-	{
-		add_red_out_token(head, line, i, s_index, size);
+	else if (check_add_red_out_token(head, line, i, s_index, size, q))
 		return (1);
-	}
-	else if (q == 'c' && line[*i] == '<')
-	{
-		add_red_inp_token(head, line, i, s_index, size);
+	else if (check_add_red_inp_token(head, line, i, s_index, size, q))
 		return (1);
-	}
 	return (0);
 }
 

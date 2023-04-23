@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/23 14:50:44 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:06:22 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	lets_parse(t_token **tokens);
 void    print_tokens(t_token *head);
 void	print_my_tree(t_tree *tree);
 
-void	add_pipe_token(t_token **head, char *line, int *i, int *s_index, int size);
-void	add_heredoc_token(t_token **head, char *line, int *i, int *s_index, int size);
-void	add_red_append_token(t_token **head, char *line, int *i, int *s_index, int size);
-void	add_red_out_token(t_token **head, char *line, int *i, int *s_index, int size);
-void	add_red_inp_token(t_token **head, char *line, int *i, int *s_index, int size);
+int		check_add_pipe_token(t_token **head, char *line, int *i, int *s_index, int size, char q);
+int	check_add_heredoc_token(t_token **head, char *line, int *i, int *s_index, int size, char q);
+int	check_add_red_append_token(t_token **head, char *line, int *i, int *s_index, int size, char q);
+int	check_add_red_out_token(t_token **head, char *line, int *i, int *s_index, int size, char q);
+int	check_add_red_inp_token(t_token **head, char *line, int *i, int *s_index, int size, char q);
 #endif
