@@ -11,7 +11,7 @@ OBJS_DIR = objs/
 HEADERS = headers/
 
 # SRCS
-TOKENIZE_IT_SRCS = check_syn_error.c  check_tokens.c tokenizing_funcs.c
+TOKENIZE_IT_SRCS = check_syn_error.c  add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c
 PARSE_IT_SRCS = create_tree.c
 SRCS = main.c helpers.c  $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS)
 

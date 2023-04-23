@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/21 21:14:18 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:01:12 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_cmd	*cr_cmd()
 
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->args = ft_calloc(100, sizeof(char *));
+	new_cmd->fd_out = -999;
 	return (new_cmd);
 }
 
@@ -42,6 +43,13 @@ void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 		*tree = new_tree;
 }
 
+int	open_out_file(char *file_name)
+{
+	int	fd;
+
+	fd = open(file_name, O_CREAT | O_TRUNC, 0644);
+	return (fd);
+}
 t_cmd	*cr_cmd_node(t_token **tokens)
 {
 	t_cmd	*cmd;
@@ -51,9 +59,17 @@ t_cmd	*cr_cmd_node(t_token **tokens)
 	i = 0;
 	while (*tokens && (*tokens)->type != PIPE)
 	{
-		cmd->args[i] = ft_strdup((*tokens)->s);
+		if ((*tokens)->type == RED_OUTPUT)
+		{
+			*tokens = (*tokens)->next;
+			cmd->fd_out = open_out_file((*tokens)->s);
+		}
+		else
+		{
+			cmd->args[i] = ft_strdup((*tokens)->s);
+			i++;
+		}
 		*tokens = (*tokens)->next;
-		i++;
 	}
 	return (cmd);
 }
