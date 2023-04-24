@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/23 16:34:03 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:58:37 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,26 @@ typedef struct s_token
 
 
 
-typedef struct s_red_list
+typedef struct s_redir_list
 {
-	char	*file_out;
-}	t_red_list;
+	char				*file_name;
+	int					type;
+	int					fd;
+	struct s_redir_list	*next;
+}	t_redir_list;
 
 typedef struct s_cmd
 {
-	char	**args;
-	int		fd_out;
-	
+	char				**args;
+	struct s_redir_list	*redir_list;
 }	t_cmd;
 
 typedef struct s_tree
 {
+	//1 red output
+	//2 red input
+	//3 red output_apend
+	//4 heredoc
 	t_tree_type		type;
 	struct s_cmd	*cmd_node;
 	struct s_tree	*left;
@@ -112,4 +118,6 @@ int	check_add_heredoc_token(t_token **head, char *line, t_token_info *token_info
 int	check_add_red_append_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
+
+int	ft_strcmp(char *s, char *limiter);
 #endif
