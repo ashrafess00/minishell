@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/24 17:04:54 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:11:00 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_cmd	*cr_cmd()
 
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->args = ft_calloc(100, sizeof(char *));
-	// new_cmd->fd_out = -999;
 	new_cmd->redir_list = NULL;
 	return (new_cmd);
 }
@@ -86,11 +85,13 @@ static char	*get_input_from_usr(char *limiter)
 	return (input);
 }
 
+//create node of the redirection with opening files and getting heredoc_data
 t_redir_list	*cr_redir_list_node(char *file_name, int type)
 {
 	t_redir_list	*new_redir_list;
 
 	new_redir_list = malloc(sizeof(t_redir_list));
+	new_redir_list->here_doc_text = NULL;
 	if (type == 1)
 		new_redir_list->fd = open_out_file(file_name);
 	else if(type == 2)
@@ -99,7 +100,8 @@ t_redir_list	*cr_redir_list_node(char *file_name, int type)
 		new_redir_list->fd = open_out_append_file(file_name);
 	else if (type == 4)
 	{
-		get_input_from_usr(file_name);
+		new_redir_list->fd = -999;
+		new_redir_list->here_doc_text = get_input_from_usr(file_name);
 	}
 	new_redir_list->file_name = file_name;
 	new_redir_list->type = type;
@@ -196,7 +198,6 @@ void	enter_a_pipe(t_tree **tree)
 	line = readline("pipe>");
 	token = lets_tokenize(line);
 	cr_and_expand_tree(tree, &token);
-
 }
 
 void	lets_parse(t_token **tokens)
