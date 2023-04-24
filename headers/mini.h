@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/23 17:58:37 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:19:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_redir_list
 	char				*file_name;
 	int					type;
 	int					fd;
+	char				*here_doc_text;
 	struct s_redir_list	*next;
 }	t_redir_list;
 
