@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/24 18:11:42 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:09:21 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	print_my_tree(t_tree *tree)
 		{
 			while (tree->cmd_node->redir_list)
 			{
-				printf("file_name: %s | fd : %d | type : %d\n", tree->cmd_node->redir_list->file_name,
-					tree->cmd_node->redir_list->fd, tree->cmd_node->redir_list->type);
+				printf("file_name: %s | type : %d\n", tree->cmd_node->redir_list->file_name,
+					tree->cmd_node->redir_list->type);
 				if (tree->cmd_node->redir_list->here_doc_text)
 					printf("heredoc text \n%s\n", tree->cmd_node->redir_list->here_doc_text);
 				tree->cmd_node->redir_list = tree->cmd_node->redir_list->next;

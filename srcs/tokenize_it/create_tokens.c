@@ -6,13 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 13:27:41 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/23 14:25:43 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:09:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-t_token	*cr_token_node(char *s, int s_index, int size, enum e_token type)
+t_token	*cr_token_node(char *s, int s_index, int size, t_special_char type)
 {
 	t_token *new_token_node;
 
@@ -28,7 +28,7 @@ t_token	*cr_token_node(char *s, int s_index, int size, enum e_token type)
 	return (new_token_node);
 }
 
-void	add_token(t_token **head, char *s, int s_index, int size, enum e_token type)
+void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type)
 {
 	t_token	*new_token_node;
 	t_token	*last;

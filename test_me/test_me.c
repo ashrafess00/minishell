@@ -1,18 +1,15 @@
 #include "test_header.h"
 
-typedef enum e_l
-{
-	D = '0',
-	DD = 'd',
-}	t_e;
 
 int main(int c, char **argv)
 {
-	t_e no;
 
-	no = D;
-	printf("%c", no);
-	no = DD;
-	printf("%c", no);
+	int f = open("tt", O_WRONLY, 0644);
 
+	dup2(f, STDOUT_FILENO);
+	printf("hi %d", f);
+
+	int ff = open("tt2", O_WRONLY, 0644);
+	dup2(ff, STDOUT_FILENO);
+	// printf("hi %d\n", f);
 }

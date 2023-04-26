@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/24 17:19:40 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:08:32 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ typedef enum e_tree_type
 	CMD_NODE = 'C',
 	PIPE_NODE = 'P',
 }	t_tree_type;
-
-enum e_token
+typedef enum e_special_char
 {
 	NORMAL = 'a',
 	RED_OUTPUT = '>',
@@ -42,7 +41,7 @@ enum e_token
 	EXIT_STATUS,
 	RED_OUTPUT_APPEND,
 	HEREDOC,
-};
+}	t_special_char;
 
 typedef enum e_quotes
 {
@@ -68,7 +67,7 @@ typedef struct s_token
 	char			*s;
 	int 			s_index;
 	int				size;
-	enum e_token	type;
+	t_special_char	type;
 	char			**envs;
 	struct s_token	*next;
 	struct s_token *prev;
@@ -80,7 +79,6 @@ typedef struct s_redir_list
 {
 	char				*file_name;
 	int					type;
-	int					fd;
 	char				*here_doc_text;
 	struct s_redir_list	*next;
 }	t_redir_list;
@@ -105,7 +103,7 @@ typedef struct s_tree
 
 
 
-void	add_token(t_token **head, char *s, int s_index, int size, enum e_token type);
+void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type);
 t_token	*lets_tokenize(char *line);
 int empty_command(char *input);
 

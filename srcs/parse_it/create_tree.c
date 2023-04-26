@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/24 18:11:00 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:06:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,10 @@ void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 	new_tree = cr_tree();
 	new_tree->type = CMD_NODE;
 	new_tree->cmd_node = cmd;
-		*tree = new_tree;
+	*tree = new_tree;
 }
 
-int	open_out_file(char *file_name)
-{
-	int	fd;
 
-	fd = open(file_name, O_CREAT | O_TRUNC, 0644);
-	return (fd);
-}
-
-int	open_in_file(char *file_name)
-{
-	int	fd;
-
-	fd = open(file_name, O_RDONLY, 0644);
-	return (fd);
-}
-
-int	open_out_append_file(char *file_name)
-{
-	int	fd;
-
-	fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	return (fd);
-}
 
 static char	*get_input_from_usr(char *limiter)
 {
@@ -75,7 +53,7 @@ static char	*get_input_from_usr(char *limiter)
 	input = ft_calloc(1, 1);
 	while (1)
 	{
-		ft_printf(">");
+		ft_printf("> ");
 		s = get_next_line(0);
 		if (!ft_strcmp(s, limiter))
 			break ;
@@ -86,30 +64,21 @@ static char	*get_input_from_usr(char *limiter)
 }
 
 //create node of the redirection with opening files and getting heredoc_data
-t_redir_list	*cr_redir_list_node(char *file_name, int type)
+t_redir_list	*cr_redir_list_node(char *file_name, t_special_char type)
 {
 	t_redir_list	*new_redir_list;
 
 	new_redir_list = malloc(sizeof(t_redir_list));
 	new_redir_list->here_doc_text = NULL;
-	if (type == 1)
-		new_redir_list->fd = open_out_file(file_name);
-	else if(type == 2)
-		new_redir_list->fd = open_in_file(file_name);
-	else if(type == 3)
-		new_redir_list->fd = open_out_append_file(file_name);
-	else if (type == 4)
-	{
-		new_redir_list->fd = -999;
+	if (type == HEREDOC)
 		new_redir_list->here_doc_text = get_input_from_usr(file_name);
-	}
 	new_redir_list->file_name = file_name;
 	new_redir_list->type = type;
 	new_redir_list->next = NULL;
 	return (new_redir_list);
 }
 
-void	add_redir_list_node(t_redir_list **head, char *file_name, int type)
+void	add_redir_list_node(t_redir_list **head, char *file_name, t_special_char type)
 {
 	t_redir_list	*temp;
 
@@ -135,22 +104,22 @@ t_cmd	*cr_cmd_node(t_token **tokens)
 		if ((*tokens)->type == RED_OUTPUT)
 		{
 			*tokens = (*tokens)->next;
-			add_redir_list_node(&cmd->redir_list, (*tokens)->s, 1);
+			add_redir_list_node(&cmd->redir_list, (*tokens)->s, RED_OUTPUT);
 		}
 		else if ((*tokens)->type == RED_INPUT)
 		{
 			*tokens = (*tokens)->next;
-			add_redir_list_node(&cmd->redir_list, (*tokens)->s, 2);
+			add_redir_list_node(&cmd->redir_list, (*tokens)->s, RED_INPUT);
 		}
 		else if ((*tokens)->type == RED_OUTPUT_APPEND)
 		{
 			*tokens = (*tokens)->next;
-			add_redir_list_node(&cmd->redir_list, (*tokens)->s, 3);
+			add_redir_list_node(&cmd->redir_list, (*tokens)->s, RED_OUTPUT_APPEND);
 		}
 		else if ((*tokens)->type == HEREDOC)
 		{
 			*tokens = (*tokens)->next;
-			add_redir_list_node(&cmd->redir_list, (*tokens)->s, 4);
+			add_redir_list_node(&cmd->redir_list, (*tokens)->s, HEREDOC);
 		}
 		else
 		{
