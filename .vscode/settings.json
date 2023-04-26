@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stat.h": "c",
-        "test_header.h": "c"
+        "test_header.h": "c",
+        "KK.C": "cpp"
     }
 }

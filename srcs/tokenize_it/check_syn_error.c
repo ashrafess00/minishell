@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syn_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 16:51:12 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/23 15:11:59 by aessaoud         ###   ########.fr       */
+/*   Created: 2023/04/26 09:08:38 by kslik             #+#    #+#             */
+/*   Updated: 2023/04/26 10:50:45 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ char *dble(char *line, int i)
 	i = i + 1;
 	while(j > 0)
 	{
-		if (line[j] == '*')
+		if (line[j] == 31)
 			break;
 		j--;
 	}
 	if(i >= j)
-		line[i - 1] = '*';
+		line[i - 1] = 31;
 	else
 		return line;
 	while(line[i])
 	{
 		if(line[i] == '"' && i >= j)
 		{
-			line[i] = '*';
+			line[i] = 31;
 			return(line);
 		}
 		i++;
@@ -50,23 +50,24 @@ char *sngle(char *line, int i)
 	i = i + 1;
 	while(j > 0)
 	{
-		if (line[j] == '*')
+		if (line[j] == 31)
 			break;
 		j--;
 	}
 	if(i >= j)
-		line[i - 1] = '*';
+		line[i - 1] = 31;
 	else
 		return line;
 	while(line[i])
 	{
 		if(line[i] == 39 && i >= j)
 		{
-			line[i] = '*';
+			line[i] = 31;
 			return(line);
 		}
 		i++;
 	}
+	
 	return(NULL);
 }
 char *no_star(char *line)
@@ -77,7 +78,7 @@ char *no_star(char *line)
 	int i = 0;
 	while(line[j] != '\0')
 	{
-		while(line[j] == '*')
+		while(line[j] == 31)
 			j++;
 		line2[i] = line[j];
 		i++;
@@ -99,14 +100,15 @@ char *closeDOUBLE_QUOTE(char *line)
 	}
 	line2[i] = '\0';
 	i = 0;
+	
 	while(line2[i] != '\0')
 	{
 		if(line2[i] == '"')
 			line2 = dble(line2, i);
+		else if(line2[i] == 39)
+			line2 = sngle(line2, i);
 		if(line2 == NULL)
 			return NULL;
-		if(line2[i] == 39)
-			line2 = sngle(line2, i);
 		i++;
 	}
 	line2 = no_star(line2);
