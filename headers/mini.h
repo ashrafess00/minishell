@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/27 18:49:48 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:51:39 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ void	print_tokens(t_token *head);
 void	print_my_tree(t_tree *tree);
 
 char	*get_path(char *program, char **paths);
+void	write_error(char *file1, char *msg, int exit_status);
 
 #endif

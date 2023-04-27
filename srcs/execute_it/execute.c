@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/27 19:19:16 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:50:33 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,32 @@ char	**get_path_from_env(char **env)
 	return (paths);
 }
 
+int	open_infile(char *file1)
+{
+	int	fd;
+
+	if (access(file1, F_OK))
+		write_error(file1, FILE_NOT_FOUND_MSG, STATUS_1);
+	if (access (file1, R_OK))
+		write_error(file1, PERMISSION_MSG, STATUS_1);
+	fd = open(file1, O_RDONLY);
+	if (fd < 0)
+		write_error(NULL, "An Error Occured", EXIT_FAILURE);
+	return (fd);
+}
+
+int	open_outfile(char *file2)
+{
+	int	fd;
+
+	if (!access (file2, F_OK) && access (file2, W_OK))
+		write_error(file2, PERMISSION_MSG, STATUS_1);
+	fd = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (fd < 0)
+		write_error(NULL, "An Error Occured", EXIT_FAILURE);
+	return (fd);
+}
+
 void	lets_execute(t_tree *tree, char **env)
 {
 	char	*path;
@@ -63,6 +89,15 @@ void	lets_execute(t_tree *tree, char **env)
 		{
 			paths = get_path_from_env(env);
 			path = get_path(tree->cmd_node->args[0], paths);
+			while (tree->cmd_node->redir_list)
+			{
+				if (tree->cmd_node->redir_list->type == RED_OUTPUT)
+				{
+					int fd = open_outfile(tree->cmd_node->redir_list->file_name);
+					dup2(fd, STDOUT_FILENO);
+				}
+				tree->cmd_node->redir_list = tree->cmd_node->redir_list->next;
+			}
 			execve(path, tree->cmd_node->args, env);
 		}
 		else
