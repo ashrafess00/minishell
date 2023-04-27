@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/26 21:06:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/26 23:39:26 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ void	add_redir_list_node(t_redir_list **head, char *file_name, t_special_char ty
 		(*head) = cr_redir_list_node(file_name, type);
 	else
 	{
-		temp = cr_redir_list_node(file_name, type);
-		temp->next = (*head);
-		(*head) = temp;
+		temp = (*head);
+		while (temp->next)
+			temp = temp->next;
+		temp->next = cr_redir_list_node(file_name, type);
+		
 	}
 }
 
@@ -169,7 +171,7 @@ void	enter_a_pipe(t_tree **tree)
 	cr_and_expand_tree(tree, &token);
 }
 
-void	lets_parse(t_token **tokens)
+t_tree	*lets_parse(t_token **tokens)
 {
 	t_tree	*tree;
 	t_cmd	*cmd;
@@ -186,5 +188,6 @@ void	lets_parse(t_token **tokens)
 		if ((*tokens))
 			*tokens = (*tokens)->next;
 	}
-	print_my_tree(tree);
+	// print_my_tree(tree);
+	return (tree);
 }

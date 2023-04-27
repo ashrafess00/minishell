@@ -9,7 +9,7 @@ int main(int c, char **argv)
 	dup2(f, STDOUT_FILENO);
 	printf("hi %d", f);
 
-	int ff = open("tt2", O_WRONLY, 0644);
-	dup2(ff, STDOUT_FILENO);
+	// int ff = open("tt2", O_WRONLY, 0644);
+	// dup2(ff, STDOUT_FILENO);
 	// printf("hi %d\n", f);
 }

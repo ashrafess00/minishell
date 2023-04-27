@@ -6,12 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/24 17:49:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:24:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
+int	pipte[2];
 
 int empty_command(char *input)
 {
@@ -39,15 +40,14 @@ int strlength(char *input)
 }
 
 //finished prompt + check empty command + working history
-int main()
+int main(int c, char **args, char **env)
 {
 	t_token	*tokens;
-	
+	t_tree	*tree;
 	char	*input;
+
 	while(1)
 	{
-		//hadi 7ttitha hna 3la 7sab l color wsafi
-		// printf("\e[0;31m/our@shell~: ");
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
 		if(!input)
 		{
@@ -58,8 +58,10 @@ int main()
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
-		// print_tokens(tokens);
-		lets_parse(&tokens);
+		tree = lets_parse(&tokens);
+		lets_execute(tree, env);
+		// free(input);
+		// print_env(my_env);
 	}
 	return(0);
 }

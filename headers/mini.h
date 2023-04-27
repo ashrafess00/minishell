@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/26 21:08:32 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:49:48 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 # include <errno.h>
 # include <termios.h>
 # include "libft.h"
+
+# define PERMISSION_MSG ": permission denied"
+# define FILE_NOT_FOUND_MSG ": No such file or directory"
+# define COMMAND_NOT_FOUND ": command not found"
+# define STATUS_1 1
+# define STATUS_126 126
+# define STATUS_127 127
 
 //enums
 typedef enum e_tree_type
@@ -102,15 +109,12 @@ typedef struct s_tree
 }	t_tree;
 
 
-
 void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type);
 t_token	*lets_tokenize(char *line);
 int empty_command(char *input);
 
 char 	*closeDOUBLE_QUOTE(char *line);
-void	lets_parse(t_token **tokens);
-void    print_tokens(t_token *head);
-void	print_my_tree(t_tree *tree);
+t_tree	*lets_parse(t_token **tokens);
 
 int		check_add_pipe_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_heredoc_token(t_token **head, char *line, t_token_info *token_info);
@@ -119,4 +123,12 @@ int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info
 int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
 
 int	ft_strcmp(char *s, char *limiter);
+
+void	lets_execute(t_tree *tree, char **env);
+
+void	print_tokens(t_token *head);
+void	print_my_tree(t_tree *tree);
+
+char	*get_path(char *program, char **paths);
+
 #endif

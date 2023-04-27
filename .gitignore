@@ -4,6 +4,5 @@
 # libft/libft.a
 # !*.c
 
-*
-!*/*.o
-!*.**
+objs/
+test_me/
