@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/25 14:38:28 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/28 09:16:14 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int strlength(char *input)
 }
 
 //finished prompt + check empty command + working history
-int main()
+int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
-	
 	char	*input;
+	char **s = my_env(env);//hahwa char ** dyal lcopy d env
 	while(1)
 	{
 		//hadi 7ttitha hna 3la 7sab l color wsafi
@@ -63,3 +63,4 @@ int main()
 	}
 	return(0);
 }
+

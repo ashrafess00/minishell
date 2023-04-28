@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:08:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/26 10:50:45 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/26 11:26:48 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char *closeDOUBLE_QUOTE(char *line)
 			return NULL;
 		i++;
 	}
+	free(line);
 	line2 = no_star(line2);
 	return (line2);
 }
