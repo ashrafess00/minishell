@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/28 09:13:22 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/29 08:54:42 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void	print_my_tree(t_tree *tree);
 //hdshy dyali alhbib
 char **my_env(char **nature);
 int stln(char **nature, int i);
+//realloc
+char **our_realloc(char **arr, char *new);
 
 
 int		check_add_pipe_token(t_token **head, char *line, t_token_info *token_info);
