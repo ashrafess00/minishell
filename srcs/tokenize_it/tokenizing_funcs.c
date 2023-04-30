@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizing_funcs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/29 09:03:34 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/30 13:49:25 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ t_token	*lets_tokenize(char *line)
 	token_info.i = -1;
 	token_info.quote_stat = CLOSED_QUOTE;
 	token_info.s_index = 0;
-	line = closeDOUBLE_QUOTE(line);
-	if(!line)
-	{
-		printf("syntax error\n");
-		return(0);
-	}
 	while (line[++token_info.i])
 	{
 		token_info.br = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syn_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:08:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/29 08:57:47 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/30 13:52:27 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ char *closeDOUBLE_QUOTE(char *line)
 	}
 	line2[i] = '\0';
 	i = 0;
-	
 	while(line2[i] != '\0')
 	{
 		if(line2[i] == '"')
