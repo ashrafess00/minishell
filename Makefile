@@ -6,6 +6,7 @@ CFLAGS = -Werror -Wextra -Wall
 SRCS_DIR = srcs/
 TOKENIZE_IT_DIR = $(SRCS_DIR)tokenize_it/
 PARSE_IT_DIR = $(SRCS_DIR)parse_it/
+EXECUTE_IT_DIR = $(SRCS_DIR)execute_it/
 LIBFT_DIR = libft/
 OBJS_DIR = objs/
 HEADERS = headers/
@@ -13,7 +14,8 @@ HEADERS = headers/
 # SRCS
 TOKENIZE_IT_SRCS = check_syn_error.c  add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c
 PARSE_IT_SRCS = create_tree.c
-SRCS = main.c helpers.c utils.c utils2.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS)
+EXECUTE_IT_SRCS = execute.c path.c
+SRCS = main.c helpers.c utils.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS)
 
 
 LIBFT_A	= $(LIBFT_DIR)libft.a
@@ -38,6 +40,9 @@ $(OBJS_DIR)%.o: $(TOKENIZE_IT_DIR)%.c
 	$(CC) $(INCLUDE) -c -o $@ $^
 
 $(OBJS_DIR)%.o: $(PARSE_IT_DIR)%.c
+	$(CC) $(INCLUDE) -c -o $@ $^
+
+$(OBJS_DIR)%.o: $(EXECUTE_IT_DIR)%.c
 	$(CC) $(INCLUDE) -c -o $@ $^
 
 $(LIBFT_A):

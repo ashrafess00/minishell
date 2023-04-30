@@ -12,6 +12,7 @@
 
 #include "mini.h"
 
+int	pipte[2];
 
 int empty_command(char *input)
 {
@@ -46,8 +47,6 @@ int main(int c, char **arg, char **env)
 	char **s = my_env(env);//hahwa char ** dyal lcopy d env
 	while(1)
 	{
-		//hadi 7ttitha hna 3la 7sab l color wsafi
-		// printf("\e[0;31m/our@shell~: ");
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
 		if(!input)
 		{
@@ -60,6 +59,9 @@ int main(int c, char **arg, char **env)
 		tokens = lets_tokenize(input);
 		print_tokens(tokens);
 		// lets_parse(&tokens);
+		tree = lets_parse(&tokens);
+		lets_execute(tree, env);
+		// free(input);
 	}
 	return(0);
 }

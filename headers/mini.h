@@ -24,14 +24,20 @@
 # include <termios.h>
 # include "libft.h"
 
+# define PERMISSION_MSG ": permission denied"
+# define FILE_NOT_FOUND_MSG ": No such file or directory"
+# define COMMAND_NOT_FOUND ": command not found"
+# define STATUS_1 1
+# define STATUS_126 126
+# define STATUS_127 127
+
 //enums
 typedef enum e_tree_type
 {
 	CMD_NODE = 'C',
 	PIPE_NODE = 'P',
 }	t_tree_type;
-
-enum e_token
+typedef enum e_special_char
 {
 	NORMAL = 'a',
 	RED_OUTPUT = '>',
@@ -42,7 +48,7 @@ enum e_token
 	EXIT_STATUS,
 	RED_OUTPUT_APPEND,
 	HEREDOC,
-};
+}	t_special_char;
 
 typedef enum e_quotes
 {
@@ -68,7 +74,7 @@ typedef struct s_token
 	char			*s;
 	int 			s_index;
 	int				size;
-	enum e_token	type;
+	t_special_char	type;
 	char			**envs;
 	struct s_token	*next;
 	struct s_token *prev;
@@ -80,7 +86,6 @@ typedef struct s_redir_list
 {
 	char				*file_name;
 	int					type;
-	int					fd;
 	char				*here_doc_text;
 	struct s_redir_list	*next;
 }	t_redir_list;
@@ -104,15 +109,12 @@ typedef struct s_tree
 }	t_tree;
 
 
-
-void	add_token(t_token **head, char *s, int s_index, int size, enum e_token type);
+void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type);
 t_token	*lets_tokenize(char *line);
 int empty_command(char *input);
 
 char 	*closeDOUBLE_QUOTE(char *line);
-void	lets_parse(t_token **tokens);
-void    print_tokens(t_token *head);
-void	print_my_tree(t_tree *tree);
+t_tree	*lets_parse(t_token **tokens);
 
 //hdshy dyali alhbib
 char **my_env(char **nature);
@@ -128,4 +130,13 @@ int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info
 int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
 
 int	ft_strcmp(char *s, char *limiter);
+
+void	lets_execute(t_tree *tree, char **env);
+
+void	print_tokens(t_token *head);
+void	print_my_tree(t_tree *tree);
+
+char	*get_path(char *program, char **paths);
+void	write_error(char *file1, char *msg, int exit_status);
+
 #endif
