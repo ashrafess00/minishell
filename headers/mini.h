@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/29 08:54:42 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/30 11:51:08 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,6 @@ typedef struct s_cmd
 
 typedef struct s_tree
 {
-	//1 red output
-	//2 red input
-	//3 red output_apend
-	//4 heredoc
 	t_tree_type		type;
 	struct s_cmd	*cmd_node;
 	struct s_tree	*left;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/28 09:16:14 by kslik            ###   ########.fr       */
+/*   Updated: 2023/04/30 11:58:17 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
 	char	*input;
-	char **s = my_env(env);//hahwa char ** dyal lcopy d env
+	char **new_env = my_env(env);//hahwa char ** dyal lcopy d env
+	t_tree	*tree;
 	while(1)
 	{
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
@@ -57,11 +58,10 @@ int main(int c, char **arg, char **env)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
-		print_tokens(tokens);
-		// lets_parse(&tokens);
+		// print_tokens(tokens);
 		tree = lets_parse(&tokens);
-		lets_execute(tree, env);
-		// free(input);
+		lets_execute(tree, new_env);
+		free(input);
 	}
 	return(0);
 }

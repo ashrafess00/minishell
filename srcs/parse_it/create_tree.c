@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/26 23:39:26 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/30 12:15:53 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_cmd	*cr_cmd()
 	return (new_cmd);
 }
 
-
 void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 {
 	t_tree	*new_tree;
@@ -42,8 +41,6 @@ void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 	new_tree->cmd_node = cmd;
 	*tree = new_tree;
 }
-
-
 
 static char	*get_input_from_usr(char *limiter)
 {
