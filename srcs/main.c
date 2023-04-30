@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 11:58:17 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/30 13:49:15 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,16 @@ int strlength(char *input)
 	return (i);
 }
 
-//finished prompt + check empty command + working history
+int	check_tokens(t_token *tokens)
+{
+	while (tokens)
+	{
+		if (!tokens->s)
+			return (0);
+		tokens = tokens->next;
+	}
+	return (1);
+}
 int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
@@ -58,10 +67,15 @@ int main(int c, char **arg, char **env)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
-		// print_tokens(tokens);
-		tree = lets_parse(&tokens);
-		lets_execute(tree, new_env);
-		free(input);
+		if (!check_tokens(tokens))
+		{
+			printf("Syntax Error !!\n");
+			continue;
+		}
+		print_tokens(tokens);
+		// tree = lets_parse(&tokens);
+		// lets_execute(tree, new_env);
+		// free(input);
 	}
 	return(0);
 }
