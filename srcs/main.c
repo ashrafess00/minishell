@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/27 19:24:30 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:16:14 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ int strlength(char *input)
 }
 
 //finished prompt + check empty command + working history
-int main(int c, char **args, char **env)
+int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
-	t_tree	*tree;
 	char	*input;
-
+	char **s = my_env(env);//hahwa char ** dyal lcopy d env
 	while(1)
 	{
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
@@ -58,10 +57,12 @@ int main(int c, char **args, char **env)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
+		print_tokens(tokens);
+		// lets_parse(&tokens);
 		tree = lets_parse(&tokens);
 		lets_execute(tree, env);
 		// free(input);
-		// print_env(my_env);
 	}
 	return(0);
 }
+

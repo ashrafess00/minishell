@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/27 19:51:39 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/29 08:54:42 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,13 @@ int empty_command(char *input);
 
 char 	*closeDOUBLE_QUOTE(char *line);
 t_tree	*lets_parse(t_token **tokens);
+
+//hdshy dyali alhbib
+char **my_env(char **nature);
+int stln(char **nature, int i);
+//realloc
+char **our_realloc(char **arr, char *new);
+
 
 int		check_add_pipe_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_heredoc_token(t_token **head, char *line, t_token_info *token_info);
