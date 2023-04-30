@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 13:49:15 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:36:45 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,13 @@ int main(int c, char **arg, char **env)
 			printf("khrj");
 			exit(1);
 		}
+		if (empty_command(input))
+			continue;
 		if(strlength(input) > 0)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
+		
 		if (!check_tokens(tokens))
 		{
 			printf("Syntax Error !!\n");
@@ -75,7 +78,7 @@ int main(int c, char **arg, char **env)
 		print_tokens(tokens);
 		// tree = lets_parse(&tokens);
 		// lets_execute(tree, new_env);
-		// free(input);
+		free(input);
 	}
 	return(0);
 }
