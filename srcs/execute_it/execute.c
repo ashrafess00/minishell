@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/27 19:50:33 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:28:07 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,37 +46,12 @@ char	**get_path_from_env(char **env)
 	return (paths);
 }
 
-int	open_infile(char *file1)
-{
-	int	fd;
-
-	if (access(file1, F_OK))
-		write_error(file1, FILE_NOT_FOUND_MSG, STATUS_1);
-	if (access (file1, R_OK))
-		write_error(file1, PERMISSION_MSG, STATUS_1);
-	fd = open(file1, O_RDONLY);
-	if (fd < 0)
-		write_error(NULL, "An Error Occured", EXIT_FAILURE);
-	return (fd);
-}
-
-int	open_outfile(char *file2)
-{
-	int	fd;
-
-	if (!access (file2, F_OK) && access (file2, W_OK))
-		write_error(file2, PERMISSION_MSG, STATUS_1);
-	fd = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (fd < 0)
-		write_error(NULL, "An Error Occured", EXIT_FAILURE);
-	return (fd);
-}
-
 void	lets_execute(t_tree *tree, char **env)
 {
 	char	*path;
 	char	**paths;
-
+	int		fds[2];
+	int		f;
 	if (tree->type == PIPE_NODE)
 	{
 		lets_execute(tree->left, env);
@@ -87,6 +62,22 @@ void	lets_execute(t_tree *tree, char **env)
 		int f = fork();
 		if (f == 0)
 		{
+			// if (tree->cmd_node->cmd_count == 0)
+			// {
+			// 	close(fds[0]);
+			// 	dup2(fds[1], STDOUT_FILENO);
+			// 	close(fds[1]);
+			// }
+			// else
+			// {
+			// 	close(fds[1]);
+			// 	char *mam = ft_calloc(100, 1);
+			// 	read(fds[0], mam, 100);
+			// 	close(fds[0]);
+			// 	printf("[[%s]]\n", mam);
+			// 	// dup2(fds[0], STDIN_FILENO);
+			// 	// close(fds[0]);
+			// }
 			paths = get_path_from_env(env);
 			path = get_path(tree->cmd_node->args[0], paths);
 			while (tree->cmd_node->redir_list)
@@ -101,6 +92,15 @@ void	lets_execute(t_tree *tree, char **env)
 			execve(path, tree->cmd_node->args, env);
 		}
 		else
+		{
+			close(fds[0]);
+			close(fds[1]);
 			wait(NULL);
+			// wait(NULL);
+
+		}
 	}
+
+	// close(fds[0]);
+	// close(fds[1]);
 }

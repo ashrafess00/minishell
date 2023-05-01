@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 12:08:26 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/01 11:59:50 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ char **my_env(char **nature)
 	int i = 0;
 	int l = 0;
 	int j = 0;
+	int m;
 	char **my_env;
 	while(nature[i])
 		i++;
 	my_env = malloc(i * sizeof(char **));
+	m = i;
 	i =0;
-	while(nature[i][j] != '\0')
+	while(i < m)
 	{
 		j = 0;
 		l = stln(nature, i) + 1;

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 11:51:08 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:23:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_cmd
 {
 	char				**args;
 	struct s_redir_list	*redir_list;
+	int					cmd_count;
 }	t_cmd;
 
 typedef struct s_tree
@@ -134,5 +135,10 @@ void	print_my_tree(t_tree *tree);
 
 char	*get_path(char *program, char **paths);
 void	write_error(char *file1, char *msg, int exit_status);
+
+//open files
+int	open_infile(char *file);
+int	open_outfile(char *file);
+int	open_outfile_append(char *file);
 
 #endif

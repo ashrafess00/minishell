@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   printers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/27 18:02:48 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:30:33 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	print_my_tree(t_tree *tree)
 	if (tree->type == CMD_NODE)
 	{
 		i = -1;
-		printf("%p - type : %c\n", tree, tree->type);
+		printf("%p - type : %c | cmd_count : %d\n", tree, tree->type, tree->cmd_node->cmd_count);
 		printf("commands args : \n");
 		while (tree->cmd_node->args[++i])
 		{

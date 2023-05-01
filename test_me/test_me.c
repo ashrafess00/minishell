@@ -1,55 +1,45 @@
 #include "test_header.h"
 
-int stln(char **nature, int i)
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int fds[2];
+
+void    fun2()
 {
-	int j = 0;
-	while(nature[i][j] != '\0')
-		j++;
-	return(j);
+    int f;
+
+    f = fork();
+    if (f == 0)
+    {
+        char *s = ft_calloc(100, 1);
+        close(fds[1]);
+        dup2(fds[0], STDIN_FILENO);
+        close(fds[0]);
+        execvp("sort", NULL);
+    }
 }
 
-char **my_env(char **nature)
+void    fun1()
 {
-	int i = 0;
-	int l = 0;
-	int j = 0;
-	char **my_env;
-	while(nature[i])
-		i++;
-	my_env = malloc(i * sizeof(char **));
-	i =0;
-	while(nature[i][j] != '\0')
-	{
-		j = 0;
-		l = stln(nature, i) + 1;
-		my_env[i] = malloc(l * sizeof(char *));
-		while(nature[i][j] != '\0')
-		{
-			my_env[i][j] = nature[i][j];
-			j++;
-		}
-		my_env[i][j] = '\0';
-		i++;
-	}
-	return (my_env);
+    int f;
+
+    f = fork();
+    if (f == 0)
+    {
+        close(fds[0]);
+        dup2(fds[1], STDOUT_FILENO);
+        close(fds[1]);
+        execvp("cat", NULL);
+    }
+
 }
 
-int main(int c, char **argv, char **env)
+int main()
 {
-	char **new_env = my_env(env);
-	//lenv dyalhoum
-	int i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	printf("----------------------------------------------------\n----------------------------------------------------\n");
-	//env dyalna
-	i = 0;
-	while (new_env[i])
-	{
-		printf("%s\n", new_env[i]);
-		i++;
-	}
+    pipe(fds);
+    fun1();
+    fun2();
 }

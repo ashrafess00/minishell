@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/30 12:15:53 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:28:48 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ t_tree	*cr_tree()
 	return (tree);
 }
 
-t_cmd	*cr_cmd()
+t_cmd	*cr_cmd(int cmd_count)
 {
 	t_cmd	*new_cmd;
 
 	new_cmd = malloc(sizeof(t_cmd));
+	new_cmd->cmd_count = cmd_count;
 	new_cmd->args = ft_calloc(100, sizeof(char *));
 	new_cmd->redir_list = NULL;
 	return (new_cmd);
@@ -91,12 +92,12 @@ void	add_redir_list_node(t_redir_list **head, char *file_name, t_special_char ty
 	}
 }
 
-t_cmd	*cr_cmd_node(t_token **tokens)
+t_cmd	*cr_cmd_node(t_token **tokens, int cmd_count)
 {
 	t_cmd	*cmd;
 	int		i;
 
-	cmd = cr_cmd();
+	cmd = cr_cmd(cmd_count);
 	i = 0;
 	while (*tokens && (*tokens)->type != PIPE)
 	{
@@ -131,7 +132,7 @@ t_cmd	*cr_cmd_node(t_token **tokens)
 }
 
 
-void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
+void	cr_and_expand_tree(t_tree **tree, t_token **tokens, int cmd_count)
 {
 	t_cmd	*cmd;
 	t_tree	*temp;
@@ -140,7 +141,7 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 
 	if (!(*tree))
 	{
-		cmd = cr_cmd_node(tokens);
+		cmd = cr_cmd_node(tokens, cmd_count);
 		push_cmd_to_tree(tree, cmd);
 	}
 	else
@@ -151,21 +152,21 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 		new_tree->type = PIPE_NODE;
 		new_tree->left = (*tree);
 		
-		cmd = cr_cmd_node(tokens);
+		cmd = cr_cmd_node(tokens, cmd_count);
 		push_cmd_to_tree(&(new_tree)->right, cmd);
 		(*tree) = new_tree;
 	}
 	
 }
 
-void	enter_a_pipe(t_tree **tree)
+void	enter_a_pipe(t_tree **tree, int cmd_count)
 {
 	char	*line;
 	t_token	*token;
 
 	line = readline("pipe>");
 	token = lets_tokenize(line);
-	cr_and_expand_tree(tree, &token);
+	cr_and_expand_tree(tree, &token, cmd_count);
 }
 
 t_tree	*lets_parse(t_token **tokens)
@@ -173,18 +174,20 @@ t_tree	*lets_parse(t_token **tokens)
 	t_tree	*tree;
 	t_cmd	*cmd;
 	char	l_r;
+	int		cmd_count;
 
 	tree = NULL;
 	cmd = NULL;
 	l_r = 0;
+	cmd_count = 0;
 	while (*tokens)
 	{
-		cr_and_expand_tree(&tree, tokens);
+		cr_and_expand_tree(&tree, tokens, cmd_count);
 		if ((*tokens) && (*tokens)->type == PIPE && !(*tokens)->next)
-			enter_a_pipe(&tree);
+			enter_a_pipe(&tree, cmd_count);
 		if ((*tokens))
 			*tokens = (*tokens)->next;
+		cmd_count++;
 	}
-	// print_my_tree(tree);
 	return (tree);
 }
