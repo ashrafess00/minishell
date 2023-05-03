@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/03 17:01:55 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:49:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,28 +125,57 @@ void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count)
 		int f = fork();
 		if (f == 0)
 		{
-			if (*count == 0)
-			{
-				close_fds(fds, fds_count, 1);
-				dup2(fds[1], STDOUT_FILENO);
-				close(fds[1]);
-			}
-			else if (*count == fds_count / 2)
-			{
-				close_fds(fds, fds_count, fds_count - 2);
-				dup2(fds[fds_count - 2], STDIN_FILENO);
-				close(fds[fds_count - 2]);
-			}
-			else
-			{
+			// if (*count == 0)
+			// {
+			// 	close_fds(fds, fds_count, 1);
+			// 	dup2(fds[1], STDOUT_FILENO);
+			// 	close(fds[1]);
+			// }
+			// if (*count == fds_count / 2)
+			// {
+			// 	close_fds(fds, fds_count, fds_count - 2);
+			// 	dup2(fds[fds_count - 2], STDIN_FILENO);
+			// 	close(fds[fds_count - 2]);
+			// }
+			// else
+			// {
 				r_from = (*count - 1) * 2;
 				w_to = *count * 2 + 1;
-				close_fds(fds, fds_count, r_from, w_to);
-				dup2(fds[r_from], STDIN_FILENO);
-				close(fds[r_from]);
-				dup2(fds[w_to], STDOUT_FILENO);
-				close(fds[w_to]);
-			}
+				if (r_from < 0)
+				{
+					close_fds(fds, fds_count, w_to);
+					dup2(fds[w_to], STDOUT_FILENO);
+					close(fds[w_to]);
+				}
+				else if (w_to >= fds_count)
+				{
+					close_fds(fds, fds_count, r_from);
+					dup2(fds[r_from], STDIN_FILENO);
+					close(fds[r_from]);
+				}
+				else
+				{
+					close_fds(fds, fds_count, r_from, w_to);
+					dup2(fds[w_to], STDOUT_FILENO);
+					close(fds[w_to]);
+					dup2(fds[r_from], STDIN_FILENO);
+					close(fds[r_from]);
+				}
+				// if (w_to <= fds_count - 2)
+				// {
+				// 	dup2(fds[w_to], STDOUT_FILENO);
+				// 	close(fds[w_to]);
+				// }
+				// if (r_from >= 0)
+				// {
+					dup2(fds[r_from], STDIN_FILENO);
+					close(fds[r_from]);
+				// }
+				// if (r_from >! 0)
+				// 	printf("hey");
+				// printf("r %d\n", r_from);
+				// printf("w %d\n", w_to);
+			// }
 			paths = get_path_from_env(env);
 			path = get_path(tree->cmd_node->args[0], paths);
 			while (tree->cmd_node->redir_list)
