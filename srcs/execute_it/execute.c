@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/27 19:50:33 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:41:10 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,34 @@ int	open_outfile(char *file2)
 	return (fd);
 }
 
-void	lets_execute(t_tree *tree, char **env)
+void	lets_execute(t_tree *tree, char **env, int *fds, int *count)
 {
 	char	*path;
 	char	**paths;
 
 	if (tree->type == PIPE_NODE)
 	{
-		lets_execute(tree->left, env);
-		lets_execute(tree->right, env);
+		lets_execute(tree->left, env, fds, count);
+		*count += 1;
+		lets_execute(tree->right, env, fds, count);
 	}
 	else
 	{
 		int f = fork();
 		if (f == 0)
 		{
+			if (*count == 0)
+			{
+				close(fds[0]);
+				dup2(fds[1], STDOUT_FILENO);
+				close(fds[1]);
+			}
+			else
+			{
+				close(fds[1]);
+				dup2(fds[0], STDIN_FILENO);
+				close(fds[0]);
+			}
 			paths = get_path_from_env(env);
 			path = get_path(tree->cmd_node->args[0], paths);
 			while (tree->cmd_node->redir_list)
@@ -101,6 +114,15 @@ void	lets_execute(t_tree *tree, char **env)
 			execve(path, tree->cmd_node->args, env);
 		}
 		else
+		{
 			wait(NULL);
+			if (*count == 0)
+				close(fds[1]);
+			else
+			{
+				close(fds[0]);
+				close(fds[1]);
+			}
+		}
 	}
 }
