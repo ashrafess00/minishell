@@ -6,104 +6,34 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/03 17:49:49 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:31:20 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-char	*search_for_path(char **env, char *command)
-{
-	char *path_demo = ft_strdup("/usr/bin/sort");
-	return (path_demo);
-}
-
-char	**get_path_from_env(char **env)
-{
-	char	**paths;
-	int		i;
-
-	paths = NULL;
-	i = -1;
-	if (!*env)
-	{
-		paths = ft_split(ft_strdup("/usr/bin:/bin:/usr/\
-		sbin:/sbin:/usr/local/bin"), ':');
-		if (!paths)
-			return (0);
-		return (paths);
-	}
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], "PATH", 4) == 0)
-		{
-			paths = ft_split(ft_strdup(env[i]), ':');
-			if (paths)
-				paths[0] = ft_strtrim(paths[0], "PATH=");
-			break ;
-		}
-	}
-	return (paths);
-}
-
-int	open_infile(char *file1)
+void	redirect_it(t_tree *tree)
 {
 	int	fd;
 
-	if (access(file1, F_OK))
-		write_error(file1, FILE_NOT_FOUND_MSG, STATUS_1);
-	if (access (file1, R_OK))
-		write_error(file1, PERMISSION_MSG, STATUS_1);
-	fd = open(file1, O_RDONLY);
-	if (fd < 0)
-		write_error(NULL, "An Error Occured", EXIT_FAILURE);
-	return (fd);
-}
-
-int	open_outfile(char *file2)
-{
-	int	fd;
-
-	if (!access (file2, F_OK) && access (file2, W_OK))
-		write_error(file2, PERMISSION_MSG, STATUS_1);
-	fd = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (fd < 0)
-		write_error(NULL, "An Error Occured", EXIT_FAILURE);
-	return (fd);
-}
-
-void	close_fds(int fds[8], int fds_count, ...)
-{
-	va_list list;
-	int     current_fd;
-	int     i;
-
-	va_start(list, fds_count);
-	current_fd = va_arg(list, int);
-	i = -1;
-	while (++i < fds_count)
+	while (tree->cmd_node->redir_list)
 	{
-		if (i != current_fd)
-			close(fds[i]);
-		else
-			current_fd = va_arg(list, int);
-	}
-	va_end(list);
-}
-
-void	close_fds_from_parent(int *fds, int fds_count, int fd_i)
-{
-	int	i;
-
-	i = -1;
-	while (++i < fds_count)
-	{
-		if (i == fd_i * 2)
+		if (tree->cmd_node->redir_list->type == RED_OUTPUT)
 		{
-			close(fds[i + 1]);
-			return ;
+			fd = open_outfile(tree->cmd_node->redir_list->file_name);
+			dup2(fd, STDOUT_FILENO);
 		}
-		close(fds[i]);
+		else if (tree->cmd_node->redir_list->type == RED_OUTPUT_APPEND)
+		{
+			fd = open_outfile_append(tree->cmd_node->redir_list->file_name);
+			dup2(fd, STDOUT_FILENO);
+		}
+		else if (tree->cmd_node->redir_list->type == RED_INPUT)
+		{
+			fd = open_infile(tree->cmd_node->redir_list->file_name);
+			dup2(fd, STDIN_FILENO);
+		}
+		tree->cmd_node->redir_list = tree->cmd_node->redir_list->next;
 	}
 }
 
@@ -125,20 +55,8 @@ void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count)
 		int f = fork();
 		if (f == 0)
 		{
-			// if (*count == 0)
-			// {
-			// 	close_fds(fds, fds_count, 1);
-			// 	dup2(fds[1], STDOUT_FILENO);
-			// 	close(fds[1]);
-			// }
-			// if (*count == fds_count / 2)
-			// {
-			// 	close_fds(fds, fds_count, fds_count - 2);
-			// 	dup2(fds[fds_count - 2], STDIN_FILENO);
-			// 	close(fds[fds_count - 2]);
-			// }
-			// else
-			// {
+			if (fds_count != 0)
+			{
 				r_from = (*count - 1) * 2;
 				w_to = *count * 2 + 1;
 				if (r_from < 0)
@@ -161,40 +79,42 @@ void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count)
 					dup2(fds[r_from], STDIN_FILENO);
 					close(fds[r_from]);
 				}
-				// if (w_to <= fds_count - 2)
-				// {
-				// 	dup2(fds[w_to], STDOUT_FILENO);
-				// 	close(fds[w_to]);
-				// }
-				// if (r_from >= 0)
-				// {
-					dup2(fds[r_from], STDIN_FILENO);
-					close(fds[r_from]);
-				// }
-				// if (r_from >! 0)
-				// 	printf("hey");
-				// printf("r %d\n", r_from);
-				// printf("w %d\n", w_to);
-			// }
+			}
 			paths = get_path_from_env(env);
 			path = get_path(tree->cmd_node->args[0], paths);
-			while (tree->cmd_node->redir_list)
-			{
-				if (tree->cmd_node->redir_list->type == RED_OUTPUT)
-				{
-					int fd = open_outfile(tree->cmd_node->redir_list->file_name);
-					dup2(fd, STDOUT_FILENO);
-				}
-				tree->cmd_node->redir_list = tree->cmd_node->redir_list->next;
-			}
+			redirect_it(tree);
 			execve(path, tree->cmd_node->args, env);
 		}
 		else
 		{
-			
+			//to close file discriptors which were are not used, from parent process
 			close_fds_from_parent(fds, fds_count, *count);
 			wait(NULL);
 			return;
 		}
 	}
 }
+
+// void	lets_execute_single_command(t_tree *tree, char **env)
+// {
+// 	char	**paths;
+// 	char	*path;
+// 	int		pid;
+
+// 	paths = get_path_from_env(env);
+// 	path = get_path(tree->cmd_node->args[0], paths);
+// 	while (tree->cmd_node->redir_list)
+// 	{
+// 		if (tree->cmd_node->redir_list->type == RED_OUTPUT)
+// 		{
+// 			int fd = open_outfile(tree->cmd_node->redir_list->file_name);
+// 			dup2(fd, STDOUT_FILENO);
+// 		}
+// 		tree->cmd_node->redir_list = tree->cmd_node->redir_list->next;
+// 	}
+// 	pid = fork();
+// 	if (pid == 0)
+// 		execve(path, tree->cmd_node->args, env);
+// 	else
+// 		wait(NULL);
+// }
