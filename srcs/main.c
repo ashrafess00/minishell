@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/03 15:37:26 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:09:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ int main(int c, char **arg, char **env)
 	char	*input;
 	char **new_env = my_env(env);//hahwa char ** dyal lcopy d env
 	t_tree	*tree;
-	int fds[2];
+	int *fds;
+	int	pipe_count;
+
 	while(1)
 	{
+		pipe_count = 0;
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
 		if(!input)
 		{
@@ -76,10 +79,16 @@ int main(int c, char **arg, char **env)
 			printf("Syntax Error !!\n");
 			continue;
 		}
-		tree = lets_parse(&tokens);
+		tree = lets_parse(&tokens, &pipe_count);
+
 		int count = 0;
-		pipe(fds);
-		lets_execute(tree, new_env, fds, &count);
+		int fds_count = pipe_count * 2;
+		int i = -1;
+		fds = malloc(sizeof(int) * fds_count);
+		while (++i < pipe_count)
+			pipe(&fds[i * 2]);
+		lets_execute(tree, new_env, fds, fds_count, &count);
+
 		free(input);
 	}
 	return(0);

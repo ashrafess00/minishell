@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/03 15:30:53 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:07:03 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ t_token	*lets_tokenize(char *line);
 int empty_command(char *input);
 
 char 	*closeDOUBLE_QUOTE(char *line);
-t_tree	*lets_parse(t_token **tokens);
+// t_tree	*lets_parse(t_token **tokens);
+t_tree	*lets_parse(t_token **tokens, int *pipe_count);
 
 //hdshy dyali alhbib
 char **my_env(char **nature);
@@ -127,7 +128,7 @@ int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info
 
 int	ft_strcmp(char *s, char *limiter);
 
-void	lets_execute(t_tree *tree, char **env, int *fds, int *count);
+void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count);
 
 void	print_tokens(t_token *head);
 void	print_my_tree(t_tree *tree);

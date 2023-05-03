@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/03 15:41:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:01:55 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,53 @@ int	open_outfile(char *file2)
 	return (fd);
 }
 
-void	lets_execute(t_tree *tree, char **env, int *fds, int *count)
+void	close_fds(int fds[8], int fds_count, ...)
+{
+	va_list list;
+	int     current_fd;
+	int     i;
+
+	va_start(list, fds_count);
+	current_fd = va_arg(list, int);
+	i = -1;
+	while (++i < fds_count)
+	{
+		if (i != current_fd)
+			close(fds[i]);
+		else
+			current_fd = va_arg(list, int);
+	}
+	va_end(list);
+}
+
+void	close_fds_from_parent(int *fds, int fds_count, int fd_i)
+{
+	int	i;
+
+	i = -1;
+	while (++i < fds_count)
+	{
+		if (i == fd_i * 2)
+		{
+			close(fds[i + 1]);
+			return ;
+		}
+		close(fds[i]);
+	}
+}
+
+void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count)
 {
 	char	*path;
 	char	**paths;
+	int		w_to;
+	int		r_from;
 
 	if (tree->type == PIPE_NODE)
 	{
-		lets_execute(tree->left, env, fds, count);
+		lets_execute(tree->left, env, fds, fds_count, count);
 		*count += 1;
-		lets_execute(tree->right, env, fds, count);
+		lets_execute(tree->right, env, fds, fds_count, count);
 	}
 	else
 	{
@@ -90,15 +127,25 @@ void	lets_execute(t_tree *tree, char **env, int *fds, int *count)
 		{
 			if (*count == 0)
 			{
-				close(fds[0]);
+				close_fds(fds, fds_count, 1);
 				dup2(fds[1], STDOUT_FILENO);
 				close(fds[1]);
 			}
+			else if (*count == fds_count / 2)
+			{
+				close_fds(fds, fds_count, fds_count - 2);
+				dup2(fds[fds_count - 2], STDIN_FILENO);
+				close(fds[fds_count - 2]);
+			}
 			else
 			{
-				close(fds[1]);
-				dup2(fds[0], STDIN_FILENO);
-				close(fds[0]);
+				r_from = (*count - 1) * 2;
+				w_to = *count * 2 + 1;
+				close_fds(fds, fds_count, r_from, w_to);
+				dup2(fds[r_from], STDIN_FILENO);
+				close(fds[r_from]);
+				dup2(fds[w_to], STDOUT_FILENO);
+				close(fds[w_to]);
 			}
 			paths = get_path_from_env(env);
 			path = get_path(tree->cmd_node->args[0], paths);
@@ -115,14 +162,10 @@ void	lets_execute(t_tree *tree, char **env, int *fds, int *count)
 		}
 		else
 		{
+			
+			close_fds_from_parent(fds, fds_count, *count);
 			wait(NULL);
-			if (*count == 0)
-				close(fds[1]);
-			else
-			{
-				close(fds[0]);
-				close(fds[1]);
-			}
+			return;
 		}
 	}
 }
