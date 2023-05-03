@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/30 12:15:53 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:08:48 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_cmd	*cr_cmd_node(t_token **tokens)
 }
 
 
-void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
+void	cr_and_expand_tree(t_tree **tree, t_token **tokens, int *pipe_count)
 {
 	t_cmd	*cmd;
 	t_tree	*temp;
@@ -145,6 +145,7 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 	}
 	else
 	{
+		*pipe_count += 1;
 		current = (*tree);
 		
 		new_tree = cr_tree();
@@ -158,17 +159,17 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 	
 }
 
-void	enter_a_pipe(t_tree **tree)
+void	enter_a_pipe(t_tree **tree, int *pipe_count)
 {
 	char	*line;
 	t_token	*token;
 
 	line = readline("pipe>");
 	token = lets_tokenize(line);
-	cr_and_expand_tree(tree, &token);
+	cr_and_expand_tree(tree, &token, pipe_count);
 }
 
-t_tree	*lets_parse(t_token **tokens)
+t_tree	*lets_parse(t_token **tokens, int *pipe_count)
 {
 	t_tree	*tree;
 	t_cmd	*cmd;
@@ -179,12 +180,11 @@ t_tree	*lets_parse(t_token **tokens)
 	l_r = 0;
 	while (*tokens)
 	{
-		cr_and_expand_tree(&tree, tokens);
+		cr_and_expand_tree(&tree, tokens, pipe_count);
 		if ((*tokens) && (*tokens)->type == PIPE && !(*tokens)->next)
-			enter_a_pipe(&tree);
+			enter_a_pipe(&tree, pipe_count);
 		if ((*tokens))
 			*tokens = (*tokens)->next;
 	}
-	// print_my_tree(tree);
 	return (tree);
 }

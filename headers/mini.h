@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 11:51:08 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:28:28 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ t_token	*lets_tokenize(char *line);
 int empty_command(char *input);
 
 char 	*closeDOUBLE_QUOTE(char *line);
-t_tree	*lets_parse(t_token **tokens);
+// t_tree	*lets_parse(t_token **tokens);
+t_tree	*lets_parse(t_token **tokens, int *pipe_count);
 
 //hdshy dyali alhbib
 char **my_env(char **nature);
@@ -125,14 +126,28 @@ int	check_add_red_append_token(t_token **head, char *line, t_token_info *token_i
 int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
 
-int	ft_strcmp(char *s, char *limiter);
+void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count);
 
-void	lets_execute(t_tree *tree, char **env);
+//===execution===
+//path
+char	*get_path(char *program, char **paths);
+char	**get_path_from_env(char **env);
+void	write_error(char *file1, char *msg, int exit_status);
 
+//close_fds
+void	close_fds(int fds[8], int fds_count, ...);
+void	close_fds_from_parent(int *fds, int fds_count, int fd_i);
+
+//open files
+int	open_outfile(char *file);
+int	open_outfile_append(char *file);
+int	open_infile(char *file);
+
+//print_linked_lists
 void	print_tokens(t_token *head);
 void	print_my_tree(t_tree *tree);
 
-char	*get_path(char *program, char **paths);
-void	write_error(char *file1, char *msg, int exit_status);
+//utils
+int	ft_strcmp(char *s, char *limiter);
 
 #endif
