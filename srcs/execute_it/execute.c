@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/03 18:31:20 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/04 14:26:33 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,61 +37,64 @@ void	redirect_it(t_tree *tree)
 	}
 }
 
-void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count)
+void	run_cmd(t_tree *tree, char **env)
 {
 	char	*path;
 	char	**paths;
+	int		pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		paths = get_path_from_env(env);
+		path = get_path(tree->cmd_node->args[0], paths);
+		redirect_it(tree);
+		execve(path, tree->cmd_node->args, env);
+	}
+	else
+		waitpid(pid, &status, 0);
+}
+
+void	lets_execute(t_tree *tree, char **env)
+{
+	
 	int		w_to;
 	int		r_from;
+	int		fds[2];
+	int		l_pid;
+	int		r_pid;
 
 	if (tree->type == PIPE_NODE)
 	{
-		lets_execute(tree->left, env, fds, fds_count, count);
-		*count += 1;
-		lets_execute(tree->right, env, fds, fds_count, count);
+		pipe(fds);
+		l_pid = fork();
+		if (l_pid == 0)
+		{
+			close(fds[0]);
+			dup2(fds[1], STDOUT_FILENO);
+			close(fds[1]);
+			lets_execute(tree->left, env);
+			exit(0);
+		}
+		
+		r_pid = fork();
+		if (r_pid == 0)
+		{
+			close(fds[1]);
+			dup2(fds[0], STDIN_FILENO);
+			close(fds[0]);
+			lets_execute(tree->right, env);
+			exit(0);
+		}
+		close(fds[0]);
+		close(fds[1]);
+		waitpid(l_pid, NULL, 0);
+		waitpid(r_pid, NULL, 0);
 	}
 	else
 	{
-		int f = fork();
-		if (f == 0)
-		{
-			if (fds_count != 0)
-			{
-				r_from = (*count - 1) * 2;
-				w_to = *count * 2 + 1;
-				if (r_from < 0)
-				{
-					close_fds(fds, fds_count, w_to);
-					dup2(fds[w_to], STDOUT_FILENO);
-					close(fds[w_to]);
-				}
-				else if (w_to >= fds_count)
-				{
-					close_fds(fds, fds_count, r_from);
-					dup2(fds[r_from], STDIN_FILENO);
-					close(fds[r_from]);
-				}
-				else
-				{
-					close_fds(fds, fds_count, r_from, w_to);
-					dup2(fds[w_to], STDOUT_FILENO);
-					close(fds[w_to]);
-					dup2(fds[r_from], STDIN_FILENO);
-					close(fds[r_from]);
-				}
-			}
-			paths = get_path_from_env(env);
-			path = get_path(tree->cmd_node->args[0], paths);
-			redirect_it(tree);
-			execve(path, tree->cmd_node->args, env);
-		}
-		else
-		{
-			//to close file discriptors which were are not used, from parent process
-			close_fds_from_parent(fds, fds_count, *count);
-			wait(NULL);
-			return;
-		}
+		run_cmd(tree, env);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/03 18:41:49 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/04 14:07:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ int	check_tokens(t_token *tokens)
 	return (1);
 }
 
-int	*create_pipes(int pipe_count)
-{
-	int fds_count;
-	int	i;
-	int	*fds;
+// int	*create_pipes(int pipe_count)
+// {
+// 	int fds_count;
+// 	int	i;
+// 	int	*fds;
 
-	fds_count = pipe_count * 2;
-	i = -1;
-	fds = malloc(sizeof(int) * fds_count);
-	while (++i < pipe_count)
-		pipe(&fds[i * 2]);
-	return (fds);
-}
+// 	fds_count = pipe_count * 2;
+// 	i = -1;
+// 	fds = malloc(sizeof(int) * fds_count);
+// 	while (++i < pipe_count)
+// 		pipe(&fds[i * 2]);
+// 	return (fds);
+// }
 int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
@@ -94,12 +94,7 @@ int main(int c, char **arg, char **env)
 			continue;
 		}
 		tree = lets_parse(&tokens, &pipe_count);
-
-		int count = 0;
-		int fds_count = pipe_count * 2;
-		
-		fds = create_pipes(pipe_count);
-		lets_execute(tree, new_env, fds, fds_count, &count);
+		lets_execute(tree, env);
 		free(input);
 	}
 	return(0);
