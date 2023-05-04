@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/03 18:28:28 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/04 14:00:18 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	check_add_red_append_token(t_token **head, char *line, t_token_info *token_i
 int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
 
-void	lets_execute(t_tree *tree, char **env, int *fds, int fds_count, int *count);
+void	lets_execute(t_tree *tree, char **env);
 
 //===execution===
 //path
@@ -151,3 +151,4 @@ void	print_my_tree(t_tree *tree);
 int	ft_strcmp(char *s, char *limiter);
 
 #endif
+
