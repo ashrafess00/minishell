@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 a
 b
 c
@@ -6,3 +7,14 @@ a2
 a1
 c
 append
+=======
+a1
+ccc
+a1
+a2
+bb1
+dddd1
+dddd2
+bb2
+ccc
+>>>>>>> fix_tokens_problem

@@ -6,13 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/04 14:07:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:43:14 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-int	pipte[2];
 
 int empty_command(char *input)
 {
@@ -50,32 +48,18 @@ int	check_tokens(t_token *tokens)
 	return (1);
 }
 
-// int	*create_pipes(int pipe_count)
-// {
-// 	int fds_count;
-// 	int	i;
-// 	int	*fds;
-
-// 	fds_count = pipe_count * 2;
-// 	i = -1;
-// 	fds = malloc(sizeof(int) * fds_count);
-// 	while (++i < pipe_count)
-// 		pipe(&fds[i * 2]);
-// 	return (fds);
-// }
 int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
 	char	*input;
-	char **new_env;//hahwa char ** dyal lcopy d env
+	char 	**new_env;//hahwa char ** dyal lcopy d env
 	t_tree	*tree;
-	int *fds;
-	int	pipe_count;
+	int		command_count;
 
 	new_env = my_env(env);
 	while(1)
 	{
-		pipe_count = 0;
+		command_count = 0;
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
 		if(!input)
 		{
@@ -93,8 +77,8 @@ int main(int c, char **arg, char **env)
 			printf("Syntax Error !!\n");
 			continue;
 		}
-		tree = lets_parse(&tokens, &pipe_count);
-		lets_execute(tree, env);
+		tree = lets_parse(&tokens, &command_count);
+		lets_execute(tree, env, command_count);
 		free(input);
 	}
 	return(0);
