@@ -6,12 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/03 18:35:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:16:45 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "mini.h"
 
 int stln(char **nature, int i)
 {
@@ -49,13 +48,13 @@ char **my_env(char **nature)
 	return (my_env);
 }
 
-int strlne(char *line)
-{
-	int i = 0;
-	while(line[i])
-		i++;
-	return(i);
-}
+// int strlne(char *line)
+// {
+// 	int i = 0;
+// 	while(line[i])
+// 		i++;
+// 	return(i);
+// }
 char **our_realloc(char **arr, char *new)
 {
 	int i = 0;
@@ -82,7 +81,7 @@ char **our_realloc(char **arr, char *new)
 		j = 0;
 		i++;
 	}
-	l = strlne(new);
+	l = ft_strlen(new);
 	j = 0;
 	new_arr[i] = malloc(l * sizeof (char *));
 	while(new[j] != '\0')
