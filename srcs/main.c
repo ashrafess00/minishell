@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/05 16:43:14 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:29:08 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,19 @@ int	check_tokens(t_token *tokens)
 	return (1);
 }
 
+int	is_single_cmd(t_tree *tree)
+{
+	if (tree->type == PIPE)
+		return (0);
+	else
+		return (1);
+}
+
 int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
 	char	*input;
-	char 	**new_env;//hahwa char ** dyal lcopy d env
+	char **new_env;
 	t_tree	*tree;
 	int		command_count;
 
@@ -63,7 +71,7 @@ int main(int c, char **arg, char **env)
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
 		if(!input)
 		{
-			printf("khrj");
+			printf("khrj\n");
 			exit(1);
 		}
 		if (empty_command(input))
@@ -77,8 +85,8 @@ int main(int c, char **arg, char **env)
 			printf("Syntax Error !!\n");
 			continue;
 		}
-		tree = lets_parse(&tokens, &command_count);
-		lets_execute(tree, env, command_count);
+		tree = lets_parse(&tokens);
+		lets_execute(tree, env, is_single_cmd(tree));
 		free(input);
 	}
 	return(0);

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 16:43:37 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:30:52 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,12 @@ void	add_redir_list_node(t_redir_list **head, char *file_name, t_special_char ty
 	}
 }
 
-t_cmd	*cr_cmd_node(t_token **tokens, int *command_count)
+t_cmd	*cr_cmd_node(t_token **tokens)
 {
 	t_cmd	*cmd;
 	int		i;
 
 	cmd = cr_cmd();
-	*command_count += 1;
 	i = 0;
 	while (*tokens && (*tokens)->type != PIPE)
 	{
@@ -132,7 +131,7 @@ t_cmd	*cr_cmd_node(t_token **tokens, int *command_count)
 }
 
 
-void	cr_and_expand_tree(t_tree **tree, t_token **tokens, int *command_count)
+void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 {
 	t_cmd	*cmd;
 	t_tree	*temp;
@@ -141,7 +140,7 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens, int *command_count)
 
 	if (!(*tree))
 	{
-		cmd = cr_cmd_node(tokens, command_count);
+		cmd = cr_cmd_node(tokens);
 		push_cmd_to_tree(tree, cmd);
 	}
 	else
@@ -150,24 +149,24 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens, int *command_count)
 		new_tree = cr_tree();
 		new_tree->type = PIPE_NODE;
 		new_tree->left = (*tree);
-		cmd = cr_cmd_node(tokens, command_count);
+		cmd = cr_cmd_node(tokens);
 		push_cmd_to_tree(&(new_tree)->right, cmd);
 		(*tree) = new_tree;
 	}
 	
 }
 
-void	enter_a_pipe(t_tree **tree, int *command_count)
+void	enter_a_pipe(t_tree **tree)
 {
 	char	*line;
 	t_token	*token;
 
 	line = readline("pipe>");
 	token = lets_tokenize(line);
-	cr_and_expand_tree(tree, &token, command_count);
+	cr_and_expand_tree(tree, &token);
 }
 
-t_tree	*lets_parse(t_token **tokens, int *command_count)
+t_tree	*lets_parse(t_token **tokens)
 {
 	t_tree	*tree;
 	t_cmd	*cmd;
@@ -178,9 +177,9 @@ t_tree	*lets_parse(t_token **tokens, int *command_count)
 	l_r = 0;
 	while (*tokens)
 	{
-		cr_and_expand_tree(&tree, tokens, command_count);
+		cr_and_expand_tree(&tree, tokens);
 		if ((*tokens) && (*tokens)->type == PIPE && !(*tokens)->next)
-			enter_a_pipe(&tree, command_count);
+			enter_a_pipe(&tree);
 		if ((*tokens))
 			*tokens = (*tokens)->next;
 	}
