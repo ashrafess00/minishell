@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 17:40:08 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 23:06:27 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 			if (l_pid == 0)
 				run_cmd(tree, env);
 			else
+			{
 				waitpid(l_pid, &status, 0);
+				printf("exited code %d\n", WEXITSTATUS(status));
+			}
 		}
 	}
 	else
