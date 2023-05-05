@@ -6,28 +6,12 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/05 17:29:08 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:18:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int empty_command(char *input)
-{
-	int i = 0;
-	int j = 0;
-	while(input[i])
-	{
-		if(input[i] >= 65 && input[i] <= 90)
-			j++;
-		else if(input[i] >= 97 && input[i] <= 122)
-			j++;
-		i++;
-	}
-	if(j == 0)
-		return(1);
-	return(0);
-}
 
 int strlength(char *input)
 {
@@ -56,6 +40,26 @@ int	is_single_cmd(t_tree *tree)
 		return (1);
 }
 
+char	*get_folder()
+{
+	char	s[100];
+	int		i;
+	int		l_i;
+
+	getcwd(s, sizeof(s));
+	i = -1;
+	l_i = 0;
+	while (s[++i])
+	{
+		if (s[i] == '/')
+			l_i = i;
+	}
+	char *last_folder;
+
+	last_folder = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
+	last_folder = ft_strjoin(last_folder, ft_strdup(")~> \e[0;37m"));
+	return (last_folder);
+}
 int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
@@ -63,18 +67,20 @@ int main(int c, char **arg, char **env)
 	char **new_env;
 	t_tree	*tree;
 	int		command_count;
+	char	*last_folder;
 
-	new_env = my_env(env);
+	last_folder = get_folder();
 	while(1)
 	{
-		command_count = 0;
-		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
+		new_env = my_env(env);
+		printf("\e[0;31m/our@shell~:");
+		input = readline(last_folder);
 		if(!input)
 		{
 			printf("khrj\n");
 			exit(1);
 		}
-		if (empty_command(input))
+		if (!*input)
 			continue;
 		if(strlength(input) > 0)
 			add_history(input);

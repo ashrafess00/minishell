@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 17:28:14 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:40:08 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,10 @@ void	run_cmd(t_tree *tree, char **env)
 	int		pid;
 	int		status;
 
-	// pid = fork();
-	// if (pid == 0)
-	// {
-		paths = get_path_from_env(env);
-		path = get_path(tree->cmd_node->args[0], paths);
-		redirect_it(tree);
-		execve(path, tree->cmd_node->args, env);
-	// }
-	// else
-	// 	waitpid(pid, &status, 0);
+	paths = get_path_from_env(env);
+	path = get_path(tree->cmd_node->args[0], paths);
+	redirect_it(tree);
+	execve(path, tree->cmd_node->args, env);
 }
 
 void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
