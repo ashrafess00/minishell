@@ -14,7 +14,7 @@ HEADERS = headers/
 # SRCS
 TOKENIZE_IT_SRCS = check_syn_error.c  add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c
 PARSE_IT_SRCS = create_tree.c
-EXECUTE_IT_SRCS = execute.c path.c
+EXECUTE_IT_SRCS = execute.c path.c close_fds.c open_files.c redirections.c
 SRCS = main.c helpers.c utils.c utils2.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS)
 
 

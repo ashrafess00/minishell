@@ -6,25 +6,24 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/27 18:56:43 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:21:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
 //mn pipex :)
-
 void	write_error(char *file1, char *msg, int exit_status)
 {
-	char	*pipex_t;
+	char	*our_shell;
 
-	pipex_t = ft_strdup("/our@shell: ");
-	ft_putstr_fd(pipex_t, 2);
+	our_shell = ft_strdup("our@shell: ");
+	ft_putstr_fd(our_shell, 2);
 	if (file1)
 		ft_putstr_fd(file1, 2);
 	ft_putstr_fd(msg, 2);
 	write(2, "\n", 1);
-	free(pipex_t);
+	free(our_shell);
 	exit(exit_status);
 }
 
@@ -54,4 +53,32 @@ char	*get_path(char *program, char **paths)
 	}
 	write_error(program, COMMAND_NOT_FOUND, STATUS_127);
 	return (NULL);
+}
+
+char	**get_path_from_env(char **env)
+{
+	char	**paths;
+	int		i;
+
+	paths = NULL;
+	i = -1;
+	if (!*env)
+	{
+		paths = ft_split(ft_strdup("/usr/bin:/bin:/usr/\
+		sbin:/sbin:/usr/local/bin"), ':');
+		if (!paths)
+			return (0);
+		return (paths);
+	}
+	while (env[++i])
+	{
+		if (ft_strncmp(env[i], "PATH", 4) == 0)
+		{
+			paths = ft_split(ft_strdup(env[i]), ':');
+			if (paths)
+				paths[0] = ft_strtrim(paths[0], "PATH=");
+			break ;
+		}
+	}
+	return (paths);
 }

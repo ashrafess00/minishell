@@ -6,13 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 15:34:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:26:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-int	pipte[2];
 
 int empty_command(char *input)
 {
@@ -53,8 +51,11 @@ int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
 	char	*input;
-	char **new_env = my_env(env);//hahwa char ** dyal lcopy d env
+	char 	**new_env;//hahwa char ** dyal lcopy d env
 	t_tree	*tree;
+	int		command_count;
+
+	new_env = my_env(env);
 	while(1)
 	{
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
@@ -75,9 +76,8 @@ int main(int c, char **arg, char **env)
 			printf("Syntax Error !!\n");
 			continue;
 		}
-		// print_tokens(tokens);
-		tree = lets_parse(&tokens);
-		lets_execute(tree, new_env);
+		tree = lets_parse(&tokens, &command_count);
+		lets_execute(tree, env, &command_count);
 		free(input);
 	}
 	return(0);
