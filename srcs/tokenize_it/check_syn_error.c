@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syn_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 09:08:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/04/30 13:52:27 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:22:13 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,38 @@ char *no_star(char *line)
 	line2[i] = '\0';
 	return(line2);
 }
-
+int error_pipe(char *line)
+{
+    int i = 0;
+	int x = 0;
+    while(line[i])
+    {
+		x = 0;
+        if(line[i] == '|' && i == 0)
+            return(0);
+        if((line[i] != '|' || line[i] != '<' || line[i] != '>') && line[i])
+            i++;
+        if((line[i] == '|' || line[i] == '<' || line[i] == '>') && line[i + 1] == '\0' && i > 0)
+            return(0);
+		if(line[i] == '|' && line[i + 1] == '|')
+			return(0);
+		while(line[i] == '>' || line[i] == '<')
+		{
+			i++;
+			x++;
+		}
+		if(x > 2)
+			return(0);
+        i++;
+    }
+    return(1);
+}
 char *closeDOUBLE_QUOTE(char *line)
 {
 	char *line2;
 	int i = 0;
+	if(error_pipe(line) == 0)
+		return NULL;
 	line2 =  malloc(strln(line) * sizeof(char *));
 	while(line[i] != '\0')
 	{
