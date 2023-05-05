@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/05 16:26:58 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:32:11 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info
 
 
 //===execution===
-void	lets_execute(t_tree *tree, char **env, int *command_count);
+void	lets_execute(t_tree *tree, char **env, int command_count);
 //path
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);

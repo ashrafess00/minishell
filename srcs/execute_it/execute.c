@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 16:27:12 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:38:39 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	run_cmd(t_tree *tree, char **env)
 	// 	waitpid(pid, &status, 0);
 }
 
-void	lets_execute(t_tree *tree, char **env, int *command_count)
+void	lets_execute(t_tree *tree, char **env, int command_count)
 {
 	int		fds[2];
 	int		l_pid;
@@ -41,13 +41,13 @@ void	lets_execute(t_tree *tree, char **env, int *command_count)
 
 	if (tree->type == CMD_NODE)
 	{
-		if (*command_count == 1)
+		if (command_count == 1)
 		{
 			l_pid = fork();
 			if (l_pid == 0)
 				run_cmd(tree, env);
 			waitpid(l_pid, &status, 0);
-			printf("l_pid %d exited with : %d\n", l_pid, WEXITSTATUS(status));
+			// printf("l_pid %d exited with : %d\n", l_pid, WEXITSTATUS(status));
 		}
 		else
 			run_cmd(tree, env);
@@ -76,7 +76,7 @@ void	lets_execute(t_tree *tree, char **env, int *command_count)
 		close(fds[1]);
 		waitpid(l_pid, &status, 0);
 		waitpid(r_pid, &status, 0);
-		printf("exited with : %d\n", WEXITSTATUS(status));
+		// printf("exited with : %d\n", WEXITSTATUS(status));
 		
 	}
 }

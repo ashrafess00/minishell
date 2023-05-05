@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/05 16:26:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:33:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int main(int c, char **arg, char **env)
 	new_env = my_env(env);
 	while(1)
 	{
+		command_count = 0;
 		input = readline("\e[0;31m/our@shell~:\e[0;37m ");
 		if(!input)
 		{
@@ -77,7 +78,7 @@ int main(int c, char **arg, char **env)
 			continue;
 		}
 		tree = lets_parse(&tokens, &command_count);
-		lets_execute(tree, env, &command_count);
+		lets_execute(tree, env, command_count);
 		free(input);
 	}
 	return(0);

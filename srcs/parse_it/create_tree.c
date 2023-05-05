@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 13:16:16 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:33:06 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,9 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens, int *command_count)
 	else
 	{
 		current = (*tree);
-		
 		new_tree = cr_tree();
 		new_tree->type = PIPE_NODE;
 		new_tree->left = (*tree);
-		
 		cmd = cr_cmd_node(tokens, command_count);
 		push_cmd_to_tree(&(new_tree)->right, cmd);
 		(*tree) = new_tree;
@@ -181,7 +179,6 @@ t_tree	*lets_parse(t_token **tokens, int *command_count)
 	while (*tokens)
 	{
 		cr_and_expand_tree(&tree, tokens, command_count);
-		
 		if ((*tokens) && (*tokens)->type == PIPE && !(*tokens)->next)
 			enter_a_pipe(&tree, command_count);
 		if ((*tokens))

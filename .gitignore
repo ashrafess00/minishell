@@ -5,5 +5,4 @@
 # !*.c
 
 objs/
-libft/
 shell
