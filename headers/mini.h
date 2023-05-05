@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/04 14:00:18 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/05 13:17:07 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef enum e_quotes
 }	t_quotes;
 
 // structs
-
 typedef struct s_token_info
 {
 	int			i;
@@ -79,8 +78,6 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token *prev;
 }	t_token;
-
-
 
 typedef struct s_redir_list
 {
@@ -105,19 +102,19 @@ typedef struct s_tree
 }	t_tree;
 
 
+//tokenization
 void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type);
 t_token	*lets_tokenize(char *line);
-int empty_command(char *input);
-
 char 	*closeDOUBLE_QUOTE(char *line);
-// t_tree	*lets_parse(t_token **tokens);
-t_tree	*lets_parse(t_token **tokens, int *pipe_count);
 
-//hdshy dyali alhbib
-char **my_env(char **nature);
-int stln(char **nature, int i);
-//realloc
-char **our_realloc(char **arr, char *new);
+//parsing
+// t_tree	*lets_parse(t_token **tokens);
+t_tree	*lets_parse(t_token **tokens, int *command_count);
+
+//utils
+char	**my_env(char **nature);
+int		stln(char **nature, int i);
+char	**our_realloc(char **arr, char *new);
 
 
 int		check_add_pipe_token(t_token **head, char *line, t_token_info *token_info);
@@ -126,9 +123,9 @@ int	check_add_red_append_token(t_token **head, char *line, t_token_info *token_i
 int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info);
 int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
 
-void	lets_execute(t_tree *tree, char **env);
 
 //===execution===
+void	lets_execute(t_tree *tree, char **env, int command_count);
 //path
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
@@ -150,5 +147,6 @@ void	print_my_tree(t_tree *tree);
 //utils
 int	ft_strcmp(char *s, char *limiter);
 
+void	redirect_it(t_tree *tree);
 #endif
 
