@@ -6,7 +6,7 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/06 14:57:22 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/06 23:31:07 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,32 +40,37 @@ RM = rm -rf
 all: ${OBJS_DIR} ${NAME}
 
 $(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)
 
-$(NAME): $(OBJS) $(LIBFT_A) $(HEADERS)*
-	$(CC) $(OBJS) $(INCLUDE) $(LIBFT_A) -o $(NAME) -lreadline
+$(NAME): $(LIBFT_A) $(OBJS) $(HEADERS)*
+	@$(CC) $(OBJS) $(INCLUDE) $(LIBFT_A) -o $(NAME) -lreadline 
+	@echo "SHELL WAS CREATED"
 
+	
+	
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	$(CC) $(INCLUDE) -c -o $@ $^
-
+	@$(CC) $(INCLUDE) -c -o $@ $^
+	
 $(OBJS_DIR)%.o: $(TOKENIZE_IT_DIR)%.c
-	$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) $(INCLUDE) -c -o $@ $^
 
 $(OBJS_DIR)%.o: $(PARSE_IT_DIR)%.c
-	$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) $(INCLUDE) -c -o $@ $^
 
 $(OBJS_DIR)%.o: $(EXECUTE_IT_DIR)%.c
-	$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) $(INCLUDE) -c -o $@ $^
 
 $(LIBFT_A):
-	$(MAKE) -C $(LIBFT_DIR)
+	@echo "GENERATING libft.a..."
+	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	$(RM) ${OBJS_DIR}
-	make clean -C $(LIBFT_DIR)
-
+	@$(RM) ${OBJS_DIR}
+	@make clean -C $(LIBFT_DIR)
+	@OBJECT FILES DELETED
 fclean:
-	$(RM) ${OBJS_DIR} ${NAME}
-	make fclean -C $(LIBFT_DIR)
+	@$(RM) ${OBJS_DIR} ${NAME}
+	@make fclean -C $(LIBFT_DIR)
+	@echo OBJECT FILES AND SHELL PROGRAM WERE DELETED
 	
 re: fclean all
