@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/05 21:18:30 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 13:52:25 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_tokens(t_token *tokens)
 
 int	is_single_cmd(t_tree *tree)
 {
-	if (tree->type == PIPE)
+	if (tree->type == PIPE_NODE)
 		return (0);
 	else
 		return (1);
@@ -69,10 +69,10 @@ int main(int c, char **arg, char **env)
 	int		command_count;
 	char	*last_folder;
 
-	last_folder = get_folder();
+	new_env = my_env(env);
 	while(1)
 	{
-		new_env = my_env(env);
+		last_folder = get_folder();
 		printf("\e[0;31m/our@shell~:");
 		input = readline(last_folder);
 		if(!input)

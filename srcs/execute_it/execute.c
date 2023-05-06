@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 23:06:27 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:58:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	run_cmd(t_tree *tree, char **env)
 	int		pid;
 	int		status;
 
+	
 	paths = get_path_from_env(env);
 	path = get_path(tree->cmd_node->args[0], paths);
 	redirect_it(tree);
@@ -33,7 +34,11 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 
 	if (tree->type == CMD_NODE)
 	{
-		if (!is_single_cmd)
+		if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
+			my_cd(tree);
+		else if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
+			my_echo(tree->cmd_node);
+		else if (!is_single_cmd)
 			run_cmd(tree, env);
 		else
 		{
@@ -43,7 +48,7 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 			else
 			{
 				waitpid(l_pid, &status, 0);
-				printf("exited code %d\n", WEXITSTATUS(status));
+				// printf("exited code %d\n", WEXITSTATUS(status));
 			}
 		}
 	}

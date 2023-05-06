@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/27 18:02:48 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:28:15 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	print_tokens(t_token *head)
 			printf("TYPE : <<\n");
 		if (head->type == PIPE)
 			printf("TYPE : |\n");
-		if (head->type == SPACE)
-			printf("TYPE : SPACE\n");
 		if (head->type == EXIT_STATUS)
 			printf("TYPE : EXIT_CODE\n");
 		head = head->next;

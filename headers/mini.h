@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/05 17:30:19 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 14:57:03 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef enum e_special_char
 	RED_INPUT = '<',
 	ENV = '$',
 	PIPE = '|',
-	SPACE = ' ',
 	EXIT_STATUS,
 	RED_OUTPUT_APPEND,
 	HEREDOC,
@@ -147,6 +146,10 @@ void	print_my_tree(t_tree *tree);
 
 //utils
 int	ft_strcmp(char *s, char *limiter);
+
+//built_ins
+void	my_cd(t_tree *tree);
+void	my_echo(t_cmd *cmd);
 
 void	redirect_it(t_tree *tree);
 #endif
