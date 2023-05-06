@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/06 13:52:25 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 23:45:27 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*get_folder()
 	char	s[100];
 	int		i;
 	int		l_i;
+	char	*last_folder;
 
 	getcwd(s, sizeof(s));
 	i = -1;
@@ -54,20 +55,19 @@ char	*get_folder()
 		if (s[i] == '/')
 			l_i = i;
 	}
-	char *last_folder;
-
 	last_folder = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
-	last_folder = ft_strjoin(last_folder, ft_strdup(")~> \e[0;37m"));
+	last_folder = ft_strjoin(last_folder, ft_strdup(")🍑~> \e[0;37m"));
 	return (last_folder);
 }
+
 int main(int c, char **arg, char **env)
 {
 	t_token	*tokens;
 	char	*input;
-	char **new_env;
+	char	**new_env;
 	t_tree	*tree;
 	int		command_count;
-	char	*last_folder;
+	char	*last_folder ;
 
 	new_env = my_env(env);
 	while(1)
@@ -75,6 +75,7 @@ int main(int c, char **arg, char **env)
 		last_folder = get_folder();
 		printf("\e[0;31m/our@shell~:");
 		input = readline(last_folder);
+		free(last_folder);
 		if(!input)
 		{
 			printf("khrj\n");
@@ -86,6 +87,9 @@ int main(int c, char **arg, char **env)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
+		free(input);
+		// print_tokens(tokens);
+		// continue;
 		if (!check_tokens(tokens))
 		{
 			printf("Syntax Error !!\n");
@@ -93,7 +97,6 @@ int main(int c, char **arg, char **env)
 		}
 		tree = lets_parse(&tokens);
 		lets_execute(tree, env, is_single_cmd(tree));
-		free(input);
 	}
 	return(0);
 }
