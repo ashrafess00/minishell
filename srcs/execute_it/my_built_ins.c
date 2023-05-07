@@ -6,33 +6,64 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/06 15:02:21 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:45:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	my_echo(t_cmd *cmd)
+void	my_echo(char **args)
 {
 	int	i;
 
 	i = 0;
-	if (!cmd->args[1])
+	if (!args[1])
 		return ;
-	if (!ft_strcmp(cmd->args[1], "-n"))
+	if (!ft_strcmp(args[1], "-n"))
 		i = 1;
-	while (cmd->args[++i])
+	while (args[++i])
 	{
-		if (cmd->args[i + 1])
-			printf("%s ", cmd->args[i]);
+		if (args[i + 1])
+			printf("%s ", args[i]);
 		else
-			printf("%s", cmd->args[i]);
+			printf("%s", args[i]);
 	}
-	if (ft_strcmp(cmd->args[1], "-n"))
+	if (ft_strcmp(args[1], "-n"))
 		printf("\n");
 }
 
-void	my_cd(t_tree *tree)
+void	my_cd(char **args)
 {
-	chdir(tree->cmd_node->args[1]);
+	if (!args[1])
+		return ;
+	if (chdir(args[1]))
+	{
+		write(2, "our@shell: cd: ", 11);
+		perror(args[1]);
+	}
+}
+
+void	my_exit()
+{
+	exit(0);
+}
+
+void	my_pwd()
+{
+	char	*pwd;
+
+	pwd = getenv("PWD");
+	printf("%s\n", pwd);
+}
+
+void	is_build_in(char **args)
+{
+	if (!ft_strcmp(args, "cd"))
+		my_cd(args);
+	else if (!ft_strcmp(args, "echo"))
+		my_echo(args);
+	else if (!ft_strcmp(args, "exit"))
+		my_exit();
+	else if (!ft_strcmp(args, "pwd"))
+		my_pwd();
 }

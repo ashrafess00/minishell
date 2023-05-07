@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 13:27:41 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/04/30 13:48:41 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 22:51:31 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*cr_token_node(char *s, int s_index, int size, t_special_char type)
 	new_token_node->s = closeDOUBLE_QUOTE(ft_substr(s + s_index, 0, size));
 	//fl function dyalk siftliha (ft_substr(s + s_index, 0, size)), substr ghadi tjiblik string kif mma hwwa like ("ec"h"o"), new_dl->s khas ydkhl fiha (echo)
 	//---------------------------------------------------------------------------------------
-	new_token_node->size = size;
+	// new_token_node->size = size;
 	new_token_node->type = type;
 	new_token_node->next = NULL;
 	return (new_token_node);
@@ -40,7 +40,7 @@ void	add_token(t_token **head, char *s, int s_index, int size, t_special_char ty
 	new_token_node = cr_token_node(s, s_index, size, type);
 	if (*head == NULL)
 	{
-		new_token_node->prev = NULL;
+		// new_token_node->prev = NULL;
 		*head = new_token_node;
 	}
 	else
@@ -48,6 +48,6 @@ void	add_token(t_token **head, char *s, int s_index, int size, t_special_char ty
 		while (last->next)
 			last = last->next;
 		last->next = new_token_node;
-		new_token_node->prev = last;
+		// new_token_node->prev = last;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/06 23:31:07 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/07 11:53:08 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,8 @@ $(LIBFT_A):
 
 clean:
 	@$(RM) ${OBJS_DIR}
-	@make clean -C $(LIBFT_DIR)
-	@OBJECT FILES DELETED
+	@make clean -C $(LIBFT_DIR) 
+	@echo OBJECT FILES DELETED
 fclean:
 	@$(RM) ${OBJS_DIR} ${NAME}
 	@make fclean -C $(LIBFT_DIR)

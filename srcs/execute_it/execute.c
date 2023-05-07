@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/06 14:58:41 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:44:20 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,16 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 
 	if (tree->type == CMD_NODE)
 	{
-		if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
-			my_cd(tree);
-		else if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
-			my_echo(tree->cmd_node);
+		// if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
+		// 	my_cd(tree->cmd_node->args);
+		// else if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
+		// 	my_echo(tree->cmd_node->args);
+		// else if (!ft_strcmp(tree->cmd_node->args[0], "exit"))
+		// 	my_exit();
+		// else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
+		// 	my_pwd();
+		if(is_built_in(tree->cmd_node->args[0]))
+		
 		else if (!is_single_cmd)
 			run_cmd(tree, env);
 		else

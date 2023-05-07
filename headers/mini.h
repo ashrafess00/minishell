@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/06 14:57:03 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/06 22:51:28 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef enum e_quotes
 }	t_quotes;
 
 // structs
-typedef struct s_token_info
+typedef struct s_token_info_norm
 {
 	int			i;
 	int			line;
@@ -65,17 +65,17 @@ typedef struct s_token_info
 	t_quotes	quote_stat;
 	int			s_index;
 	int			size;
-}	t_token_info;
+}	t_token_info_norm;
 
 typedef struct s_token
 {
 	char			*s;
 	int 			s_index;
-	int				size;
+	// int				size;
 	t_special_char	type;
 	char			**envs;
 	struct s_token	*next;
-	struct s_token *prev;
+	// struct s_token *prev;
 }	t_token;
 
 typedef struct s_redir_list
@@ -116,11 +116,11 @@ int		stln(char **nature, int i);
 char	**our_realloc(char **arr, char *new);
 
 
-int		check_add_pipe_token(t_token **head, char *line, t_token_info *token_info);
-int	check_add_heredoc_token(t_token **head, char *line, t_token_info *token_info);
-int	check_add_red_append_token(t_token **head, char *line, t_token_info *token_info);
-int	check_add_red_out_token(t_token **head, char *line, t_token_info *token_info);
-int	check_add_red_inp_token(t_token **head, char *line, t_token_info *token_info);
+int		check_add_pipe_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int	check_add_heredoc_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int	check_add_red_append_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int	check_add_red_out_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int	check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
 
 
 //===execution===
@@ -148,8 +148,10 @@ void	print_my_tree(t_tree *tree);
 int	ft_strcmp(char *s, char *limiter);
 
 //built_ins
-void	my_cd(t_tree *tree);
-void	my_echo(t_cmd *cmd);
+void	my_cd(char **args);
+void	my_echo(char **args);
+void	my_exit();
+void	my_pwd();
 
 void	redirect_it(t_tree *tree);
 #endif
