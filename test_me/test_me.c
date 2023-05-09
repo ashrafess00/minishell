@@ -104,21 +104,27 @@ char *space_err(char *var)
 	int i = 0;
 	int q= 0;
 	char *err;
-	while(var[i] != '=')
+	int k = 0;
+	while(var[k])
+		k++;
+	k--;
+	while(var[k] != '=')
+		k--;
+	while(k > 0)
 	{
-		if(var[i + 2] == ' ')
+		if(var[k + 2] == ' ' || var[k + 2] == '\0')
 		{
-			err = malloc(sizeof(char *) *  i + 2);
-			while(var[q] != '=')
+			err = malloc(sizeof(char *) *  k + 3);
+			while(q <= k)
 			{
 				err[q] = var[q];
 				q++;
 			}
 		}
-		i++;
+		k--;
 	}
-	err[q] = '=';
-	err[q +1] = '\0';
+	err[q] = var[q];
+	err[q + 2] = '\0';
 	return(err);
 }
 char **exp_no_opt(char **env)
@@ -171,7 +177,7 @@ int exp_er(char *ljadid)
 {
 	int plus = 0;
 	int i = 0;
-	while(ljadid[i])
+	while(ljadid[i] != '\0')
 	{
 		if(ljadid[i] == '=')
 			plus++;
@@ -297,6 +303,6 @@ int main(int c, char **av, char **env)
 		// new_env = export(new_env, av[2]);
 // 	if(av[3])
 // 		new_env = unset(new_env, av[3]);
-	// while(new_env[i])
-	// 	printf("%s\n", new_env[i++]);
+	while(new_env[i])
+		printf("%s\n", new_env[i++]);
 }
