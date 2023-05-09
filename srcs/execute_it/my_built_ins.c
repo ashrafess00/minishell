@@ -6,64 +6,90 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/07 14:45:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:35:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	my_echo(char **args)
+void	my_echo(t_tree *tree)
 {
 	int	i;
+	int	pid;
 
 	i = 0;
-	if (!args[1])
-		return ;
-	if (!ft_strcmp(args[1], "-n"))
-		i = 1;
-	while (args[++i])
+	pid = fork();
+	if (pid == 0)
 	{
-		if (args[i + 1])
-			printf("%s ", args[i]);
-		else
-			printf("%s", args[i]);
+		redirect_it (tree, 1);
+		if (!tree->cmd_node->args[1])
+			return ;
+		if (!ft_strcmp(tree->cmd_node->args[1], "-n"))
+			i = 1;
+		while (tree->cmd_node->args[++i])
+		{
+			if (tree->cmd_node->args[i + 1])
+				printf("%s ", tree->cmd_node->args[i]);
+			else
+				printf("%s", tree->cmd_node->args[i]);
+		}
+		if (ft_strcmp(tree->cmd_node->args[1], "-n"))
+			printf("\n");
+		exit(0);
 	}
-	if (ft_strcmp(args[1], "-n"))
-		printf("\n");
+	waitpid(pid, NULL, 0);
 }
 
-void	my_cd(char **args)
+void	my_cd(t_tree *tree)
 {
-	if (!args[1])
+	redirect_it(tree, 0);
+	if (!tree->cmd_node->args[1])
 		return ;
-	if (chdir(args[1]))
+	if (chdir(tree->cmd_node->args[1]))
 	{
 		write(2, "our@shell: cd: ", 11);
-		perror(args[1]);
+		perror(tree->cmd_node->args[1]);
 	}
 }
 
-void	my_exit()
+void	my_exit(t_tree *tree)
 {
+	redirect_it(tree, 0);
 	exit(0);
 }
 
-void	my_pwd()
+void	my_pwd(t_tree *tree)
 {
-	char	*pwd;
+	char	cwd[512];
+	int		pid;
 
-	pwd = getenv("PWD");
-	printf("%s\n", pwd);
+	pid = fork();
+	if (pid == 0)
+	{
+		redirect_it(tree, 1);
+		getcwd(cwd, sizeof(cwd));
+		printf("%s\n", cwd);
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
 }
 
-void	is_build_in(char **args)
+void	call_built_in(t_tree *tree)
 {
-	if (!ft_strcmp(args, "cd"))
-		my_cd(args);
-	else if (!ft_strcmp(args, "echo"))
-		my_echo(args);
-	else if (!ft_strcmp(args, "exit"))
-		my_exit();
-	else if (!ft_strcmp(args, "pwd"))
-		my_pwd();
+	if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
+		my_echo(tree);
+	else if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
+		my_cd (tree);
+	else if (!ft_strcmp(tree->cmd_node->args[0], "exit"))
+		my_exit (tree);
+	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
+		my_pwd (tree);
+}
+
+int	is_built_in(char *args)
+{
+	if (!ft_strcmp(args, "cd") || !ft_strcmp(args, "echo")
+		||!ft_strcmp(args, "exit") || !ft_strcmp(args, "pwd"))
+		return (1);
+	return (0);
 }

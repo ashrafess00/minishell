@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/03 18:21:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:09:26 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	*get_path(char *program, char **paths)
 
 	i = -1;
 	if (!program || !*paths)
+	{
+		printf("ji\n");
 		return (0);
+	}
 	if (!access(program, F_OK) && access(program, X_OK | R_OK))
 		write_error(program, PERMISSION_MSG, STATUS_126);
 	if (!access(program, F_OK | X_OK | R_OK))

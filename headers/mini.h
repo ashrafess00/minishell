@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/06 22:51:28 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:27:03 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *token
 
 //===execution===
 void	lets_execute(t_tree *tree, char **env, int is_single_cmd);
-void	redirect_it(t_tree *tree);
+void	redirect_it(t_tree *tree, int redirect);
 //path
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
@@ -148,11 +148,12 @@ void	print_my_tree(t_tree *tree);
 int	ft_strcmp(char *s, char *limiter);
 
 //built_ins
-void	my_cd(char **args);
-void	my_echo(char **args);
-void	my_exit();
+int		is_built_in(char *cmd);
+void	call_built_in(t_tree *tree);
+void	my_cd(t_tree *tree);
+void	my_echo(t_tree *tree);
+void	my_exit(t_tree *tree);
 void	my_pwd();
 
-void	redirect_it(t_tree *tree);
 #endif
 
