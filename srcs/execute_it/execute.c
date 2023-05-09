@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/09 21:01:58 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:33:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,20 @@ void	run_cmd(t_tree *tree, char **env)
 	int		pid;
 	int		status;
 
-	redirect_it(tree, 1);
+	if (*tree->cmd_node->args)
+		redirect_it(tree, 1);
+	else
+		redirect_it(tree, 0);
 	paths = get_path_from_env(env);
+	if (!*tree->cmd_node->args)
+		exit(0) ;
 	path = get_path(tree->cmd_node->args[0], paths);
-	execve(path, tree->cmd_node->args, env);
+	if (execve(path, tree->cmd_node->args, env) == -1)
+	{
+		free(path);
+		free(paths);
+		exit(2);
+	}
 }
 
 void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
@@ -33,7 +43,7 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 
 	if (tree->type == CMD_NODE)
 	{
-		if(is_built_in(tree->cmd_node->args[0]))
+		if(is_built_in(tree))
 			call_built_in(tree, env);
 		else if (!is_single_cmd)
 			run_cmd(tree, env);

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/09 21:06:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:11:55 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,13 @@ void	call_built_in(t_tree *tree, char **env)
 }
 
 
-int	is_built_in(char *args)
+int	is_built_in(t_tree *tree)
 {
-	if (!ft_strcmp(args, "cd") || !ft_strcmp(args, "echo")
-		|| !ft_strcmp(args, "exit") || !ft_strcmp(args, "pwd")
-		|| !ft_strcmp(args, "export") || !ft_strcmp(args, "unset"))
+	if (!*tree->cmd_node->args)
+		return (0);
+	if (!ft_strcmp(tree->cmd_node->args[0], "cd") || !ft_strcmp(tree->cmd_node->args[0], "echo")
+		|| !ft_strcmp(tree->cmd_node->args[0], "exit") || !ft_strcmp(tree->cmd_node->args[0], "pwd")
+		|| !ft_strcmp(tree->cmd_node->args[0], "export") || !ft_strcmp(tree->cmd_node->args[0], "unset"))
 		return (1);
 	return (0);
 }

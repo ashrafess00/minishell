@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/05 17:30:52 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:37:14 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ static char	*get_input_from_usr(char *limiter)
 	{
 		ft_printf("> ");
 		s = get_next_line(0);
+		if (!s)
+			break ;
 		if (!ft_strcmp(s, limiter))
 			break ;
 		input = ft_strjoin(input, s);
+			
 	}
 	free(s);
 	return (input);
