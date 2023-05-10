@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 20:17:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:20:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_tree	*cr_tree()
 	t_tree	*tree;
 
 	tree = malloc(sizeof(t_tree));
+	if (!tree)
+	{
+		perror("Allocation Error");
+		exit(EXIT_FAILURE);
+	}
 	tree->cmd_node = NULL;
 	tree->left = NULL;
 	tree->right = NULL;
@@ -28,6 +33,11 @@ t_cmd	*cr_cmd()
 	t_cmd	*new_cmd;
 
 	new_cmd = malloc(sizeof(t_cmd));
+	if (!new_cmd)
+	{
+		perror("Allocation Error");
+		exit(EXIT_FAILURE);
+	}
 	new_cmd->args = ft_calloc(100, sizeof(char *));
 	new_cmd->redir_list = NULL;
 	return (new_cmd);
@@ -69,6 +79,11 @@ t_redir_list	*cr_redir_list_node(char *file_name, t_special_char type)
 	t_redir_list	*new_redir_list;
 
 	new_redir_list = malloc(sizeof(t_redir_list));
+	if (new_redir_list)
+	{
+		perror("Allocation Error");
+		exit(EXIT_FAILURE);
+	}
 	new_redir_list->here_doc_text = NULL;
 	if (type == HEREDOC)
 		new_redir_list->here_doc_text = get_input_from_usr(file_name);
@@ -167,6 +182,7 @@ void	enter_a_pipe(t_tree **tree)
 	line = readline("pipe>");
 	token = lets_tokenize(line);
 	cr_and_expand_tree(tree, &token);
+	free_tokens(&token);
 }
 
 t_tree	*lets_parse(t_token **tokens)
