@@ -1,50 +1,18 @@
-#include "test_header.h"
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 17:58:55 by kslik             #+#    #+#             */
+/*   Updated: 2023/05/10 18:00:11 by kslik            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int stln(char **nature, int i)
-{
-	int j = 0;
-	while(nature[i][j] != '\0')
-		j++;
-	return(j);
-}
+#include "mini.h"
 
-char **my_env(char **nature)
-{
-	int i = 0;
-	int l = 0;
-	int j = 0;
-	int m;
-	char **my_env;
-	while(nature[i])
-		i++;
-	my_env = malloc(i * sizeof(char **) + 1);
-	m = i;
-	i =0;
-	while(i < m)
-	{
-		j = 0;
-		l = stln(nature, i) + 1;
-		my_env[i] = malloc(l * sizeof(char *));
-		while(nature[i][j] != '\0')
-		{
-			my_env[i][j] = nature[i][j];
-			j++;
-		}
-		my_env[i][j] = '\0';
-		i++;
-	}
-	my_env[i] = NULL;
-	return (my_env);
-}
-int strlne(char *line)
-{
-	int i = 0;
-	while(line[i])
-		i++;
-	return(i);
-}
-char **our_realloc(char **arr, char *new, int index, int bol)
+char **our_realloc_v2(char **arr, char *new, int index, int bol)
 {
 	int i = 0;
 	int l = 0;
@@ -229,14 +197,14 @@ char **export(char **env, char *ljadid)
 			}
 			if(n != 100)
 			{
-				env = our_realloc(env, ljadid, 0, 0);
+				env = our_realloc_v2(env, ljadid, 0, 0);
 				return(env);
 			}
 			j++;
 		}
 		i++;
 	}
-	env = our_realloc(env, ljadid, 0, 1);
+	env = our_realloc_v2(env, ljadid, 0, 1);
 	return env;
 }
 char **unset_hel(char **env, char *var, int i)
@@ -307,21 +275,4 @@ char **unset(char **env, char *var)
 		i++;
 	}
 	return(env);
-}
-int main(int c, char **av, char **env)
-{
-	char **new_env = my_env(env);
-	int i = 0;
-
-	printf("----------------------------------------------------\n----------------------------------------------------\n");
-	i = 0;
-	// new_env = export(new_env, av[1]);
-	// if(av[2]) 
-
-	new_env = unset(new_env, av[1]);
-	// new_env = export(new_env, av[3]);
-
-
-	while(new_env[i])
-		printf("%s\n", new_env[i++]);
 }
