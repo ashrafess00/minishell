@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/09 22:11:55 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:21:06 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ void	my_echo(t_tree *tree)
 	int	i;
 	int	pid;
 
-	i = 0;
+	i = 1;
 	pid = fork();
 	if (pid == 0)
 	{
 		redirect_it (tree, 1);
 		if (!tree->cmd_node->args[1])
 			return ;
-		if (!ft_strcmp(tree->cmd_node->args[1], "-n"))
-			i = 1;
+		while (!ft_strcmp(tree->cmd_node->args[i], "-n"))
+			i++;
+		i--;
 		while (tree->cmd_node->args[++i])
 		{
 			if (tree->cmd_node->args[i + 1])
