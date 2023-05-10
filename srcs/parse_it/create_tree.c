@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 19:36:56 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:17:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_redir_list	*cr_redir_list_node(char *file_name, t_special_char type)
 	new_redir_list->here_doc_text = NULL;
 	if (type == HEREDOC)
 		new_redir_list->here_doc_text = get_input_from_usr(file_name);
-	new_redir_list->file_name = file_name;
+	new_redir_list->file_name = ft_strdup(file_name);
 	new_redir_list->type = type;
 	new_redir_list->next = NULL;
 	return (new_redir_list);
@@ -174,18 +174,19 @@ t_tree	*lets_parse(t_token **tokens)
 	t_tree	*tree;
 	t_cmd	*cmd;
 	char	l_r;
+	t_token	*tmp;
 
 	tree = NULL;
 	cmd = NULL;
-	l_r = 0;
-	while (*tokens)
+	tmp = (*tokens);
+	while (tmp)
 	{
-		cr_and_expand_tree(&tree, tokens);
-		if ((*tokens) && (*tokens)->type == PIPE && !(*tokens)->next)
+		cr_and_expand_tree(&tree, &tmp);
+		if (tmp && tmp->type == PIPE && !tmp->next)
 			enter_a_pipe(&tree);
-		if ((*tokens))
-			*tokens = (*tokens)->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
-	// while(1);
+	free_tokens(tokens);
 	return (tree);
 }

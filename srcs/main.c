@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/10 19:36:12 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:15:52 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int main(int c, char **arg, char **env)
 			continue;
 		}
 		tree = lets_parse(&tokens);
-		free_tokens(&tokens);
-		// print_my_tree(tokens)
-		// continue;
+		
+		free_tree(&tree);
+		continue;
 		lets_execute(tree, new_env, is_single_cmd(tree));
 	}
 	free_arr(new_env);
