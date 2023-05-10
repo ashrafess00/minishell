@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 18:03:44 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:36:56 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,6 @@ t_tree	*lets_parse(t_token **tokens)
 		if ((*tokens))
 			*tokens = (*tokens)->next;
 	}
+	// while(1);
 	return (tree);
 }
