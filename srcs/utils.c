@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/09 22:25:39 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:58:43 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,3 @@ int	ft_strcmp(char *s, char *limiter)
 	return (0);
 }
 
-void	free_arr(char **arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-}

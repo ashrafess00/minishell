@@ -6,20 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/09 13:24:15 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:36:50 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-
-int strlength(char *input)
-{
-	int i = 0;
-	while(input[i] != '\0')
-		i++;
-	return (i);
-}
 
 int	check_tokens(t_token *tokens)
 {
@@ -45,7 +36,7 @@ char	*get_folder()
 	char	s[100];
 	int		i;
 	int		l_i;
-	char	*last_folder;
+	char	*our_shell;
 
 	getcwd(s, sizeof(s));
 	i = -1;
@@ -55,9 +46,10 @@ char	*get_folder()
 		if (s[i] == '/')
 			l_i = i;
 	}
-	last_folder = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
-	last_folder = ft_strjoin(last_folder, ft_strdup(")🍑~> \e[0;37m"));
-	return (last_folder);
+	our_shell = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
+	our_shell = ft_strjoin(our_shell, ft_strdup(")🍑~> \e[0;37m"));
+	our_shell = ft_strjoin(ft_strdup("\e[0;31m/our@shell~:"), our_shell);
+	return (our_shell);
 }
 
 int main(int c, char **arg, char **env)
@@ -67,39 +59,39 @@ int main(int c, char **arg, char **env)
 	char	**new_env;
 	t_tree	*tree;
 	int		command_count;
-	char	*last_folder ;
+	char	*our_shell;
 
 	new_env = my_env(env);
 	while(1)
 	{
-		last_folder = get_folder();
-		printf("\e[0;31m/our@shell~:");
-		input = readline(last_folder);
-		free(last_folder);
+		our_shell = get_folder();
+		input = readline(our_shell);
+		free(our_shell);
 		if(!input)
 		{
 			printf("khrj\n");
 			exit(1);
 		}
 		if (!*input)
+		{
+			free(input);
 			continue;
-		if(strlength(input) > 0)
+		}
+		if(ft_strlen(input) > 0)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
-		free(input);
-		// print_tokens(tokens);
-		// continue;
 		if (!check_tokens(tokens))
 		{
 			printf("Syntax Error !!\n");
 			continue;
 		}
 		tree = lets_parse(&tokens);
-		// print_my_tree(tree);
+		free_tokens(&tokens);
+		// print_my_tree(tokens)
 		// continue;
 		lets_execute(tree, env, is_single_cmd(tree));
 	}
+	free_arr(new_env);
 	return(0);
 }
-

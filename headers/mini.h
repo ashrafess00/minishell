@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/09 22:25:50 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:00:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct s_token
 	int 			s_index;
 	// int				size;
 	t_special_char	type;
-	char			**envs;
 	struct s_token	*next;
 	// struct s_token *prev;
 }	t_token;
@@ -146,7 +145,11 @@ void	print_my_tree(t_tree *tree);
 
 //utils
 int		ft_strcmp(char *s, char *limiter);
+
+//free_me
 void	free_arr(char **arr);
+void	free_tokens(t_token **tokens_head);
+void	free_tree(t_tree **tree);
 
 //built_ins
 int		is_built_in(t_tree *tree);
@@ -157,6 +160,9 @@ void	my_exit(t_tree *tree);
 void	my_export(t_tree *tree, char **env);
 void	my_unset(t_tree *tree, char **env);
 void	my_pwd(t_tree *tree);
+
+
+
 
 #endif
 
