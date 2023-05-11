@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:02:45 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 17:31:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:44:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_my_env	*cr_my_env(char *env)
 
 	my_env = malloc(sizeof(t_my_env));
 	my_env->val = ft_strdup(env);
+	my_env->next = NULL;
 	return (my_env);
 }
 
@@ -86,10 +87,5 @@ char	**from_lk_to_arr(t_my_env **my_env)
 		env = our_real(env, current->val);
 		current = current->next;
 	}
-	
-	// int	i = -1;
-	// while (env[++i])
-	// 	printf("[%s]\n", env[i]);
-	
 	return (env);
 }

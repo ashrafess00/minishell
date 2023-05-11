@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 17:06:46 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:45:14 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,14 @@ void	my_pwd(t_tree *tree)
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
-void	my_export(t_tree *tree, char **env)
+void	my_export(t_tree *tree, t_my_env **my_env)
 {
-	//tree->cmd_node->args
-	int	i;
-
-	i = -1;
-	//hadi ghadi t printi l arguments lli ghayjiw m3a export
-	while (tree->cmd_node->args[++i])
-		printf("%s\n", tree->cmd_node->args[i]);
+	add_my_env_node(my_env, "shalaw law");
 }
 
 void	my_unset(t_tree *tree, char **env)
 {
-	//tree->cmd_node->args
-	int	i;
-
-	i = -1;
-	//hadi ghadi t printi l arguments lli ghayjiw m3a export
-	while (tree->cmd_node->args[++i])
-		printf("%s\n", tree->cmd_node->args[i]);
+	
 }
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
@@ -112,8 +100,8 @@ void	call_built_in(t_tree *tree, t_my_env **my_env)
 		my_exit (tree);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
 		my_pwd (tree);
-	// else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
-	// 	my_export (tree, env);
+	else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
+		my_export (tree, my_env);
 	// else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
 	// 	my_unset (tree, env);
 }

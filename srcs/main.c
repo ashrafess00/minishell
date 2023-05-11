@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/11 17:28:25 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:44:05 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int main(int c, char **arg, char **env)
 		our_shell = get_folder();
 		input = readline(our_shell);
 		free(our_shell);
+
+		print_envs(my_env);
 		if(!input)
 		{
 			printf("khrj\n");
