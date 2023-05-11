@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 15:52:31 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:17:42 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_token	*lets_tokenize(char *line)
 			token_info_norm.size++;
 		}
 		if (!token_info_norm.br)
-			add_token(&head, line, token_info_norm.s_index, token_info_norm.size, NORMAL);
+			add_token(&head, ft_substr(ft_strdup(line), token_info_norm.s_index, token_info_norm.size), NORMAL);
 		if (!line[token_info_norm.i])
 			break ;
 	}

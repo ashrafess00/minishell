@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/11 17:36:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:10:17 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ typedef struct	s_my_env
 }	t_my_env;
 
 //tokenization
-void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type);
+void	add_token(t_token **head, char *s, t_special_char type);
+// void	add_token_old(t_token **head, char *s, int s_index, int size, t_special_char type);
 t_token	*lets_tokenize(char *line);
 char 	*closeDOUBLE_QUOTE(char *line);
 
@@ -121,10 +122,10 @@ char	**our_realloc(char **arr, char *new);
 
 
 int		check_add_pipe_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int	check_add_heredoc_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int	check_add_red_append_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int	check_add_red_out_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int	check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int		check_add_heredoc_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int		check_add_red_append_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int		check_add_red_out_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int		check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
 
 
 //===execution===
