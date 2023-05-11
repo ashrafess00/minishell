@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/10 20:20:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:28:25 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ int main(int c, char **arg, char **env)
 	t_tree	*tree;
 	int		command_count;
 	char	*our_shell;
+	t_my_env	*my_env;
 
-	new_env = my_env(env);
+	my_env = NULL;
+	copy_env(&my_env, env);
 	while(1)
 	{
 		our_shell = get_folder();
@@ -87,7 +89,7 @@ int main(int c, char **arg, char **env)
 			continue;
 		}
 		tree = lets_parse(&tokens);
-		lets_execute(tree, new_env, is_single_cmd(tree));
+		lets_execute(tree, &my_env, is_single_cmd(tree));
 		free_tree(&tree);
 	}
 	free_arr(new_env);

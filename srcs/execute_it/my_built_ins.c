@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 14:21:06 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:06:46 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	my_unset(t_tree *tree, char **env)
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
 
-void	call_built_in(t_tree *tree, char **env)
+void	call_built_in(t_tree *tree, t_my_env **my_env)
 {
 	if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
 		my_echo(tree);
@@ -112,10 +112,10 @@ void	call_built_in(t_tree *tree, char **env)
 		my_exit (tree);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
 		my_pwd (tree);
-	else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
-		my_export (tree, env);
-	else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
-		my_unset (tree, env);
+	// else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
+	// 	my_export (tree, env);
+	// else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
+	// 	my_unset (tree, env);
 }
 
 

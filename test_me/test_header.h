@@ -41,6 +41,7 @@ typedef struct	s_ast_root
 	struct s_tree	*root;
 }	t_ast_root;
 
+
 t_cmd	*cr_cmd(int a);
 void	add_node(t_cmd **head, int a);
 void	push_cmd_to_tree(t_tree **tree, int a);

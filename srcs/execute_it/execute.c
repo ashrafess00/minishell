@@ -6,22 +6,24 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/09 22:33:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:29:03 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-void	run_cmd(t_tree *tree, char **env)
+void	run_cmd(t_tree *tree, t_my_env **my_env)
 {
 	char	*path;
 	char	**paths;
 	int		pid;
 	int		status;
+	char	**env;
 
 	if (*tree->cmd_node->args)
 		redirect_it(tree, 1);
 	else
 		redirect_it(tree, 0);
+	env = from_lk_to_arr(my_env);
 	paths = get_path_from_env(env);
 	if (!*tree->cmd_node->args)
 		exit(0) ;
@@ -34,24 +36,28 @@ void	run_cmd(t_tree *tree, char **env)
 	}
 }
 
-void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
+void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd)
 {
 	int		fds[2];
 	int		l_pid;
 	int		r_pid;
 	int		status;
 
+	// print_envs(*my_env);
+	// printf("%s\n", (*my_env)->val);
+	// return ;
+
 	if (tree->type == CMD_NODE)
 	{
 		if(is_built_in(tree))
-			call_built_in(tree, env);
+			call_built_in(tree, my_env);
 		else if (!is_single_cmd)
-			run_cmd(tree, env);
+			run_cmd(tree, my_env);
 		else
 		{
 			l_pid = fork();
 			if (l_pid == 0)
-				run_cmd(tree, env);
+				run_cmd(tree, my_env);
 			else
 			{
 				waitpid(l_pid, &status, 0);
@@ -68,7 +74,7 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 			close(fds[0]);
 			dup2(fds[1], STDOUT_FILENO);
 			close(fds[1]);
-			lets_execute(tree->left, env, is_single_cmd);
+			lets_execute(tree->left, my_env, is_single_cmd);
 			exit(0);
 		}
 		
@@ -78,7 +84,7 @@ void	lets_execute(t_tree *tree, char **env, int is_single_cmd)
 			close(fds[1]);
 			dup2(fds[0], STDIN_FILENO);
 			close(fds[0]);
-			lets_execute(tree->right, env, is_single_cmd);
+			lets_execute(tree->right, my_env, is_single_cmd);
 			exit(0);
 		}
 		close(fds[0]);
