@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 21:20:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:02:39 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_redir_list	*cr_redir_list_node(char *file_name, t_special_char type)
 	t_redir_list	*new_redir_list;
 
 	new_redir_list = malloc(sizeof(t_redir_list));
-	if (new_redir_list)
+	if (!new_redir_list)
 	{
 		perror("Allocation Error");
 		exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/11 21:10:17 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:12:33 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		ft_strcmp(char *s, char *limiter);
 void	free_arr(char **arr);
 void	free_tokens(t_token **tokens_head);
 void	free_tree(t_tree **tree);
+void	free_my_env(t_my_env **my_env_head);
 
 //built_ins
 int		is_built_in(t_tree *tree);

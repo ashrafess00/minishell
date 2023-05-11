@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:58:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 20:18:04 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:10:50 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	free_tokens(t_token **tokens_head)
 		(*tokens_head) = NULL;
 	}
 }
+
 
 void	free_redir_list(t_redir_list **redir_list_head)
 {
@@ -74,5 +75,21 @@ void	free_tree(t_tree **tree)
 		free_tree(&(*tree)->left);
 		free_tree(&(*tree)->right);
 		free(*tree);
+	}
+}
+
+void	free_my_env(t_my_env **my_env_head)
+{
+	t_my_env	*current;
+	t_my_env	*next;
+	
+	current = (*my_env_head);
+	while (current)
+	{
+		free(current->val);
+		next = current->next;
+		free(current);
+		current = next;
+		(*my_env_head) = NULL;
 	}
 }

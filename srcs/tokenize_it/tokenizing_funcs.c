@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 22:17:42 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:19:26 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_token	*lets_tokenize(char *line)
 
 	head = NULL;
 	fill_token_info_norm(&token_info_norm);
-	
+	int	special_char_found;
 	while (line[++token_info_norm.i])
 	{
 		token_info_norm.br = 0;
@@ -68,9 +68,11 @@ t_token	*lets_tokenize(char *line)
 			line[token_info_norm.i])
 			token_info_norm.i++;
 		token_info_norm.s_index = token_info_norm.i;
+		special_char_found = 0;
 		while (line[token_info_norm.i])
 		{
-			if (is_special_char(&head, line, &token_info_norm))
+			special_char_found = is_special_char(&head, line, &token_info_norm);
+			if (special_char_found)
 				break;
 			if (line[token_info_norm.i] == ' ' && token_info_norm.quote_stat == CLOSED_QUOTE)
 				break;
@@ -78,7 +80,7 @@ t_token	*lets_tokenize(char *line)
 			token_info_norm.i++;
 			token_info_norm.size++;
 		}
-		if (!token_info_norm.br)
+		if (!special_char_found)
 			add_token(&head, ft_substr(ft_strdup(line), token_info_norm.s_index, token_info_norm.size), NORMAL);
 		if (!line[token_info_norm.i])
 			break ;
