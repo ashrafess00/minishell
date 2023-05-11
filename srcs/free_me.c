@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:58:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 17:57:34 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:18:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void	free_tree(t_tree **tree)
 	{
 		free_tree(&(*tree)->left);
 		free_tree(&(*tree)->right);
+		free(*tree);
 	}
 }

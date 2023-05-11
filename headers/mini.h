@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/10 17:00:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:36:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ typedef struct s_tree
 	struct s_tree	*right;
 }	t_tree;
 
+typedef struct	s_my_env
+{
+	char			*val;
+	struct s_my_env	*next;
+}	t_my_env;
 
 //tokenization
 void	add_token(t_token **head, char *s, int s_index, int size, t_special_char type);
@@ -123,7 +128,7 @@ int	check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *token
 
 
 //===execution===
-void	lets_execute(t_tree *tree, char **env, int is_single_cmd);
+void	lets_execute(t_tree *tree, t_my_env **env, int is_single_cmd);
 void	redirect_it(t_tree *tree, int redirect);
 //path
 char	*get_path(char *program, char **paths);
@@ -142,6 +147,7 @@ int	open_infile(char *file);
 //print_linked_lists
 void	print_tokens(t_token *head);
 void	print_my_tree(t_tree *tree);
+void	print_envs(t_my_env *my_env);
 
 //utils
 int		ft_strcmp(char *s, char *limiter);
@@ -153,16 +159,18 @@ void	free_tree(t_tree **tree);
 
 //built_ins
 int		is_built_in(t_tree *tree);
-void	call_built_in(t_tree *tree, char **env);
+void	call_built_in(t_tree *tree, t_my_env **my_env);
 void	my_cd(t_tree *tree);
 void	my_echo(t_tree *tree);
 void	my_exit(t_tree *tree);
-void	my_export(t_tree *tree, char **env);
+void	my_export(t_tree *tree, t_my_env **my_env);
 void	my_unset(t_tree *tree, char **env);
 void	my_pwd(t_tree *tree);
 
-
-
+//manage envs
+char	**from_lk_to_arr(t_my_env **my_env);
+void	copy_env(t_my_env **head, char **env);
+void	add_my_env_node(t_my_env **head, char *env);
 
 #endif
 
