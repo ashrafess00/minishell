@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 22:19:26 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:51:08 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ void	fill_token_info_norm(t_token_info_norm	*token_info_norm)
 	token_info_norm->s_index = 0;
 }
 
+void	skip_spaces(char *line, t_token_info_norm *token_info_norm)
+{
+	while(line[token_info_norm->i] == ' ' && \
+			token_info_norm->quote_stat == CLOSED_QUOTE && \
+			line[token_info_norm->i])
+			token_info_norm->i++;
+}
 t_token	*lets_tokenize(char *line)
 {
 	t_token			*head;
@@ -61,20 +68,16 @@ t_token	*lets_tokenize(char *line)
 	int	special_char_found;
 	while (line[++token_info_norm.i])
 	{
-		token_info_norm.br = 0;
 		token_info_norm.size = 0;
-		while(line[token_info_norm.i] == ' ' && \
-			token_info_norm.quote_stat == CLOSED_QUOTE && \
-			line[token_info_norm.i])
-			token_info_norm.i++;
+		skip_spaces(line, &token_info_norm);
 		token_info_norm.s_index = token_info_norm.i;
 		special_char_found = 0;
 		while (line[token_info_norm.i])
 		{
 			special_char_found = is_special_char(&head, line, &token_info_norm);
-			if (special_char_found)
-				break;
-			if (line[token_info_norm.i] == ' ' && token_info_norm.quote_stat == CLOSED_QUOTE)
+			// if (special_char_found)
+			// 	break;
+			if (special_char_found || (line[token_info_norm.i] == ' ' && token_info_norm.quote_stat == CLOSED_QUOTE))
 				break;
 			change_quote_stat(&token_info_norm, line);
 			token_info_norm.i++;
