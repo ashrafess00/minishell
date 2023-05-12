@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_envs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:02:45 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 17:44:54 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:49:39 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_my_env	*cr_my_env(char *env)
 {
 	t_my_env	*my_env;
-
 	my_env = malloc(sizeof(t_my_env));
 	my_env->val = ft_strdup(env);
 	my_env->next = NULL;
