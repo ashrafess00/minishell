@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/12 13:39:15 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:26:13 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define PERMISSION_MSG ": permission denied"
 # define FILE_NOT_FOUND_MSG ": No such file or directory"
 # define COMMAND_NOT_FOUND ": command not found"
+# define IS_A_DIRECTORY ": is a directory"
 # define STATUS_1 1
 # define STATUS_126 126
 # define STATUS_127 127
@@ -57,7 +58,7 @@ typedef enum e_quotes
 }	t_quotes;
 
 // structs
-typedef struct s_token_info_norm
+typedef struct s_tin
 {
 	int			i;
 	int			line;
@@ -65,7 +66,7 @@ typedef struct s_token_info_norm
 	t_quotes	quote_stat;
 	int			s_index;
 	int			size;
-}	t_token_info_norm;
+}	t_tin;
 
 typedef struct s_token
 {
@@ -124,11 +125,11 @@ char	**expand_arr(char **arr, char *val);
 char	*get_input_from_usr(char *limiter);
 
 
-int		check_add_pipe_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int		check_add_heredoc_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int		check_add_red_append_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int		check_add_red_out_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
-int		check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
+int		check_add_pipe_token(t_token **head, char *line, t_tin *tin);
+int		check_add_heredoc_token(t_token **head, char *line, t_tin *tin);
+int		check_add_red_append_token(t_token **head, char *line, t_tin *tin);
+int		check_add_red_out_token(t_token **head, char *line, t_tin *tin);
+int		check_add_red_inp_token(t_token **head, char *line, t_tin *tin);
 
 
 //===execution===

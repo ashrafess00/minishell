@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/09 22:30:25 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:07:56 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	write_error(char *file1, char *msg, int exit_status)
 	exit(exit_status);
 }
 
+
 char	*get_path(char *program, char **paths)
 {
 	int		i;
@@ -40,7 +41,7 @@ char	*get_path(char *program, char **paths)
 	// if (!access(program, F_OK | X_OK | R_OK))
 	// 	return (program);
 	// if (program[0] == '/' && access(program, F_OK))
-	// 	write_error(program, COMMAND_NOT_FOUND, STATUS_127);
+	// 	write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
 	if (!paths)
 		write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
 	while (paths[++i])

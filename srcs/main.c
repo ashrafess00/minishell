@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/12 14:34:09 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:24:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int main(int c, char **arg, char **env)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
+		print_tokens(tokens);
+		continue;
 		if (!check_tokens(tokens))
 		{
 			printf("Syntax Error !!\n");
@@ -92,7 +94,7 @@ int main(int c, char **arg, char **env)
 		tree = lets_parse(&tokens);
 		free_tokens(&tokens);
 		lets_execute(tree, &my_env, is_single_cmd(tree), &exit_code);
-		// printf("exit code : %d\n", exit_code);
+		printf("exit code : %d\n", exit_code);
 		free_tree(&tree);
 	}
 	free_my_env(&my_env);
