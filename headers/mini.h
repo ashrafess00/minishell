@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/12 15:26:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 22:30:43 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ void	close_fds_from_parent(int *fds, int fds_count, int fd_i);
 int	open_outfile(char *file);
 int	open_outfile_append(char *file);
 int	open_infile(char *file);
+//export 
+char **exp_no_opt(char **env);
+char **my_env_to_array(t_my_env **my_env);
 
 //print_linked_lists
 void	print_tokens(t_token *head);

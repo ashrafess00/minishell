@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:26:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:38:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void	skip_spaces(char *line, t_tin *tin)
 			tin->quote_stat == CLOSED_QUOTE && \
 			line[tin->i])
 			tin->i++;
+	tin->s_index = tin->i;
+	// special_char_found = 0;
 }
+
 t_token	*lets_tokenize(char *line)
 {
 	t_token				*head;
-	t_tin	tin;
+	t_tin				tin;
 	int					special_char_found;
 
 	head = NULL;
@@ -72,7 +75,7 @@ t_token	*lets_tokenize(char *line)
 	{
 		tin.size = 0;
 		skip_spaces(line, &tin);
-		tin.s_index = tin.i;
+		// tin.s_index = tin.i;
 		special_char_found = 0;
 		while (line[tin.i])
 		{

@@ -6,23 +6,12 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:12:39 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:34:17 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-int	is_a_directory(char *program, char **paths)
-{
-	int	i;
 
-	i = -1;
-	while (paths[++i])
-	{
-		if (!ft_strcmp(program, paths[i]))
-			return (1);
-	}
-	return (0);
-}
 void	run_cmd(t_tree *tree, t_my_env **my_env)
 {
 	char	*path;
@@ -37,8 +26,6 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 		redirect_it(tree, 0);
 	env = from_lk_to_arr(my_env);
 	paths = get_path_from_env(env);
-	if (is_a_directory(tree->cmd_node->args[0], paths))
-		write_error(tree->cmd_node->args[0], IS_A_DIRECTORY, 126);
 	if (!*tree->cmd_node->args)
 		exit(0) ;
 	path = get_path(tree->cmd_node->args[0], paths);

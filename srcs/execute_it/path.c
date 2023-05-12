@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:07:56 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:34:33 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	write_error(char *file1, char *msg, int exit_status)
 	exit(exit_status);
 }
 
+int	is_a_directory(char *program, char **paths)
+{
+	int	i;
+
+	i = -1;
+	while (paths[++i])
+	{
+		if (!ft_strcmp(program, paths[i]))
+			return (1);
+	}
+	return (0);
+}
 
 char	*get_path(char *program, char **paths)
 {
@@ -44,6 +56,8 @@ char	*get_path(char *program, char **paths)
 	// 	write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
 	if (!paths)
 		write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
+	if (is_a_directory(program, paths))
+		write_error(program, IS_A_DIRECTORY, 126);
 	while (paths[++i])
 	{
 		full_path = ft_strjoin(ft_strdup(paths[i]), ft_strdup("/"));
