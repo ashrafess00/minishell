@@ -3,6 +3,7 @@
         "stat.h": "c",
         "test_header.h": "c",
         "KK.C": "cpp",
-        "mini.h": "c"
+        "mini.h": "c",
+        "__node_handle": "c"
     }
 }
