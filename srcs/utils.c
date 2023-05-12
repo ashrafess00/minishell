@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/10 16:58:43 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:26:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,23 @@ int	ft_strcmp(char *s, char *limiter)
 	return (0);
 }
 
+char	*get_input_from_usr(char *limiter)
+{
+	char	*input;
+	char	*s;
+
+	input = ft_calloc(1, 1);
+	while (1)
+	{
+		ft_printf("> ");
+		s = get_next_line(0);
+		if (!s)
+			break ;
+		if (!ft_strcmp(s, limiter))
+			break ;
+		input = ft_strjoin(input, s);
+			
+	}
+	free(s);
+	return (input);
+}

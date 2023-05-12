@@ -6,12 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/03 18:35:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:41:19 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "mini.h"
 
 int stln(char **nature, int i)
 {
@@ -56,40 +55,32 @@ int strlne(char *line)
 		i++;
 	return(i);
 }
-char **our_realloc(char **arr, char *new)
+
+char	**expand_arr(char **arr, char *val)
 {
-	int i = 0;
-	int l = 0;
-	int j = 0;
-	int q;
-	char **new_arr;
-	while(arr[i] != '\0')
-		i++;
-	q = i;
-	i += 1;
-	new_arr = malloc(i * sizeof(char **));
+	int		i;
+	char	**new_expanded_arr;
+
 	i = 0;
-	while(i < q)
+	if (!arr)
 	{
-		l = stln(arr, i) + 1;
-		new_arr[i] = malloc(l * sizeof (char *));
-		while(arr[i][j] != '\0')
-		{
-			new_arr[i][j] = arr[i][j];
-			j++;
-		}
-		new_arr[i][j] = '\0';
-		j = 0;
+		new_expanded_arr = ft_calloc(2, sizeof(char *));
+		new_expanded_arr[0] = ft_strdup(val);
+		return (new_expanded_arr);
+	}
+	while(arr[i])
+		i++;
+	i += 2;
+	new_expanded_arr = malloc(i * sizeof(char *));
+	i = 0;
+	while(arr[i])
+	{
+		new_expanded_arr[i] = ft_strdup(arr[i]);
 		i++;
 	}
-	l = strlne(new);
-	j = 0;
-	new_arr[i] = malloc(l * sizeof (char *));
-	while(new[j] != '\0')
-	{
-		new_arr[i][j] = new[j];
-		j++;
-	}
-	new_arr[i][j] = '\0';
-	return(new_arr);
+	new_expanded_arr[i] = ft_strdup(val);
+	i++;
+	new_expanded_arr[i] = NULL;
+	free(arr);
+	return(new_expanded_arr);
 }

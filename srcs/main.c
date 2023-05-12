@@ -6,11 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/11 23:13:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:34:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+int	exit_code = 0;
 
 int	check_tokens(t_token *tokens)
 {
@@ -54,13 +56,12 @@ char	*get_folder()
 
 int main(int c, char **arg, char **env)
 {
-	t_token	*tokens;
-	char	*input;
-	char	**new_env;
-	t_tree	*tree;
-	int		command_count;
-	char	*our_shell;
+	t_token		*tokens;
+	t_tree		*tree;
+	char		*input;
+	char		*our_shell;
 	t_my_env	*my_env;
+	
 
 	my_env = NULL;
 	copy_env(&my_env, env);
@@ -90,7 +91,8 @@ int main(int c, char **arg, char **env)
 		}
 		tree = lets_parse(&tokens);
 		free_tokens(&tokens);
-		lets_execute(tree, &my_env, is_single_cmd(tree));
+		lets_execute(tree, &my_env, is_single_cmd(tree), &exit_code);
+		// printf("exit code : %d\n", exit_code);
 		free_tree(&tree);
 	}
 	free_my_env(&my_env);

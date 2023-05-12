@@ -6,19 +6,25 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 17:45:14 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:40:16 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	my_echo(t_tree *tree)
+void	my_echo(t_tree *tree, int *exit_code)
 {
 	int	i;
 	int	pid;
+	int	status;
 
 	i = 1;
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("Fork Error");
+		*exit_code = 1;
+	}
 	if (pid == 0)
 	{
 		redirect_it (tree, 1);
@@ -38,10 +44,11 @@ void	my_echo(t_tree *tree)
 			printf("\n");
 		exit(0);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	*exit_code = WEXITSTATUS(status);
 }
 
-void	my_cd(t_tree *tree)
+void	my_cd(t_tree *tree, int *exit_code)
 {
 	redirect_it(tree, 0);
 	if (!tree->cmd_node->args[1])
@@ -50,7 +57,10 @@ void	my_cd(t_tree *tree)
 	{
 		write(2, "our@shell: cd: ", 11);
 		perror(tree->cmd_node->args[1]);
+		*exit_code = 1;
+		return ;
 	}
+	*exit_code = 0;
 }
 
 void	my_exit(t_tree *tree)
@@ -59,10 +69,11 @@ void	my_exit(t_tree *tree)
 	exit(0);
 }
 
-void	my_pwd(t_tree *tree)
+void	my_pwd(t_tree *tree, int *exit_code)
 {
 	char	cwd[512];
 	int		pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -72,7 +83,8 @@ void	my_pwd(t_tree *tree)
 		printf("%s\n", cwd);
 		exit(0);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	*exit_code = WEXITSTATUS(status);
 }
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
@@ -90,16 +102,16 @@ void	my_unset(t_tree *tree, char **env)
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
 
-void	call_built_in(t_tree *tree, t_my_env **my_env)
+void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 {
 	if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
-		my_echo(tree);
+		my_echo(tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
-		my_cd (tree);
+		my_cd (tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "exit"))
 		my_exit (tree);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
-		my_pwd (tree);
+		my_pwd (tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
 		my_export (tree, my_env);
 	// else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))

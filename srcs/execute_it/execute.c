@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 17:29:03 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:10:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,19 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	}
 }
 
-void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd)
+void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd, int *exit_code)
 {
 	int		fds[2];
 	int		l_pid;
 	int		r_pid;
 	int		status;
 
-	// print_envs(*my_env);
-	// printf("%s\n", (*my_env)->val);
-	// return ;
+	*exit_code = 1420;
 
 	if (tree->type == CMD_NODE)
 	{
 		if(is_built_in(tree))
-			call_built_in(tree, my_env);
+			call_built_in(tree, my_env, exit_code);
 		else if (!is_single_cmd)
 			run_cmd(tree, my_env);
 		else
@@ -61,7 +59,8 @@ void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd)
 			else
 			{
 				waitpid(l_pid, &status, 0);
-				// printf("exited code %d\n", WEXITSTATUS(status));
+				// printf("exited code aa %d\n", WEXITSTATUS(status));
+				*exit_code = WEXITSTATUS(status);
 			}
 		}
 	}
@@ -74,7 +73,7 @@ void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd)
 			close(fds[0]);
 			dup2(fds[1], STDOUT_FILENO);
 			close(fds[1]);
-			lets_execute(tree->left, my_env, is_single_cmd);
+			lets_execute(tree->left, my_env, is_single_cmd, exit_code);
 			exit(0);
 		}
 		
@@ -84,12 +83,14 @@ void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd)
 			close(fds[1]);
 			dup2(fds[0], STDIN_FILENO);
 			close(fds[0]);
-			lets_execute(tree->right, my_env, is_single_cmd);
+			lets_execute(tree->right, my_env, is_single_cmd, exit_code);
 			exit(0);
 		}
 		close(fds[0]);
 		close(fds[1]);
 		waitpid(l_pid, &status, 0);
 		waitpid(r_pid, &status, 0);
+		// printf("exited code po %d\n", WEXITSTATUS(status));
+		*exit_code = WEXITSTATUS(status);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/11 23:12:33 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:39:15 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,16 @@ t_token	*lets_tokenize(char *line);
 char 	*closeDOUBLE_QUOTE(char *line);
 
 //parsing
-// t_tree	*lets_parse(t_token **tokens);
 t_tree	*lets_parse(t_token **tokens);
+t_tree	*cr_tree();
+t_cmd	*cr_cmd();
+t_cmd	*cr_cmd_node(t_token **tokens);
 
 //utils
 char	**my_env(char **nature);
 int		stln(char **nature, int i);
-char	**our_realloc(char **arr, char *new);
+char	**expand_arr(char **arr, char *val);
+char	*get_input_from_usr(char *limiter);
 
 
 int		check_add_pipe_token(t_token **head, char *line, t_token_info_norm *token_info_norm);
@@ -129,7 +132,7 @@ int		check_add_red_inp_token(t_token **head, char *line, t_token_info_norm *toke
 
 
 //===execution===
-void	lets_execute(t_tree *tree, t_my_env **env, int is_single_cmd);
+void	lets_execute(t_tree *tree, t_my_env **env, int is_single_cmd, int *exit_code);
 void	redirect_it(t_tree *tree, int redirect);
 //path
 char	*get_path(char *program, char **paths);
@@ -161,13 +164,15 @@ void	free_my_env(t_my_env **my_env_head);
 
 //built_ins
 int		is_built_in(t_tree *tree);
-void	call_built_in(t_tree *tree, t_my_env **my_env);
-void	my_cd(t_tree *tree);
-void	my_echo(t_tree *tree);
+// void	call_built_in(t_tree *tree, t_my_env **my_env);
+void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
+// void	my_cd(t_tree *tree);
+// void	my_echo(t_tree *tree);
+void	my_echo(t_tree *tree, int *exit_code);
 void	my_exit(t_tree *tree);
 void	my_export(t_tree *tree, t_my_env **my_env);
 void	my_unset(t_tree *tree, char **env);
-void	my_pwd(t_tree *tree);
+void	my_pwd(t_tree *tree, int *exit_code);
 
 //manage envs
 char	**from_lk_to_arr(t_my_env **my_env);
