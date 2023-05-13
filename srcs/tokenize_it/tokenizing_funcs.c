@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:38:04 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:08:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	skip_spaces(char *line, t_tin *tin)
 	tin->s_index = tin->i;
 	// special_char_found = 0;
 }
+
 
 t_token	*lets_tokenize(char *line)
 {

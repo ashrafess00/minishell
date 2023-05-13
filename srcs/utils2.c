@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/12 12:41:19 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:13:31 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ char	**expand_arr(char **arr, char *val)
 	new_expanded_arr[i] = ft_strdup(val);
 	i++;
 	new_expanded_arr[i] = NULL;
-	free(arr);
+	free_arr(arr);
 	return(new_expanded_arr);
 }
