@@ -6,7 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/14 13:43:49 by aessaoud         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/14 14:22:57 by aessaoud         ###   ########.fr       */
+>>>>>>> ash_dev
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +33,10 @@ void	my_echo(t_tree *tree, int *exit_code)
 	{
 		redirect_it (tree, 1);
 		if (!tree->cmd_node->args[1])
-			exit(0) ;
+		{
+			printf("\n");
+			exit(0);
+		}
 		while (!ft_strcmp(tree->cmd_node->args[i], "-n"))
 			i++;
 		i--;
