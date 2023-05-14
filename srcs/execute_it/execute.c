@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:34:17 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:43:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	char	**env;
 
 	if (*tree->cmd_node->args)
-		redirect_it(tree, 1);
+		redirect_it(tree, REDIRECT);
 	else
-		redirect_it(tree, 0);
+		redirect_it(tree, DONT_REDIRECT);
 	env = from_lk_to_arr(my_env);
 	paths = get_path_from_env(env);
 	if (!*tree->cmd_node->args)

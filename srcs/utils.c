@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 12:26:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:55:31 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,28 @@ char	*get_input_from_usr(char *limiter)
 	}
 	free(s);
 	return (input);
+}
+
+char	*get_cdir(int exit_code)
+{
+	char	s[100];
+	int		i;
+	int		l_i;
+	char	*our_shell;
+
+	getcwd(s, sizeof(s));
+	i = -1;
+	l_i = 0;
+	while (s[++i])
+	{
+		if (s[i] == '/')
+			l_i = i;
+	}
+	our_shell = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
+	if (!exit_code)
+		our_shell = ft_strjoin(our_shell, ft_strdup(")😋~> \e[0;37m"));
+	else
+		our_shell = ft_strjoin(our_shell, ft_strdup(")😿~> \e[0;37m"));
+	our_shell = ft_strjoin(ft_strdup("\e[0;31m/our@shell~:"), our_shell);
+	return (our_shell);
 }
