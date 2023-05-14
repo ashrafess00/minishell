@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/13 20:13:53 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:33:10 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,6 @@ int	is_single_cmd(t_tree *tree)
 		return (1);
 }
 
-char	*get_folder()
-{
-	char	s[100];
-	int		i;
-	int		l_i;
-	char	*our_shell;
-
-	getcwd(s, sizeof(s));
-	i = -1;
-	l_i = 0;
-	while (s[++i])
-	{
-		if (s[i] == '/')
-			l_i = i;
-	}
-	our_shell = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
-	our_shell = ft_strjoin(our_shell, ft_strdup(")🍑~> \e[0;37m"));
-	our_shell = ft_strjoin(ft_strdup("\e[0;31m/our@shell~:"), our_shell);
-	return (our_shell);
-}
-
 int main(int c, char **arg, char **env)
 {
 	t_token		*tokens;
@@ -67,13 +46,14 @@ int main(int c, char **arg, char **env)
 	copy_env(&my_env, env);
 	while(1)
 	{
-		our_shell = get_folder();
+		our_shell = get_cdir(exit_code);
 		input = readline(our_shell);
 		free(our_shell);
 		if(!input)
 		{
 			printf("khrj\n");
-			exit(1);
+			// exit(1);
+			continue;
 		}
 		if (!*input)
 		{

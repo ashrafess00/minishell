@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 22:31:21 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:22:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	my_echo(t_tree *tree, int *exit_code)
 	{
 		redirect_it (tree, 1);
 		if (!tree->cmd_node->args[1])
-			return ;
+		{
+			printf("\n");
+			exit(0);
+		}
 		while (!ft_strcmp(tree->cmd_node->args[i], "-n"))
 			i++;
 		i--;
@@ -50,7 +53,7 @@ void	my_echo(t_tree *tree, int *exit_code)
 
 void	my_cd(t_tree *tree, int *exit_code)
 {
-	redirect_it(tree, 0);
+	redirect_it(tree, DONT_REDIRECT);
 	if (!tree->cmd_node->args[1])
 		return ;
 	if (chdir(tree->cmd_node->args[1]))
@@ -65,7 +68,7 @@ void	my_cd(t_tree *tree, int *exit_code)
 
 void	my_exit(t_tree *tree)
 {
-	redirect_it(tree, 0);
+	redirect_it(tree, DONT_REDIRECT);
 	exit(0);
 }
 
@@ -78,7 +81,7 @@ void	my_pwd(t_tree *tree, int *exit_code)
 	pid = fork();
 	if (pid == 0)
 	{
-		redirect_it(tree, 1);
+		redirect_it(tree, REDIRECT);
 		getcwd(cwd, sizeof(cwd));
 		printf("%s\n", cwd);
 		exit(0);

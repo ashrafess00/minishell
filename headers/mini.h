@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/12 22:30:43 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:44:13 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 # define STATUS_1 1
 # define STATUS_126 126
 # define STATUS_127 127
-
+# define REDIRECT 1
+# define DONT_REDIRECT 0
 //enums
 typedef enum e_tree_type
 {
@@ -123,6 +124,7 @@ char	**my_env(char **nature);
 int		stln(char **nature, int i);
 char	**expand_arr(char **arr, char *val);
 char	*get_input_from_usr(char *limiter);
+char	*get_cdir(int exit_code);
 
 
 int		check_add_pipe_token(t_token **head, char *line, t_tin *tin);
