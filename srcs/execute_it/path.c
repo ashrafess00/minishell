@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:34:33 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:47:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ char	*get_path(char *program, char **paths)
 	char	*full_path;
 
 	i = -1;
-	if (!program || !*paths)
-		return (0);
-	// if (!access(program, F_OK) && access(program, X_OK | R_OK))
-	// 	write_error(program, PERMISSION_MSG, STATUS_126);
-	// if (!access(program, F_OK | X_OK | R_OK))
-	// 	return (program);
-	// if (program[0] == '/' && access(program, F_OK))
-	// 	write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
 	if (!paths)
 		write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
 	if (is_a_directory(program, paths))
@@ -68,8 +60,6 @@ char	*get_path(char *program, char **paths)
 	}
 	if (!access(program, F_OK | X_OK | R_OK))
 		return (program);
-	// if (program[0] == '/' && access(program, F_OK))
-	// 	write_error(program, COMMAND_NOT_FOUND, STATUS_127);
 	if (!access(program, F_OK) && access(program, X_OK | R_OK))
 		write_error(program, PERMISSION_MSG, STATUS_126);
 	write_error(program, COMMAND_NOT_FOUND, STATUS_127);

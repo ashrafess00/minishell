@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/14 13:33:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:32:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,21 @@ int	is_single_cmd(t_tree *tree)
 		return (1);
 }
 
+int	is_empty(char *input)
+{
+	int	i;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] != ' ' && input[i] != '\n'
+				&& input[i] != '\t' && input[i] != '\f' 
+				&& input[i] != '\v' && input[i] != '\r')
+			return (0);
+	}
+	return(1);
+}
+
 int main(int c, char **arg, char **env)
 {
 	t_token		*tokens;
@@ -52,10 +67,10 @@ int main(int c, char **arg, char **env)
 		if(!input)
 		{
 			printf("khrj\n");
-			// exit(1);
-			continue;
+			exit(1);
+			// continue;
 		}
-		if (!*input)
+		if (is_empty(input))
 		{
 			free(input);
 			continue;
@@ -64,7 +79,7 @@ int main(int c, char **arg, char **env)
 			add_history(input);
 		input = ft_strtrim(input, " ");
 		tokens = lets_tokenize(input);
-		// print_tokens(tokens);
+		enter_a_pipe(&tokens);
 		if (!check_tokens(tokens))
 		{
 			printf("Syntax Error !!\n");
@@ -73,7 +88,6 @@ int main(int c, char **arg, char **env)
 		tree = lets_parse(&tokens);
 		free_tokens(&tokens);
 		lets_execute(tree, &my_env, is_single_cmd(tree), &exit_code);
-		// printf("exit code : %d\n", exit_code);
 		free_tree(&tree);
 	}
 	free_my_env(&my_env);
