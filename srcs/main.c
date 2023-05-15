@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/15 15:27:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:34:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	is_empty(char *input)
 	return(1);
 }
 
-
 int main(int c, char **arg, char **env)
 {
 	t_token		*tokens;
@@ -69,6 +68,7 @@ int main(int c, char **arg, char **env)
 		{
 			printf("khrj\n");
 			exit(1);
+			// continue;
 		}
 		if (is_empty(input))
 		{

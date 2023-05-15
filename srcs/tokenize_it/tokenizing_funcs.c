@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 14:11:58 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:32:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,25 @@ void	skip_spaces(char *line, t_tin *tin)
 	// special_char_found = 0;
 }
 
+void	enter_a_pipe(t_token **tokens)
+{
+	char	*line;
+	t_token	*tmp;
+	
+	tmp = (*tokens);
+	while (1)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		if (tmp->type == PIPE)
+		{
+			line = readline("pipe> ");
+			tmp->next = lets_tokenize(line);
+		}
+		else
+			return ;
+	}
+}
 
 t_token	*lets_tokenize(char *line)
 {
@@ -77,7 +96,6 @@ t_token	*lets_tokenize(char *line)
 	{
 		tin.size = 0;
 		skip_spaces(line, &tin);
-		
 		special_char_found = 0;
 		while (line[tin.i])
 		{
@@ -93,6 +111,7 @@ t_token	*lets_tokenize(char *line)
 			break ;
 	}
 	free(line);
+	enter_a_pipe(&head);
 	return (head);
 }
 
