@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:55 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 12:26:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:16:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,7 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 	
 }
 
-void	enter_a_pipe(t_tree **tree)
-{
-	char	*line;
-	t_token	*token;
 
-	line = readline("pipe>");
-	token = lets_tokenize(line);
-	cr_and_expand_tree(tree, &token);
-	free_tokens(&token);
-}
 
 t_tree	*lets_parse(t_token **tokens)
 {
@@ -71,8 +62,6 @@ t_tree	*lets_parse(t_token **tokens)
 	while (tmp)
 	{
 		cr_and_expand_tree(&tree, &tmp);
-		if (tmp && tmp->type == PIPE && !tmp->next)
-			enter_a_pipe(&tree);
 		if (tmp)
 			tmp = tmp->next;
 	}

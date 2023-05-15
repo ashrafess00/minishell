@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/14 13:44:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:27:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,6 @@ void	redirect_it(t_tree *tree, int redirect);
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
 void	write_error(char *file1, char *msg, int exit_status);
-
-//close_fds
-void	close_fds(int fds[8], int fds_count, ...);
-void	close_fds_from_parent(int *fds, int fds_count, int fd_i);
 
 //open files
 int	open_outfile(char *file);

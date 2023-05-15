@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 23:15:50 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/13 20:08:30 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:11:58 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,19 @@ t_token	*lets_tokenize(char *line)
 	t_tin				tin;
 	int					special_char_found;
 
+	
 	head = NULL;
 	fill_tin(&tin);
 	while (line[++tin.i])
 	{
 		tin.size = 0;
 		skip_spaces(line, &tin);
-		// tin.s_index = tin.i;
+		
 		special_char_found = 0;
 		while (line[tin.i])
 		{
 			special_char_found = is_special_char(&head, line, &tin);
+			
 			if (special_char_found || (line[tin.i] == ' ' && tin.quote_stat == CLOSED_QUOTE))
 				break;
 			change_quote_stat(&tin, line);
