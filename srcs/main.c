@@ -6,56 +6,49 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/15 15:34:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:03:01 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	exit_code = 0;
-
-int	check_tokens(t_token *tokens)
+int	is_valid_input(char *input)
 {
-	while (tokens)
+	if(!input)
 	{
-		if (!tokens->s)
-			return (0);
-		tokens = tokens->next;
+		printf("khrj\n");
+		exit(1);
 	}
+	if (is_empty(input))
+		return (0);
 	return (1);
 }
 
-int	is_single_cmd(t_tree *tree)
+void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 {
-	if (tree->type == PIPE_NODE)
-		return (0);
-	else
-		return (1);
-}
+	t_token		*tokens;
+	t_tree		*tree;
 
-int	is_empty(char *input)
-{
-	int	i;
-
-	i = -1;
-	while (input[++i])
-	{
-		if (input[i] != ' ' && input[i] != '\n'
-				&& input[i] != '\t' && input[i] != '\f' 
-				&& input[i] != '\v' && input[i] != '\r')
-			return (0);
-	}
-	return(1);
+	if(ft_strlen(input) > 0)
+			add_history(input);
+	input = ft_strtrim(input, " ");
+	tokens = lets_tokenize(input);
+	print_tokens(tokens);
+	return ;
+	if (!check_tokens(tokens))
+		return ;
+	tree = lets_parse(&tokens);
+	free_tokens(&tokens);
+	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
+	free_tree(&tree);
 }
 
 int main(int c, char **arg, char **env)
 {
-	t_token		*tokens;
-	t_tree		*tree;
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	
+	static int	exit_code;
 
 	my_env = NULL;
 	copy_env(&my_env, env);
@@ -64,30 +57,13 @@ int main(int c, char **arg, char **env)
 		our_shell = get_cdir(exit_code);
 		input = readline(our_shell);
 		free(our_shell);
-		if(!input)
-		{
-			printf("khrj\n");
-			exit(1);
-			// continue;
-		}
-		if (is_empty(input))
+		if (!is_valid_input(input))
 		{
 			free(input);
-			continue;
+			continue ;
 		}
-		if(ft_strlen(input) > 0)
-			add_history(input);
-		input = ft_strtrim(input, " ");
-		tokens = lets_tokenize(input);
-		if (!check_tokens(tokens))
-		{
-			printf("Syntax Error !!\n");
-			continue;
-		}
-		tree = lets_parse(&tokens);
-		free_tokens(&tokens);
-		lets_execute(tree, &my_env, is_single_cmd(tree), &exit_code);
-		free_tree(&tree);
+		tokenize_parse_execute(input, &my_env, &exit_code);
+		free(input);
 	}
 	free_my_env(&my_env);
 	return(0);

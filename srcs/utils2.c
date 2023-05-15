@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/13 20:13:31 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:45:11 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int stln(char **nature, int i)
 {
 	int j = 0;
-	while(nature[i][j] != '\0')
+	while (nature[i][j] != '\0')
 		j++;
 	return(j);
 }

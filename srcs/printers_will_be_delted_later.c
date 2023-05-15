@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   printers_will_be_delted_later.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/11 22:22:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:04:29 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	print_tokens(t_token *head)
 	while (head)
 	{
 		printf("arg : %-10s", head->s);
-		if (head->type == NORMAL)
-			printf("TYPE : NORMAL\n");
+		if (head->type == WORD)
+			printf("TYPE : WORD\n");
 		if (head->type == ENV)
 			printf("TYPE : ENV\n");
 		if (head->type == RED_INPUT)

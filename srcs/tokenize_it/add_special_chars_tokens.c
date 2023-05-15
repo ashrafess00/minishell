@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 19:47:49 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/12 15:26:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:09:13 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	check_add_pipe_token(t_token **head, char *line, t_tin *tin)
 	if (tin->quote_stat == CLOSED_QUOTE && line[tin->i] == '|')
 	{
 		token_s = ft_substr(ft_strdup(line) , tin->s_index, tin->size);
-		add_token(head, token_s, NORMAL);
+		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line) , tin->i, 1);
 		add_token(head, token_s_sp, PIPE);
 		tin->br = 1;
+		tin->special_char_found = 1;
 		return (1);
 	}
 	return (0);
@@ -38,11 +39,12 @@ int	check_add_heredoc_token(t_token **head, char *line, t_tin *tin)
 	if (tin->quote_stat == CLOSED_QUOTE && line[tin->i] == '<' && line[tin->i + 1] == '<')
 	{
 		token_s = ft_substr(ft_strdup(line), tin->s_index, tin->size);
-		add_token(head, token_s, NORMAL);
+		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line) , tin->i, 2);
 		add_token(head, token_s_sp, HEREDOC);
 		tin->i += 1;
 		tin->br = 1;
+		tin->special_char_found = 1;
 		return (1);
 	}
 	return (0);
@@ -56,11 +58,12 @@ int	check_add_red_append_token(t_token **head, char *line, t_tin *tin)
 	if (tin->quote_stat == CLOSED_QUOTE && line[tin->i] == '>' && line[tin->i + 1] == '>')
 	{
 		token_s = ft_substr(ft_strdup(line), tin->s_index, tin->size);
-		add_token(head, token_s, NORMAL);
+		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 2);
 		add_token(head, token_s_sp, RED_OUTPUT_APPEND);
 		tin->i += 1;
 		tin->br = 1;
+		tin->special_char_found = 1;
 		return (1);
 	}
 	return (0);
@@ -74,11 +77,12 @@ int	check_add_red_out_token(t_token **head, char *line, t_tin *tin)
 	if (tin->quote_stat == CLOSED_QUOTE && line[tin->i] == '>')
 	{
 		token_s = ft_substr(ft_strdup(line), tin->s_index, tin->size);
-		add_token(head, token_s, NORMAL);
+		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 1);
 
 		add_token(head, token_s_sp, RED_OUTPUT);
 		tin->br = 1;
+		tin->special_char_found = 1;
 		return (1);
 	}
 	return (0);
@@ -92,10 +96,11 @@ int	check_add_red_inp_token(t_token **head, char *line, t_tin *tin)
 	if (tin->quote_stat == CLOSED_QUOTE && line[tin->i] == '<')
 	{
 		token_s = ft_substr(ft_strdup(line), tin->s_index, tin->size);
-		add_token(head, token_s, NORMAL);
+		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 1);
 		add_token(head, token_s_sp, RED_INPUT);
 		tin->br = 1;
+		tin->special_char_found = 1;
 		return (1);
 	}
 	return (0);
