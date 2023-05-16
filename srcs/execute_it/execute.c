@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 13:44:34 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:57:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	if (execve(path, tree->cmd_node->args, env) == -1)
 	{
 		free(path);
-		free(paths);
+		free_arr(paths);
+		free_my_env(my_env);
+		perror("ERROR\n");
 		exit(2);
 	}
 }
@@ -45,7 +47,6 @@ void	lets_execute(t_tree *tree, t_my_env **my_env, int is_single_cmd, int *exit_
 	int		status;
 
 	*exit_code = 1420;
-
 	if (tree->type == CMD_NODE)
 	{
 		if(is_built_in(tree))

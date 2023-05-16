@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/16 12:14:41 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:50:59 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid_input(char *input)
 {
-	if(!input)
+	if (!input)
 	{
 		printf("khrj\n");
 		exit(1);
@@ -39,10 +39,11 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	tree = lets_parse(&tokens);
 	free_tokens(&tokens);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
+	printf("exit code : %d\n", *exit_code);
 	free_tree(&tree);
 }
 
-int main(int c, char **arg, char **env)
+int	main(int c, char **arg, char **env)
 {
 	char		*input;
 	char		*our_shell;
@@ -51,7 +52,7 @@ int main(int c, char **arg, char **env)
 
 	my_env = NULL;
 	copy_env(&my_env, env);
-	while(1)
+	while (1)
 	{
 		our_shell = get_cdir(exit_code);
 		input = readline(our_shell);
@@ -64,5 +65,5 @@ int main(int c, char **arg, char **env)
 		tokenize_parse_execute(input, &my_env, &exit_code);
 	}
 	free_my_env(&my_env);
-	return(0);
+	return (0);
 }

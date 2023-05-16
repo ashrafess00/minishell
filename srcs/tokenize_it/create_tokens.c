@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 13:27:41 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 14:13:47 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:57:36 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@ t_token	*cr_token_node(char *s, t_special_char type)
 	t_token *new_token_node;
 
 	new_token_node = malloc(sizeof(t_token));
-	// new_token_node->s_index = s_index;
-	//---------------------------------------------------------------------------------------
-	new_token_node->s = ft_strdup(s);;
+	new_token_node->s = ft_strdup(s);
 	free(s);
-	// new_token_node->s = closeDOUBLE_QUOTE(new_token_node->s);
-	//fl function dyalk siftliha (ft_substr(s + s_index, 0, size)), substr ghadi tjiblik string kif mma hwwa like ("ec"h"o"), new_dl->s khas ydkhl fiha (echo)
-	//---------------------------------------------------------------------------------------
-	// new_token_node->size = size;
+	new_token_node->s = remove_quotes(new_token_node->s);
 	new_token_node->type = type;
 	new_token_node->next = NULL;
 	return (new_token_node);

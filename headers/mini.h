@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/16 12:26:08 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/16 17:56:39 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum e_tree_type
 	CMD_NODE = 'C',
 	PIPE_NODE = 'P',
 }	t_tree_type;
+
 typedef enum e_special_char
 {
 	WORD = 'a',
@@ -168,7 +169,8 @@ char	*get_input_from_usr(char *limiter);
 char	*get_cdir(int exit_code);
 int		is_empty(char *input);
 int		is_single_cmd(t_tree *tree);
-char 	*closeDOUBLE_QUOTE(char *line);
+// char 	*closeDOUBLE_QUOTE(char *line);
+char	*remove_quotes(char *s);
 
 //free_me
 void	free_arr(char **arr);

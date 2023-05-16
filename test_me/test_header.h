@@ -41,6 +41,12 @@ typedef struct	s_ast_root
 	struct s_tree	*root;
 }	t_ast_root;
 
+typedef enum e_quotes
+{
+	SINGLE_QUOTE = '\'',
+	DOUBLE_QUOTE = '\"',
+	CLOSED_QUOTE,
+}	t_quotes;
 
 t_cmd	*cr_cmd(int a);
 void	add_node(t_cmd **head, int a);

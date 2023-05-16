@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/15 20:45:11 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:58:44 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,60 @@ char	**expand_arr(char **arr, char *val)
 	new_expanded_arr[i] = NULL;
 	free_arr(arr);
 	return(new_expanded_arr);
+}
+
+char	*cr_new_str(char *s, int indexes[2])
+{
+	char	*new_s;
+	int		i;
+	int		new_s_i;
+
+	i = -1;
+	new_s = ft_calloc(ft_strlen(s), sizeof(char));
+	new_s_i = 0;
+	while (s[++i])
+	{
+		if (i != indexes[0] && i != indexes[1])
+		{
+			new_s[new_s_i] = s[i];
+			new_s_i++;
+		}
+	}
+	free(s);
+	return (new_s);
+}
+
+char	*remove_quotes(char *s)
+{
+	int			i;
+	t_quotes	quote_stat;
+	int			indexes[2];
+
+	i = -1;
+	quote_stat = CLOSED_QUOTE;
+	indexes[0] = -1;
+	indexes[1] = -1;
+	while (s[++i])
+	{
+		if ((s[i] == DOUBLE_QUOTE || s[i] == SINGLE_QUOTE) && quote_stat == CLOSED_QUOTE)
+		{
+			indexes[0] = i;
+			quote_stat = s[i];
+		}
+		else if (s[i] == DOUBLE_QUOTE && quote_stat == DOUBLE_QUOTE)
+			indexes[1] = i;
+		else if (s[i] == SINGLE_QUOTE && quote_stat == SINGLE_QUOTE)
+			indexes[1] = i;
+		if (indexes[0] != -1 && indexes[1] != -1)
+		{
+			s = cr_new_str(s, indexes);
+			quote_stat = CLOSED_QUOTE;
+			indexes[0] = -1;
+			indexes[1] = -1;
+			i -= 2;
+		}
+	}
+	if (indexes[0] != -1 && indexes[1] == -1)
+		return (NULL);
+	return (s);
 }
