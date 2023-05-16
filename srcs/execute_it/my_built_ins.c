@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/05/14 13:43:49 by aessaoud         ###   ########.fr       */
-=======
-/*   Updated: 2023/05/14 14:22:57 by aessaoud         ###   ########.fr       */
->>>>>>> ash_dev
+/*   Updated: 2023/05/16 12:17:10 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,49 +120,52 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 	int k = 0;
 	int m = 0;
 	int fl = 0;
-	int plus =0;
+	int si = 0;
+	int ps =0;
 	head = *my_env;
 	tmp = *my_env;
 	while (tmp != NULL)
 	{
 		i = 0;
+		ps = 0;
 		while(tmp->val[i])
 		{
-			k = 0;
-			j = 0;
-			plus =0;
-			m = 0;
+			ps = 0;
 			if(tmp->val[i + 1] == '\0' && tmp->val[i] == ljadid[i])
 			{
 				k = 200;
-				j = 100;
+				free(tmp->val);
+				tmp->val = ft_strdup(ljadid);
+				break;
 			}
 			if(ljadid[i + 1] == '\0' && tmp->val[i] == ljadid[i])
-				return;
-			else if(tmp->val[i] == '=' && ljadid[i - 1] == tmp->val[i - 1])
 			{
-				plus = 0;
-				m = 0;
-				while(plus == 0 && tmp->val[m])
-				{	if(tmp->val[m] == '=')
-						plus++;
-					if(tmp->val[m] != ljadid[m])
-					{
-						m = 100; 
-						break;
-					}
-					m++;
-				}
-				if(m == 100)
+				fl = 0;
+				while(tmp->val[fl] != '=' && si == 0)
 				{
+					if(tmp->val[fl] != ljadid[fl])
+						si = 10;
+					fl++;
+				}
+				if(si != 10)
+					return;
+			}
+			else if(tmp->val[i] == '=')
+			{
+				fl = 0;
+				while(tmp->val[fl] != '=')
+				{
+					if(tmp->val[fl] != ljadid[fl])
+						ps = 10;
+					fl++;
+				}
+				if(ps != 10)
+				{
+					k = 200;
 					free(tmp->val);
 					tmp->val = ft_strdup(ljadid);
 				}
-			}
-			if(j == 100 || fl == 10)
-			{
-				free(tmp->val);
-				tmp->val = ft_strdup(ljadid);
+				break;
 			}
 			i++;
 		}
@@ -174,7 +173,6 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 	}
 	if(k == 200)
 		return;
-	// key not found, add new node to linked list
 	t_my_env *new_node = malloc(sizeof(t_my_env));
 	if (!new_node)
 		exit(1);
@@ -218,10 +216,58 @@ void	my_export(t_tree *tree, t_my_env **my_env)
 		print_envs(*my_env);
 	}
 }
+void deleteNode(t_my_env **my_env, char *key) {
+    t_my_env *tmp;
+    t_my_env *prev = NULL;
+    tmp = *my_env;
 
-void	my_unset(t_tree *tree, char **env)
+    while (tmp != NULL) 
+	{
+        int i = 0;
+        int si = 0;
+        while (tmp->val[i]) 
+		{
+            if (tmp->val[i] == '=') 
+			{
+                int q = 0;
+                while (tmp->val[q] != '=' && si == 0) 
+				{
+                    if (tmp->val[q] != key[q])
+                        si = 10;
+                    q++;
+                }
+                if (si != 10)
+                    break;
+            }
+            i++;
+        }
+        if (si != 10) 
+		{
+            if (prev == NULL) 
+			{
+                *my_env = tmp->next;
+                free(tmp);
+                tmp = *my_env;
+            } 
+			else 
+			{
+                prev->next = tmp->next;
+                free(tmp);
+                tmp = prev->next;
+            }
+        }
+		else 
+		{
+            prev = tmp;
+            tmp = tmp->next;
+		}
+    }
+}
+
+void	my_unset(t_tree *tree, t_my_env **my_env)
 {
-	
+	deleteNode(my_env, tree->cmd_node->args[1]);
+	print_envs(*my_env);
 }
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
@@ -239,8 +285,8 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 		my_pwd (tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
 		my_export (tree, my_env);
-	// else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
-	// 	my_unset (tree, env);
+	else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
+		my_unset (tree, my_env);
 
 	
 }

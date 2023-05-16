@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/14 20:27:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:47:07 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
 void	my_echo(t_tree *tree, int *exit_code);
 void	my_exit(t_tree *tree);
 void	my_export(t_tree *tree, t_my_env **my_env);
-void	my_unset(t_tree *tree, char **env);
+void	my_unset(t_tree *tree, t_my_env **my_env);
 void	my_pwd(t_tree *tree, int *exit_code);
 
 //manage envs
