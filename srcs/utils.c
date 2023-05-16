@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/14 12:55:31 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:44:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*get_input_from_usr(char *limiter)
 		if (!ft_strcmp(s, limiter))
 			break ;
 		input = ft_strjoin(input, s);
-			
 	}
 	free(s);
 	return (input);
@@ -75,4 +74,27 @@ char	*get_cdir(int exit_code)
 		our_shell = ft_strjoin(our_shell, ft_strdup(")😿~> \e[0;37m"));
 	our_shell = ft_strjoin(ft_strdup("\e[0;31m/our@shell~:"), our_shell);
 	return (our_shell);
+}
+
+int	is_empty(char *input)
+{
+	int	i;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] != ' ' && input[i] != '\n'
+			&& input[i] != '\t' && input[i] != '\f'
+			&& input[i] != '\v' && input[i] != '\r')
+			return (0);
+	}
+	return (1);
+}
+
+int	is_single_cmd(t_tree *tree)
+{
+	if (tree->type == PIPE_NODE)
+		return (0);
+	else
+		return (1);
 }
