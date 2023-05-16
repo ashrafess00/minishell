@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/16 12:25:52 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/16 17:22:31 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	my_pwd(t_tree *tree, int *exit_code)
 	*exit_code = WEXITSTATUS(status);
 }
 
-char **my_env_to_array(t_my_env **my_env) {
+char **my_env_to_array(t_my_env **my_env) 
+{
     int size = 0;
     int i = 0;
     t_my_env *current = *my_env;
@@ -190,14 +191,49 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 	}
 }
 
-
-
+int ex_err(char *cmd, int c)
+{
+	int i = 0;
+	if(cmd[0] == '=' || cmd[0] == '$')
+	{
+		if(c == 0)
+			printf(" export \'%s\' : not a valid identifier\n", cmd);
+		return(0);
+	}
+	if(cmd[0] >= 65 && cmd[0] <= 90)
+		return(0);
+	else if(!(cmd[0] >= 97 && cmd[0] <= 122))
+	{
+		if(c == 0)
+			printf(" export \'%s\' : not a valid identifier\n", cmd);
+		return(0);
+	}
+	return (1);
+}
+int unset_err(char *cmd)
+{
+	int i = 0;
+	while(cmd[i] != '\0')
+	{
+		if(cmd[i] >= 65 && cmd[i] <= 90)
+			return(0);
+		else if(!(cmd[i] >= 97 && cmd[i] <= 122))
+		{
+			printf(" export \'%s\' : not a valid identifier\n", cmd);
+			return(0);
+		}
+		i++;
+	}
+	return (1);
+}
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
 void	my_export(t_tree *tree, t_my_env **my_env)
 {
 	char **en_tmp;
+	int i = 0;
+	int c = 0;
 	if(tree->cmd_node->args[1] == NULL)
 	{
 		int i = 0;
@@ -212,7 +248,16 @@ void	my_export(t_tree *tree, t_my_env **my_env)
 	}
 	else
 	{
-		update_or_add_my_env_node(my_env, tree->cmd_node->args[1]);
+		while(tree->cmd_node->args[i] != NULL)
+			i++;
+		c = i;
+		i = 1;
+		while(tree->cmd_node->args[i] != NULL)
+		{
+			if(ex_err(tree->cmd_node->args[i], c) == 1)
+				update_or_add_my_env_node(my_env, tree->cmd_node->args[i]);
+			i++;
+		}
 		print_envs(*my_env);
 	}
 }
@@ -266,7 +311,13 @@ void deleteNode(t_my_env **my_env, char *key) {
 
 void	my_unset(t_tree *tree, t_my_env **my_env)
 {
-	deleteNode(my_env, tree->cmd_node->args[1]);
+	int i = 1;
+	while(tree->cmd_node->args[i] != NULL)
+	{
+		if(unset_err(tree->cmd_node->args[i]) == 1)
+			deleteNode(my_env, tree->cmd_node->args[i]);
+		i++;
+	}
 	print_envs(*my_env);
 }
 //-----------------------------------------------------------------------------|
