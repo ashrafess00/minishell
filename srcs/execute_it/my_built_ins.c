@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/16 17:22:31 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/16 18:17:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,9 +215,7 @@ int unset_err(char *cmd)
 	int i = 0;
 	while(cmd[i] != '\0')
 	{
-		if(cmd[i] >= 65 && cmd[i] <= 90)
-			return(0);
-		else if(!(cmd[i] >= 97 && cmd[i] <= 122))
+		if(!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
 		{
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 			return(0);
@@ -261,6 +259,7 @@ void	my_export(t_tree *tree, t_my_env **my_env)
 		print_envs(*my_env);
 	}
 }
+
 void deleteNode(t_my_env **my_env, char *key) {
     t_my_env *tmp;
     t_my_env *prev = NULL;
