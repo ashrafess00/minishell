@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:35:07 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/12 13:29:44 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/16 11:02:27 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char **exp_no_opt(char **env)
 	int j = 0;
 	int fl = 0;
 	int l = 0;
-    int p= 0;
+    int p = 0;
 	int q = 0;
 	char dec[20];
 	strcpy(dec, "declare -x ");//////3ndak tnsa hadi
