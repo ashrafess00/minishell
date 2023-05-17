@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/17 11:54:18 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/17 12:20:00 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ void ctrl_c_handler(int signum)
 	if(signum == SIGINT)
 	{
     	rl_on_new_line();
-    	// rl_replace_line("", 0);
+    	rl_replace_line("", 0);
+    	write(1,"\n",1);
     	rl_redisplay();
 	} 
-}
-void sig_quit(int signum)
-{
-	//we do nothing;
-	return;
 }
 int	main(int c, char **arg, char **env)
 {
@@ -63,7 +59,7 @@ int	main(int c, char **arg, char **env)
 	my_env = NULL;
 	copy_env(&my_env, env);
 	signal(SIGINT, ctrl_c_handler);
-	signal(SIGQUIT, sig_quit);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		our_shell = get_cdir(exit_code);
