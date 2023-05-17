@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/16 17:22:31 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/16 17:36:57 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 			if(ljadid[i + 1] == '\0' && tmp->val[i] == ljadid[i])
 			{
 				fl = 0;
-				while(tmp->val[fl] != '=' && si == 0)
+				while(tmp->val[fl] != '=' && si == 0 && tmp->val[fl])
 				{
 					if(tmp->val[fl] != ljadid[fl])
 						si = 10;
@@ -338,8 +338,6 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 		my_export (tree, my_env);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
 		my_unset (tree, my_env);
-
-	
 }
 
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
+#    By: kslik <kslik@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/16 13:46:24 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/17 11:54:06 by kslik            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,14 @@ LIBFT_A	= $(LIBFT_DIR)libft.a
 DEPO = mini.h
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-INCLUDE = -I$(HEADERS) -I$(LIBFT_DIR)
+INCLUDE = -I$(HEADERS) -I$(LIBFT_DIR) 
 RM = rm -rf
 
 all: ${OBJS_DIR} ${NAME}
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
+
 
 $(NAME): $(LIBFT_A) $(OBJS) $(HEADERS)*
 	@$(CC) $(OBJS) $(INCLUDE) $(LIBFT_A) -o $(NAME) -lreadline 
@@ -49,15 +50,15 @@ $(NAME): $(LIBFT_A) $(OBJS) $(HEADERS)*
 	
 	
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) $(INCLUDE)  -c -o $@ $^
 	@echo GENERATING $^
 	
 $(OBJS_DIR)%.o: $(TOKENIZE_IT_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) $(INCLUDE)  -c -o $@ $^
 	@echo GENERATING $^
 
 $(OBJS_DIR)%.o: $(PARSE_IT_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) $(INCLUDE)    -c -o $@ $^
 	@echo GENERATING $^
 
 $(OBJS_DIR)%.o: $(EXECUTE_IT_DIR)%.c
