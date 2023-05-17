@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/16 17:22:31 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/17 12:05:19 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 			if(ljadid[i + 1] == '\0' && tmp->val[i] == ljadid[i])
 			{
 				fl = 0;
-				while(tmp->val[fl] != '=' && si == 0)
+				while(tmp->val[fl] != '=' && si == 0 && tmp->val[fl])
 				{
 					if(tmp->val[fl] != ljadid[fl])
 						si = 10;
@@ -200,9 +200,7 @@ int ex_err(char *cmd, int c)
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 		return(0);
 	}
-	if(cmd[0] >= 65 && cmd[0] <= 90)
-		return(0);
-	else if(!(cmd[0] >= 97 && cmd[0] <= 122))
+	if(!(cmd[0] >= 97 && cmd[0] <= 122))
 	{
 		if(c == 0)
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
@@ -217,7 +215,7 @@ int unset_err(char *cmd)
 	{
 		if(cmd[i] >= 65 && cmd[i] <= 90)
 			return(0);
-		else if(!(cmd[i] >= 97 && cmd[i] <= 122))
+		else if(!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
 		{
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 			return(0);
@@ -338,8 +336,6 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 		my_export (tree, my_env);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
 		my_unset (tree, my_env);
-
-	
 }
 
 
