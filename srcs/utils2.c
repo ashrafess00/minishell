@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/16 17:58:44 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:17:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**expand_arr(char **arr, char *val)
 	return(new_expanded_arr);
 }
 
-char	*cr_new_str(char *s, int indexes[2])
+static char	*cr_new_str(char *s, int indexes[2])
 {
 	char	*new_s;
 	int		i;
@@ -106,7 +106,33 @@ char	*cr_new_str(char *s, int indexes[2])
 	return (new_s);
 }
 
-char	*remove_quotes(char *s)
+static char	*remove_quotes(char *s, int indexes[2], int *i, t_quotes *quote_stat)
+{
+	char	*new_s;
+
+	new_s = NULL;
+	if ((s[*i] == DOUBLE_QUOTE || s[*i] == SINGLE_QUOTE)
+		&& *quote_stat == CLOSED_QUOTE)
+	{
+		indexes[0] = *i;
+		*quote_stat = s[*i];
+	}
+	else if ((s[*i] == DOUBLE_QUOTE && *quote_stat == DOUBLE_QUOTE)
+		|| (s[*i] == SINGLE_QUOTE && *quote_stat == SINGLE_QUOTE))
+		indexes[1] = *i;
+	if (indexes[0] != -1 && indexes[1] != -1)
+	{
+		new_s = cr_new_str(s, indexes);
+		*quote_stat = CLOSED_QUOTE;
+		indexes[0] = -1;
+		indexes[1] = -1;
+		*i -= 2;
+		return (new_s);
+	}
+	return (s);
+}
+
+char	*get_removed_quotes_str(char *s)
 {
 	int			i;
 	t_quotes	quote_stat;
@@ -117,25 +143,7 @@ char	*remove_quotes(char *s)
 	indexes[0] = -1;
 	indexes[1] = -1;
 	while (s[++i])
-	{
-		if ((s[i] == DOUBLE_QUOTE || s[i] == SINGLE_QUOTE) && quote_stat == CLOSED_QUOTE)
-		{
-			indexes[0] = i;
-			quote_stat = s[i];
-		}
-		else if (s[i] == DOUBLE_QUOTE && quote_stat == DOUBLE_QUOTE)
-			indexes[1] = i;
-		else if (s[i] == SINGLE_QUOTE && quote_stat == SINGLE_QUOTE)
-			indexes[1] = i;
-		if (indexes[0] != -1 && indexes[1] != -1)
-		{
-			s = cr_new_str(s, indexes);
-			quote_stat = CLOSED_QUOTE;
-			indexes[0] = -1;
-			indexes[1] = -1;
-			i -= 2;
-		}
-	}
+		s = remove_quotes(s, indexes, &i, &quote_stat);
 	if (indexes[0] != -1 && indexes[1] == -1)
 		return (NULL);
 	return (s);
