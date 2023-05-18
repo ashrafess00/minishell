@@ -6,13 +6,14 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/16 13:46:24 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/17 15:53:36 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = shell
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
+REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES
 SRCS_DIR = srcs/
@@ -34,7 +35,7 @@ LIBFT_A	= $(LIBFT_DIR)libft.a
 DEPO = mini.h
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-INCLUDE = -I$(HEADERS) -I$(LIBFT_DIR)
+INCLUDE = -I$(HEADERS) -I$(LIBFT_DIR) 
 RM = rm -rf
 
 all: ${OBJS_DIR} ${NAME}
@@ -42,26 +43,27 @@ all: ${OBJS_DIR} ${NAME}
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
+
 $(NAME): $(LIBFT_A) $(OBJS) $(HEADERS)*
-	@$(CC) $(OBJS) $(INCLUDE) $(LIBFT_A) -o $(NAME) -lreadline 
+	@$(CC) $(OBJS) -L $(REDLINE)/lib -I $(REDLINE)/include $(INCLUDE) $(LIBFT_A) -lreadline  -o $(NAME) 
 	@echo "SHELL WAS CREATED"
 
 	
 	
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC)  -I $(REDLINE)/include $(INCLUDE) -c -o $@ $^
 	@echo GENERATING $^
 	
 $(OBJS_DIR)%.o: $(TOKENIZE_IT_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC)  -I $(REDLINE)/include $(INCLUDE)    -c -o $@ $^
 	@echo GENERATING $^
 
 $(OBJS_DIR)%.o: $(PARSE_IT_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) -I $(REDLINE)/include $(INCLUDE)      -c -o $@ $^
 	@echo GENERATING $^
 
 $(OBJS_DIR)%.o: $(EXECUTE_IT_DIR)%.c
-	@$(CC) $(INCLUDE) -c -o $@ $^
+	@$(CC) -I $(REDLINE)/include $(INCLUDE)   -c -o $@ $^
 	@echo GENERATING $^
 
 $(LIBFT_A):

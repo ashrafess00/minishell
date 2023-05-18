@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/16 17:56:39 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:10:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
+#include <signal.h>
 # include <termios.h>
 # include "libft.h"
 
@@ -150,7 +151,7 @@ int		is_built_in(t_tree *tree);
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
 void	my_echo(t_tree *tree, int *exit_code);
 void	my_exit(t_tree *tree);
-void	my_export(t_tree *tree, t_my_env **my_env);
+// void	my_export(t_tree *tree, t_my_env **my_env);
 void	my_unset(t_tree *tree, t_my_env **my_env);
 void	my_pwd(t_tree *tree, int *exit_code);
 

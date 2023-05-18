@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/16 15:50:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:29:19 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int	is_valid_input(char *input)
 {
 	if (!input)
-	{
-		printf("khrj\n");
 		exit(1);
-	}
 	if (is_empty(input))
 		return (0);
 	return (1);
@@ -43,15 +40,28 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	free_tree(&tree);
 }
 
+void ctrl_c_handler(int signum) 
+{
+	if(signum == SIGINT)
+	{
+    	rl_on_new_line();
+    	rl_replace_line("", 0);
+    	write(1,"\n",1);
+    	rl_redisplay();
+	} 
+}
+
 int	main(int c, char **arg, char **env)
 {
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	static int	exit_code;
+	static int	exit_code = 0;
 
 	my_env = NULL;
 	copy_env(&my_env, env);
+	signal(SIGINT, ctrl_c_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		our_shell = get_cdir(exit_code);
