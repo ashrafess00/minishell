@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 18:57:06 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/20 19:03:26 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char *expandini(char *input, t_my_env *my_env)
 	int c = 0;
 	int fl =0;
     int inputIndex = 0;
-	input = expand_quote(input);
+	// input = expand_quote(input);
     while (input[inputIndex] != '\0')
     {
 		position = 0;
@@ -103,8 +103,9 @@ char *expandini(char *input, t_my_env *my_env)
         if (input[inputIndex] == '$' && fl == 0)
         {
 			c = 0;
-			inputIndex++;
-            while(input[inputIndex] != ' ' && input[inputIndex])
+			while(input[inputIndex] == '$' && input[inputIndex] != '\0')
+				inputIndex++;
+            while(input[inputIndex] != ' ' && input[inputIndex] && input[inputIndex] != '\"')
 			{
 				pedi[c] = input[inputIndex];
 				inputIndex++;
