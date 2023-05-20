@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/17 21:10:47 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:23:00 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	print_envs(t_my_env *my_env);
 int		is_built_in(t_tree *tree);
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
 void	my_echo(t_tree *tree, int *exit_code);
-void	my_exit(t_tree *tree);
+// void	my_exit(t_tree *tree);
 // void	my_export(t_tree *tree, t_my_env **my_env);
 void	my_unset(t_tree *tree, t_my_env **my_env);
 void	my_pwd(t_tree *tree, int *exit_code);
@@ -170,8 +170,7 @@ char	*get_input_from_usr(char *limiter);
 char	*get_cdir(int exit_code);
 int		is_empty(char *input);
 int		is_single_cmd(t_tree *tree);
-// char 	*closeDOUBLE_QUOTE(char *line);
-char	*remove_quotes(char *s);
+char	*get_removed_quotes_str(char *s);
 
 //free_me
 void	free_arr(char **arr);
