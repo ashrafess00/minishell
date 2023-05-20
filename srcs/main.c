@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 19:56:32 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/20 20:59:13 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	t_token		*tokens;
 	t_tree		*tree;
 
+	if (!is_valid_input(input))
+	{
+		free(input);
+		return ;
+	}
 	if (ft_strlen(input) > 0)
 		add_history(input);
 	input = ft_strtrim(input, " ");
@@ -175,7 +180,7 @@ int	main(int c, char **arg, char **env)
 			continue ;
 		}
 		input = expandini(input, my_env);
-		printf("%s\n", input);
+		// printf("[%s]\n", input);
 		tokenize_parse_execute(input, &my_env, &exit_code);
 	}
 	free_my_env(&my_env);
