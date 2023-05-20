@@ -4,5 +4,6 @@
 # libft/libft.a
 # !*.c
 
+test_me/
 objs/
 shell
