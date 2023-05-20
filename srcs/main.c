@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 19:03:26 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/20 19:56:32 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,19 @@ char *expand_quote(char *input)
 }
 char *expandini(char *input, t_my_env *my_env)
 {
-    char *result = malloc(strlen(input) * 3 + 1);
+	int i = 0;
+	int c = 0;
+	t_my_env	*tmp;
+	while(input[i])
+	{
+		if(input[i] == '$')
+			c++;
+		i++;
+	}
+    char *result = malloc(strlen(input) + (c * 87)  + 1);
     int resultIndex = 0;
 	char pedi[200];
 	int position = 0;
-	int i = 0;
-	t_my_env	*tmp;
-	int c = 0;
 	int fl =0;
     int inputIndex = 0;
 	// input = expand_quote(input);
@@ -105,7 +111,7 @@ char *expandini(char *input, t_my_env *my_env)
 			c = 0;
 			while(input[inputIndex] == '$' && input[inputIndex] != '\0')
 				inputIndex++;
-            while(input[inputIndex] != ' ' && input[inputIndex] && input[inputIndex] != '\"')
+            while(input[inputIndex] != ' ' && input[inputIndex] && input[inputIndex] != '\"' && input[inputIndex] != '$')
 			{
 				pedi[c] = input[inputIndex];
 				inputIndex++;
@@ -130,12 +136,13 @@ char *expandini(char *input, t_my_env *my_env)
 						i++;
 						resultIndex++;
 					}
+					break;
 				}
 				tmp = tmp->next;
 			}
 			free_pedi(pedi);
         }
-		if(input[inputIndex] != '\0')
+		else if(input[inputIndex] != '\0')
 		{
         	result[resultIndex] = input[inputIndex];
         	resultIndex++;
@@ -161,7 +168,7 @@ int	main(int c, char **arg, char **env)
 	{
 		our_shell = get_cdir(exit_code);
 		input = readline(our_shell);
-		// free(our_shell);
+		free(our_shell);
 		if (!is_valid_input(input))
 		{
 			free(input);
