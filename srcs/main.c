@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 19:42:30 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/20 19:56:32 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,19 @@ char *expand_quote(char *input)
 }
 char *expandini(char *input, t_my_env *my_env)
 {
-    char *result = malloc(strlen(input) * 3 + 1);
+	int i = 0;
+	int c = 0;
+	t_my_env	*tmp;
+	while(input[i])
+	{
+		if(input[i] == '$')
+			c++;
+		i++;
+	}
+    char *result = malloc(strlen(input) + (c * 87)  + 1);
     int resultIndex = 0;
 	char pedi[200];
 	int position = 0;
-	int i = 0;
-	t_my_env	*tmp;
-	int c = 0;
 	int fl =0;
     int inputIndex = 0;
 	// input = expand_quote(input);
