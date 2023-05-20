@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/18 11:38:39 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/20 18:55:46 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ int unset_err(char *cmd)
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|
-void	my_export(t_tree *tree, t_my_env **my_env)
+void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 {
 	char **en_tmp;
 	int i = 0;
@@ -261,8 +261,11 @@ void	my_export(t_tree *tree, t_my_env **my_env)
 		}
 		print_envs(*my_env);
 	}
+	*exit_code = 0;
 }
-void deleteNode(t_my_env **my_env, char *key) {
+
+void deleteNode(t_my_env **my_env, char *key)
+{
     t_my_env *tmp;
     t_my_env *prev = NULL;
     tmp = *my_env;
@@ -336,7 +339,7 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
 		my_pwd (tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "export"))
-		my_export (tree, my_env);
+		my_export (tree, my_env, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "unset"))
 		my_unset (tree, my_env);
 }
@@ -344,7 +347,7 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 
 int	is_built_in(t_tree *tree)
 {
-	if (!*tree->cmd_node->args)
+	if (!tree->cmd_node->args || !*tree->cmd_node->args)
 		return (0);
 	if (!ft_strcmp(tree->cmd_node->args[0], "cd") || !ft_strcmp(tree->cmd_node->args[0], "echo")
 		|| !ft_strcmp(tree->cmd_node->args[0], "exit") || !ft_strcmp(tree->cmd_node->args[0], "pwd")
@@ -352,4 +355,5 @@ int	is_built_in(t_tree *tree)
 		return (1);
 	return (0);
 }
+
 

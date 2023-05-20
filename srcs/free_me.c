@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:58:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 20:40:28 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:20:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_arr(char **arr)
 	int	i;
 
 	i = -1;
+	if (!arr)
+		return ;
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 11:31:42 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/20 18:57:06 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	printf("exit code : %d\n", *exit_code);
 	free_tree(&tree);
 }
+
 void ctrl_c_handler(int signum) 
 {
 	if(signum == SIGINT)
 	{
     	rl_on_new_line();
-    	// rl_replace_line("", 0);
-    	// write(1,"\n",1);
+    	rl_replace_line("", 0);
+    	write(1,"\n",1);
     	rl_redisplay();
 	} 
 }
-#include <stdlib.h>
-#include <string.h>
 
 void free_pedi(char *pedi)
 {
@@ -151,7 +150,7 @@ int	main(int c, char **arg, char **env)
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	static int	exit_code;
+	static int	exit_code = 0;
 
 	my_env = NULL;
 	copy_env(&my_env, env);

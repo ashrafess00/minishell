@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kslik <kslik@student.42.fr>                +#+  +:+       +#+         #
+#    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/18 11:30:24 by kslik            ###   ########.fr        #
+#    Updated: 2023/05/20 18:55:35 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = shell
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-# REDLINE=$(shell brew  --prefix readline)
+REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES
 SRCS_DIR = srcs/
