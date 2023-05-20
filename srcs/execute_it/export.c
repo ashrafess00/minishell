@@ -6,12 +6,23 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:35:07 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/17 21:05:46 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:55:52 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 #include <string.h>
+void *strcp_dl3bar(char *dec, char *dp)
+{
+	int i = 0;
+	while(dp[i] != '\0')
+	{
+		dec[i] = dp[i];
+		i++;
+	}
+	dec[i] = '\0';
+	return(dec);
+}
 char **exp_no_opt(char **env)
 {
 	int i = 0;
@@ -21,7 +32,7 @@ char **exp_no_opt(char **env)
     int p = 0;
 	int q = 0;
 	char dec[20];
-	strcpy(dec, "declare -x ");//////3ndak tnsa hadi
+	strcp_dl3bar(dec, "declare -x ");
 	char **new_env;
 	while (env[i])
 		i++;

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/20 14:23:44 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:55:46 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,16 +196,21 @@ int ex_err(char *cmd, int c)
 	int i = 0;
 	if(cmd[0] == '=' || cmd[0] == '$')
 	{
-		if(c == 0)
+		if(c == 2)
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 		return(0);
 	}
-	if(!(cmd[0] >= 97 && cmd[0] <= 122))
+	if(!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)))
 	{
-		if(c == 0)
+		if(c == 2)
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 		return(0);
 	}
+	while(cmd[i] != '=')
+		i++;
+	i = i - 1;
+	if(!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
+		return(0);
 	return (1);
 }
 int unset_err(char *cmd)
@@ -213,9 +218,7 @@ int unset_err(char *cmd)
 	int i = 0;
 	while(cmd[i] != '\0')
 	{
-		if(cmd[i] >= 65 && cmd[i] <= 90)
-			return(0);
-		else if(!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
+		if(!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
 		{
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 			return(0);
