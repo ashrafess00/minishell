@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/21 14:22:22 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/21 17:17:35 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 			if(tmp->val[i + 1] == '\0' && tmp->val[i] == ljadid[i])
 			{
 				k = 200;
-				free(tmp->val);
 				tmp->val = ft_strdup(ljadid);
 				break;
 			}
@@ -160,14 +159,12 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 				{
 					if(tmp->val[fl] != ljadid[fl])
 						ps = 10;
-
 					fl++;
 				}
 				if(tmp->val[fl] != '=')
 					ps = 10;
 				if(ps != 10)
 				{
-					printf("---\n\n--1---");
 					k = 200;
 					free(tmp->val);
 					tmp->val = ft_strdup(ljadid);
@@ -179,16 +176,16 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 		tmp = tmp->next;
 	}
 	if(k == 200)
+	{
 		return;
+	}
 	t_my_env *new_node = malloc(sizeof(t_my_env));
 	if (!new_node)
 		exit(1);
 	new_node->val = ft_strdup(ljadid);
 	new_node->next = NULL;
 	if (head == NULL)
-	{
 		*my_env = new_node;
-	}
 	else
 	{
 		while (head->next != NULL)
@@ -251,7 +248,7 @@ void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 			printf("%s\n", en_tmp[i]);
 			i++;
 		}
-		free(en_tmp);
+		free_arr(en_tmp);
 	}
 	else
 	{
@@ -267,22 +264,26 @@ void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 				*exit_code = 1;
 			i++;
 		}
-		print_envs(*my_env);
 	}
 	*exit_code = 0;
 }
-
+void freeNode(t_my_env *node)
+{
+    free(node->val);
+    free(node);
+}
 void deleteNode(t_my_env **my_env, char *key)
 {
     t_my_env *tmp;
     t_my_env *prev = NULL;
     tmp = *my_env;
-
+	int i;
+	int si;
     while (tmp != NULL) 
 	{
-        int i = 0;
-        int si = 0;
-        while (tmp->val[i]) 
+        i = -1;
+        si = 0;
+        while (tmp->val[++i]) 
 		{
             if (tmp->val[i] == '=') 
 			{
@@ -298,20 +299,19 @@ void deleteNode(t_my_env **my_env, char *key)
                 if (si != 10)
                     break;
             }
-            i++;
         }
         if (si != 10) 
 		{
             if (prev == NULL) 
 			{
                 *my_env = tmp->next;
-                free(tmp);
+				freeNode(tmp);
                 tmp = *my_env;
             } 
 			else 
 			{
                 prev->next = tmp->next;
-                free(tmp);
+				freeNode(tmp);
                 tmp = prev->next;
             }
         }
@@ -334,7 +334,7 @@ void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
 			*exit_code = 1;
 		i++;
 	}
-	print_envs(*my_env);
+	// print_envs(*my_env); 
 }
 //-----------------------------------------------------------------------------|
 //-----------------------------------------------------------------------------|

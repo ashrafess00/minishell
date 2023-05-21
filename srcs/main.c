@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 14:33:31 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:58:23 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	tokens = lets_tokenize(input);
 	free(input);
 	if (!check_tokens(tokens, exit_code))
+	{
+		free_tokens(&tokens);
 		return ;
+	}
 	tree = lets_parse(&tokens);
 	free_tokens(&tokens);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
@@ -143,6 +146,7 @@ char *expandini(char *input, t_my_env *my_env, char *ex)
         	inputIndex++;
 		}
     }
+	free(input);
     result[resultIndex] = '\0';
     return result;
 }
@@ -161,7 +165,6 @@ int	main(int c, char **arg, char **env)
 	my_env = NULL;
 	copy_env(&my_env, env);
 	signal(SIGINT, ctrl_c_handler);
-	ext = malloc(10);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
@@ -177,6 +180,7 @@ int	main(int c, char **arg, char **env)
 			add_history(input);
 		ext = ft_itoa(exit_code);
 		input = expandini(input, my_env, ext);
+		free(ext);
 		tokenize_parse_execute(input, &my_env, &exit_code);
 	}
 	free_my_env(&my_env);

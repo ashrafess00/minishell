@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:35:07 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 18:55:52 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:37:00 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char **exp_no_opt(char **env)
 		new_env[i][j] = '\0';
 		i++;
 	}
+	free(env);
 	new_env[i] = NULL;
 	return(new_env);
 }
