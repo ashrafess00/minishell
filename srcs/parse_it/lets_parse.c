@@ -43,7 +43,6 @@ t_cmd	*cr_cmd(void)
 	return (new_cmd);
 }
 
-
 void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 {
 	t_tree	*new_tree;

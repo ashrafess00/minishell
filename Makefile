@@ -6,14 +6,13 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/21 22:49:21 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/21 23:08:42 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = shell
 CC = cc
-# CFLAGS = -Werror -Wextra -Wall
-CFLAGS = 
+CFLAGS = -Werror -Wextra -Wall
 REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES

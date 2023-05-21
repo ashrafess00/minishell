@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:35:07 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 22:59:12 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:01:14 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ char	**exp_no_opt(char **env)
 		before_equal_index = get_before_equal_index(env[i]);
 		new_env[i] = get_new_var(env[i], before_equal_index);
 	}
+	free(env);
 	return (new_env);
 }
