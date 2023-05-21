@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 14:34:30 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:36:31 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ typedef enum e_tree_type
 	CMD_NODE = 'C',
 	PIPE_NODE = 'P',
 }	t_tree_type;
+struct s_export
+{
+	int i;
+	int j;
+	int k;
+	int fl;
+	int si;
+	int ps;
+	int retu;
+	int brak;
+};
+
+struct s_noopt
+{
+	int i;
+	int j;
+	int fl;
+	int l;
+    int p;
+	int q;
+};
 
 typedef enum e_special_char
 {
@@ -171,6 +192,21 @@ char	*get_cdir(int exit_code);
 int		is_empty(char *input);
 int		is_single_cmd(t_tree *tree);
 char	*get_removed_quotes_str(char *s);
+//norminette
+void	new_node(t_my_env **my_env, char *ljadid);
+void	initialize_dt_2(struct s_export *info, int fl);
+void	excpo_case_1(struct s_export *info, t_my_env *tmp, char *ljadid, int fl);
+void	tmp_val(t_my_env *tmp, char *ljadid, struct s_export *info, int n);
+void	update_node(t_my_env *t, char *ljadid, struct s_export *in);
+int	ex_err(char *cmd, int c);
+int	check_node_exist(t_my_env *tmp, char *key);
+void	freenode(t_my_env *node);
+void	my_cd(t_tree *tree, int *exit_code);
+void	my_exit(t_tree *tree);
+void	initialize_dt(struct s_export *info);
+void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code);
+int	unset_err(char *cmd);
+
 
 //free_me
 void	free_arr(char **arr);
