@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/20 20:59:13 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 13:33:34 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 		free(input);
 		return ;
 	}
-	if (ft_strlen(input) > 0)
-		add_history(input);
 	input = ft_strtrim(input, " ");
 	tokens = lets_tokenize(input);
 	free(input);
@@ -65,26 +63,7 @@ void free_pedi(char *pedi)
 		i++;
 	}
 }
-char *expand_quote(char *input)
-{
-	int i = 0;
-	int j = 0;
-	char *retr = malloc(ft_strlen(input) + 2);
-	while(input[i] != '\0')
-	{
-		if(input[i] == 34)
-			i++;
-		else
-		{
-			retr[j] = input[i];
-			i++;
-			j++;
-		}
-	}
-	retr[j] = '\0';
-	return (retr);
-}
-char *expandini(char *input, t_my_env *my_env)
+char *expandini(char *input, t_my_env *my_env, char *ex)
 {
 	int i = 0;
 	int c = 0;
@@ -95,13 +74,15 @@ char *expandini(char *input, t_my_env *my_env)
 			c++;
 		i++;
 	}
-    char *result = malloc(strlen(input) + (c * 87)  + 1);
+	i = 0;
+    char *result;
+	result = malloc(strlen(input) + (c * 87)  + 1);
     int resultIndex = 0;
 	char pedi[200];
+	int sing = 0;
 	int position = 0;
 	int fl =0;
     int inputIndex = 0;
-	// input = expand_quote(input);
     while (input[inputIndex] != '\0')
     {
 		position = 0;
@@ -114,9 +95,16 @@ char *expandini(char *input, t_my_env *my_env)
         if (input[inputIndex] == '$' && fl == 0)
         {
 			c = 0;
+			if(input[inputIndex + 1] == '?')
+			{
+				while(ex[c])
+					result[resultIndex++] = ex[c++];
+				inputIndex += 2;
+ 			}
+			else{
 			while(input[inputIndex] == '$' && input[inputIndex] != '\0')
 				inputIndex++;
-            while(input[inputIndex] != ' ' && input[inputIndex] && input[inputIndex] != '\"' && input[inputIndex] != '$')
+            while(((input[inputIndex] >= 97 && input[inputIndex] <= 122) || (input[inputIndex] >= 65 && input[inputIndex] <= 90)) && input[inputIndex])
 			{
 				pedi[c] = input[inputIndex];
 				inputIndex++;
@@ -145,6 +133,7 @@ char *expandini(char *input, t_my_env *my_env)
 				}
 				tmp = tmp->next;
 			}
+			}
 			free_pedi(pedi);
         }
 		else if(input[inputIndex] != '\0')
@@ -163,11 +152,13 @@ int	main(int c, char **arg, char **env)
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
+	char		*ext;
 	static int	exit_code = 0;
 
 	my_env = NULL;
 	copy_env(&my_env, env);
 	signal(SIGINT, ctrl_c_handler);
+	ext = malloc(10);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
@@ -179,8 +170,11 @@ int	main(int c, char **arg, char **env)
 			free(input);
 			continue ;
 		}
-		input = expandini(input, my_env);
 		// printf("[%s]\n", input);
+		if (ft_strlen(input) > 0)
+			add_history(input);
+		ext = ft_itoa(exit_code);
+		input = expandini(input, my_env, ext);
 		tokenize_parse_execute(input, &my_env, &exit_code);
 	}
 	free_my_env(&my_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/20 18:55:46 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 13:45:00 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 			else if(tmp->val[i] == '=')
 			{
 				fl = 0;
-				while(tmp->val[fl] != '=')
+				while(ljadid[fl] != '=')
 				{
 					if(tmp->val[fl] != ljadid[fl])
 						ps = 10;
