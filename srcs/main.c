@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 13:33:34 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/21 14:21:38 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	tree = lets_parse(&tokens);
 	free_tokens(&tokens);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
-	printf("exit code : %d\n", *exit_code);
+	// printf("exit code : %d\n", *exit_code);
 	free_tree(&tree);
 }
 
@@ -147,6 +147,9 @@ char *expandini(char *input, t_my_env *my_env, char *ex)
     return result;
 }
 
+
+
+
 int	main(int c, char **arg, char **env)
 {
 	char		*input;
@@ -170,7 +173,6 @@ int	main(int c, char **arg, char **env)
 			free(input);
 			continue ;
 		}
-		// printf("[%s]\n", input);
 		if (ft_strlen(input) > 0)
 			add_history(input);
 		ext = ft_itoa(exit_code);
