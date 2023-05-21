@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 08:58:34 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/18 17:17:47 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:06:34 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,9 @@ char	*get_removed_quotes_str(char *s)
 	while (s[++i])
 		s = remove_quotes(s, indexes, &i, &quote_stat);
 	if (indexes[0] != -1 && indexes[1] == -1)
+	{
+		free(s);
 		return (NULL);
+	};
 	return (s);
 }
