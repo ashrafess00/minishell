@@ -6,7 +6,7 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/20 18:55:35 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/21 14:38:39 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJS_DIR = objs/
 HEADERS = headers/
 
 # SRCS
-TOKENIZE_IT_SRCS = check_syn_error.c  add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c check_tokens.c
+TOKENIZE_IT_SRCS = add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c check_tokens.c
 PARSE_IT_SRCS = lets_parse.c cr_nodes.c
 EXECUTE_IT_SRCS = execute.c path.c open_files.c redirections.c my_built_ins.c export.c
 SRCS = main.c printers_will_be_delted_later.c utils.c utils2.c free_me.c free_me2.c manage_envs.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS)

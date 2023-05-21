@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:14:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/19 15:44:08 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:37:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,15 @@ void	enter_a_pipe(t_token **tokens)
 	}
 }
 
-int	check_tokens(t_token *tokens)
+int	check_tokens(t_token *tokens, int *exit_code)
 {
 	while (tokens)
 	{
-		if (!tokens->s)
+		if (!tokens->s || (tokens->type != WORD && !tokens->next)
+			|| (tokens->type != WORD && tokens->next->type != WORD))
 		{
 			printf("SYNTAX ERROR!!\n");
-			return (0);
-		}
-		if (tokens->type != WORD && !tokens->next)
-		{
-			printf("SYNTAX ERROR [%c]\n", tokens->type);
-			return (0);
-		}
-		if (tokens->type != WORD && tokens->next->type != WORD)
-		{
-			printf("SYNTAX ERROR [%c]\n", tokens->next->type);
+			*exit_code = 1;
 			return (0);
 		}
 		tokens = tokens->next;

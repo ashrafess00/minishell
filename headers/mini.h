@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 14:13:17 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/21 14:34:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		check_add_heredoc_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_append_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_out_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_inp_token(t_token **head, char *line, t_tin *tin);
-int		check_tokens(t_token *tokens);
+int		check_tokens(t_token *tokens, int *exit_code);
 
 
 //parsing
