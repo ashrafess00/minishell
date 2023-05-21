@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kslik <kslik@student.42.fr>                +#+  +:+       +#+         #
+#    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/21 19:16:03 by kslik            ###   ########.fr        #
+#    Updated: 2023/05/21 22:49:21 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = shell
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
+# CFLAGS = -Werror -Wextra -Wall
+CFLAGS = 
 REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES
@@ -45,25 +46,25 @@ $(OBJS_DIR):
 
 
 $(NAME): $(LIBFT_A) $(OBJS) $(HEADERS)*
-	@$(CC) $(OBJS) -L $(REDLINE)/lib -I $(REDLINE)/include $(INCLUDE) $(LIBFT_A) -lreadline  -o $(NAME) 
+	@$(CC) $(CFLAGS) $(OBJS) -L $(REDLINE)/lib -I $(REDLINE)/include $(INCLUDE) $(LIBFT_A) -lreadline  -o $(NAME) 
 	@echo "SHELL WAS CREATED"
 
 	
 	
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@$(CC)  -I $(REDLINE)/include $(INCLUDE) -c -o $@ $^
+	@$(CC) $(CFLAGS) -I $(REDLINE)/include $(INCLUDE) -c -o $@ $^
 	@echo GENERATING $^
 	
 $(OBJS_DIR)%.o: $(TOKENIZE_IT_DIR)%.c
-	@$(CC)  -I $(REDLINE)/include $(INCLUDE)    -c -o $@ $^
+	@$(CC) $(CFLAGS) -I $(REDLINE)/include $(INCLUDE)    -c -o $@ $^
 	@echo GENERATING $^
 
 $(OBJS_DIR)%.o: $(PARSE_IT_DIR)%.c
-	@$(CC) -I $(REDLINE)/include $(INCLUDE)      -c -o $@ $^
+	@$(CC) $(CFLAGS) -I $(REDLINE)/include $(INCLUDE)      -c -o $@ $^
 	@echo GENERATING $^
 
 $(OBJS_DIR)%.o: $(EXECUTE_IT_DIR)%.c
-	@$(CC) -I $(REDLINE)/include $(INCLUDE)   -c -o $@ $^
+	@$(CC) $(CFLAGS) -I $(REDLINE)/include $(INCLUDE)   -c -o $@ $^
 	@echo GENERATING $^
 
 $(LIBFT_A):

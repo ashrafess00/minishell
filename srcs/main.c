@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 15:58:23 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/21 22:06:07 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char *expandini(char *input, t_my_env *my_env, char *ex)
 	result = malloc(strlen(input) + (c * 87)  + 1);
     int resultIndex = 0;
 	char pedi[200];
-	int sing = 0;
 	int position = 0;
 	int fl =0;
     int inputIndex = 0;
@@ -162,6 +161,8 @@ int	main(int c, char **arg, char **env)
 	char		*ext;
 	static int	exit_code = 0;
 
+	(void)arg;
+	(void)c;
 	my_env = NULL;
 	copy_env(&my_env, env);
 	signal(SIGINT, ctrl_c_handler);

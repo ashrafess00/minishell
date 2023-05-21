@@ -57,7 +57,6 @@ void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 {
 	t_cmd	*cmd;
-	t_tree	*temp;
 	t_tree	*new_tree;
 	t_tree	*current;
 
@@ -82,7 +81,6 @@ t_tree	*lets_parse(t_token **tokens)
 {
 	t_tree	*tree;
 	t_cmd	*cmd;
-	char	l_r;
 	t_token	*tmp;
 
 	tree = NULL;

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:22:20 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/16 13:52:19 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:07:05 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	check_add_redir_list(t_token **tokens, t_cmd **cmd)
 t_cmd	*cr_cmd_node(t_token **tokens)
 {
 	t_cmd	*cmd;
-	int		i;
 
 	cmd = cr_cmd();
 	while (*tokens && (*tokens)->type != PIPE)

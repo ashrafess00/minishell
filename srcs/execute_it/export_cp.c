@@ -6,11 +6,12 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:35:07 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 22:59:12 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:52:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
 
 int	get_before_equal_index(char *s)
 {
@@ -48,24 +49,24 @@ char	*get_new_var(char *s, int equal_index)
 	}
 	if (equal_index != -1)
 		new_var_with_declare[new_i] = '\"';
-	new_var_with_declare = ft_strjoin(ft_strdup("declare -x "), \
-	new_var_with_declare);
 	return (new_var_with_declare);
 }
-
 char	**exp_no_opt(char **env)
 {
-	int		before_equal_index;
-	int		i;
+	int	before_equal_index;
+	int	i;
 	char	**new_env;
-
+	
 	new_env = ft_calloc(100, sizeof(char *));
 	i = -1;
 	before_equal_index = 0;
 	while (env[++i])
 	{
 		before_equal_index = get_before_equal_index(env[i]);
+		// printf("env : %s | index : %d | char : %c\n", env[i], before_equal_index, env[i][before_equal_index]);
 		new_env[i] = get_new_var(env[i], before_equal_index);
 	}
+	// printf("%s\n", new_env[0]);
+	// printf("%s\n", new_env[1]);
 	return (new_env);
 }

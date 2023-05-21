@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 19:47:49 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/16 13:29:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:06:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	check_add_pipe_token(t_token **head, char *line, t_tin *tin)
 {
 	char	*token_s;
 	char	*token_s_sp;
-	char	line_cp;
 
 	if (tin->quote_stat == CLOSED_QUOTE && line[tin->i] == '|')
 	{

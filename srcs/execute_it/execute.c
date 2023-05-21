@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/20 14:20:28 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:07:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 {
 	char	*path;
 	char	**paths;
-	int		pid;
-	int		status;
 	char	**env;
 
 	if (*tree->cmd_node->args)
