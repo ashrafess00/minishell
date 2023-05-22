@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 19:47:49 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/21 22:06:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:25:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	check_add_pipe_token(t_token **head, char *line, t_tin *tin)
 		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 1);
 		add_token(head, token_s_sp, PIPE);
-		tin->br = 1;
 		tin->special_char_found = 1;
 		return (1);
 	}
@@ -43,7 +42,6 @@ int	check_add_heredoc_token(t_token **head, char *line, t_tin *tin)
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 2);
 		add_token(head, token_s_sp, HEREDOC);
 		tin->i += 1;
-		tin->br = 1;
 		tin->special_char_found = 1;
 		return (1);
 	}
@@ -63,7 +61,6 @@ int	check_add_red_append_token(t_token **head, char *line, t_tin *tin)
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 2);
 		add_token(head, token_s_sp, RED_OUTPUT_APPEND);
 		tin->i += 1;
-		tin->br = 1;
 		tin->special_char_found = 1;
 		return (1);
 	}
@@ -81,7 +78,6 @@ int	check_add_red_out_token(t_token **head, char *line, t_tin *tin)
 		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 1);
 		add_token(head, token_s_sp, RED_OUTPUT);
-		tin->br = 1;
 		tin->special_char_found = 1;
 		return (1);
 	}
@@ -99,7 +95,6 @@ int	check_add_red_inp_token(t_token **head, char *line, t_tin *tin)
 		add_token(head, token_s, WORD);
 		token_s_sp = ft_substr(ft_strdup(line), tin->i, 1);
 		add_token(head, token_s_sp, RED_INPUT);
-		tin->br = 1;
 		tin->special_char_found = 1;
 		return (1);
 	}

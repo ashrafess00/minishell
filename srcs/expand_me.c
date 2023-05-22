@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_me.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:56:39 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 12:22:09 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:51:31 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,16 @@ void	idont_know_what_mdoin(struct s_expand *exp, int c, char *input,
 	}
 }
 
-char	*expandini(char *input, t_my_env *my_env, char *ex)
+char	*expandini(char *input, t_my_env *my_env, int exit_code)
 {
 	struct s_expand	exp;
+	char			*ex;
 
+	ex = ft_itoa(exit_code);
 	ex_data(&exp);
 	exp.i = 0;
 	calcul_c(input, &exp, 0, ex);
-	exp.result = malloc(strlen(input) + (exp.c * 87) + 1);
+	exp.result = ft_calloc(strlen(input) + (exp.c * 87) + 1, 1);
 	while (input[exp.inputIndex] != '\0')
 	{
 		calcul_c(input, &exp, 1, ex);
@@ -110,6 +112,6 @@ char	*expandini(char *input, t_my_env *my_env, char *ex)
 			inist_to_zero(&exp, 1, input);
 	}
 	free(input);
-	exp.result[exp.resultIndex] = '\0';
+	free(ex);
 	return (exp.result);
 }

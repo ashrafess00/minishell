@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 12:32:53 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:52:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 		free(input);
 		return ;
 	}
-	input = ft_strtrim(input, " ");
 	tokens = lets_tokenize(input);
 	free(input);
 	if (!check_tokens(tokens, exit_code))
@@ -56,18 +55,6 @@ void	ctrl_c_handler(int signum)
 	}
 }
 
-void	free_pedi(char *pedi)
-{
-	int	i;
-
-	i = 0;
-	while (pedi[i] != '\0')
-	{
-		pedi[i] = '\0';
-		i++;
-	}
-}
-
 void	my_env_cop(char **env, t_my_env **my_env, int *exit_code)
 {
 	copy_env(my_env, env);
@@ -81,7 +68,6 @@ int	main(int c, char **arg, char **env)
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	char		*ext;
 	static int	exit_code;
 
 	my_env = NULL;
@@ -100,11 +86,8 @@ int	main(int c, char **arg, char **env)
 		}
 		if (ft_strlen(input) > 0)
 			add_history(input);
-		ext = ft_itoa(exit_code);
-		input = expandini(input, my_env, ext);
-		free(ext);
+		input = expandini(input, my_env, exit_code);
 		tokenize_parse_execute(input, &my_env, &exit_code);
 	}
 	free_my_env(&my_env);
-	return (0);
 }

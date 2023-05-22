@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 12:20:05 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:47:04 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,8 @@ t_cmd	*cr_cmd_node(t_token **tokens);
 //=======execution=======
 void	lets_execute(t_tree *tree, t_my_env **env, int is_single_cmd, int *exit_code);
 void	redirect_it(t_tree *tree, int redirect);
-char *expandini(char *input, t_my_env *my_env, char *ex);
-void free_pedi(char *pedi);
+char 	*expandini(char *input, t_my_env *my_env, int exit_code);
+void 	free_pedi(char *pedi);
 //path
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
@@ -190,19 +190,16 @@ int		open_infile(char *file);
 char 	**exp_no_opt(char **env);
 char 	**my_env_to_array(t_my_env **my_env);
 void	deletenode(t_my_env **my_env, char *key);
-//print_linked_lists
-void	print_tokens(t_token *head);
-void	print_my_tree(t_tree *tree);
-void	print_envs(t_my_env *my_env);
 
 //built_ins
 int		is_built_in(t_tree *tree);
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
 void	my_echo(t_tree *tree, int *exit_code);
-// void	my_exit(t_tree *tree);
-// void	my_export(t_tree *tree, t_my_env **my_env);
-void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code);
+void	my_exit(t_tree *tree);
 void	my_pwd(t_tree *tree, int *exit_code);
+void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code);
+void	my_cd(t_tree *tree, int *exit_code);
+// void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code);
 
 //manage envs
 char	**from_lk_to_arr(t_my_env **my_env);
@@ -220,6 +217,7 @@ char	*get_cdir(int exit_code);
 int		is_empty(char *input);
 int		is_single_cmd(t_tree *tree);
 char	*get_removed_quotes_str(char *s);
+
 //utils
 void	new_node(t_my_env **my_env, char *ljadid);
 void	initialize_dt_2(struct s_export *info, int fl);
@@ -228,15 +226,13 @@ void	tmp_val(t_my_env *tmp, char *ljadid, struct s_export *info, int n);
 void	update_node(t_my_env *t, char *ljadid, struct s_export *in);
 int		ex_err(char *cmd, int c);
 int		check_node_exist(t_my_env *tmp, char *key);
-void	freenode(t_my_env *node);
-void	my_cd(t_tree *tree, int *exit_code);
-void	my_exit(t_tree *tree);
+
+
 void	initialize_dt(struct s_export *info);
-void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code);
-int	unset_err(char *cmd);
-void unsetdata(struct s_unset *unset, t_my_env **my_env, int n);
-void echo_dt(struct s_echo *echo, int c, int *exit_code);
-void echo_err(int *exit_code , int c);
+int		unset_err(char *cmd);
+void 	unsetdata(struct s_unset *unset, t_my_env **my_env, int n);
+void 	echo_dt(struct s_echo *echo, int c, int *exit_code);
+void 	echo_err(int *exit_code , int c);
 void	ex_data(struct s_expand *exp);
 void	calcul_c(char *input, struct s_expand *exp, int c, char *ex);
 void	search_ky_2(struct s_expand *exp);
@@ -250,6 +246,12 @@ void	free_tree(t_tree **tree);
 void	free_my_env(t_my_env **my_env_head);
 void	idont_know_what_mdoin(struct s_expand *exp, int c, char *input,t_my_env *my_env);
 void	enter_a_pipe(t_token **tokens);
+void	freenode(t_my_env *node);
+
+//print_linked_lists //delete in intra42 v
+void	print_tokens(t_token *head);
+void	print_my_tree(t_tree *tree);
+void	print_envs(t_my_env *my_env);
 
 #endif
 

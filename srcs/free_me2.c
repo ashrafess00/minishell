@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:39:56 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 20:40:38 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:43:22 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,22 @@ void	free_tree(t_tree **tree)
 		free_tree(&(*tree)->right);
 		free(*tree);
 	}
+}
+
+void	free_pedi(char *pedi)
+{
+	int	i;
+
+	i = 0;
+	while (pedi[i] != '\0')
+	{
+		pedi[i] = '\0';
+		i++;
+	}
+}
+
+void	freenode(t_my_env *node)
+{
+	free(node->val);
+	free(node);
 }

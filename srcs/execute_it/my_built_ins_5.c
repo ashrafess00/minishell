@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins_5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:58:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 19:29:01 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:36:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	my_cd(t_tree *tree, int *exit_code)
 		return ;
 	}
 	*exit_code = 0;
-}
-
-void	freenode(t_my_env *node)
-{
-	free(node->val);
-	free(node);
 }
 
 int	check_node_exist(t_my_env *tmp, char *key)
