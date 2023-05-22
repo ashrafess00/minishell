@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 13:27:41 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/19 15:43:12 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:55:23 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token	*cr_token_node(char *s, t_special_char type)
 {
-	t_token *new_token_node;
+	t_token	*new_token_node;
 
 	new_token_node = malloc(sizeof(t_token));
 	new_token_node->s = ft_strdup(s);
@@ -39,7 +39,6 @@ void	add_token(t_token **head, char *s, t_special_char type)
 	new_token_node = cr_token_node(s, type);
 	if (*head == NULL)
 	{
-		// new_token_node->prev = NULL;
 		*head = new_token_node;
 	}
 	else
@@ -47,6 +46,5 @@ void	add_token(t_token **head, char *s, t_special_char type)
 		while (last->next)
 			last = last->next;
 		last->next = new_token_node;
-		// new_token_node->prev = last;
 	}
 }
