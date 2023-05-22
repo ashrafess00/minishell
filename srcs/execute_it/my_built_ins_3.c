@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:57 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 19:16:34 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 17:50:17 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,18 @@ void	initialize_dt_2(struct s_export *info, int fl)
 {
 	if (fl == 1)
 	{
-		info->i = 0;
+		info->i = -1;
 		info->ps = 0;
 		info->si = 0;
 		info->retu = 0;
+		info->brak = 0;
 	}
 	if (fl == 0)
 	{
 		info->ps = 0;
 		info->si = 0;
 		info->retu = 0;
+		info->brak = 0;
 	}
 }
 
