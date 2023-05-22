@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:56:39 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 15:13:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:02:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void	search_key(char *input, struct s_expand *exp, int c)
 {
 	if (c == 0)
 	{
-		while (input[exp->input_index] == '$' && input[exp->input_index] != '\0')
+		while (input[exp->input_index] == '$'
+			&& input[exp->input_index] != '\0')
 			exp->input_index++;
-		while (((input[exp->input_index] >= 97 && input[exp->input_index] <= 122)
+		while (((input[exp->input_index] >= 97
+					&& input[exp->input_index] <= 122)
 				|| (input[exp->input_index] >= 65
-					&& input[exp->input_index] <= 90)) && input[exp->input_index])
+					&& input[exp->input_index] <= 90))
+			&& input[exp->input_index])
 		{
 			exp->pedi[exp->c] = input[exp->input_index];
 			exp->input_index++;

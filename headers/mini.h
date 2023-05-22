@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 15:14:35 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:16:10 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,3 +251,4 @@ void	print_my_tree(t_tree *tree);
 void	print_envs(t_my_env *my_env);
 
 #endif
+
