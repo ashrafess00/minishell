@@ -6,92 +6,57 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/21 19:29:19 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 10:47:54 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	my_echo(t_tree *tree, int *exit_code)
+void	if_prv_null(struct s_unset *un, t_my_env **my_env, int n)
 {
-	int	i;
-	int	pid;
-	int	status;
-
-	i = 1;
-	pid = fork();
-	if (pid == -1)
+	if (n == 1)
 	{
-		perror("Fork Error");
-		*exit_code = 1;
+		*my_env = un->tmp->next;
+		freenode(un->tmp);
+		un->tmp = *my_env;
 	}
-	if (pid == 0)
+	else if (n == 0)
 	{
-		redirect_it(tree, 1);
-		if (!tree->cmd_node->args[1])
-		{
-			printf("\n");
-			exit(0);
-		}
-		while (!ft_strcmp(tree->cmd_node->args[i], "-n"))
-			i++;
-		i--;
-		while (tree->cmd_node->args[++i])
-		{
-			if (tree->cmd_node->args[i + 1])
-				printf("%s ", tree->cmd_node->args[i]);
-			else
-				printf("%s", tree->cmd_node->args[i]);
-		}
-		if (ft_strcmp(tree->cmd_node->args[1], "-n"))
-			printf("\n");
-		exit(0);
+		un->prev->next = un->tmp->next;
+		freenode(un->tmp);
+		un->tmp = un->prev->next;
 	}
-	waitpid(pid, &status, 0);
-	*exit_code = WEXITSTATUS(status);
+	else if (n == 2)
+	{
+		un->prev = un->tmp;
+		un->tmp = un->tmp->next;
+	}
 }
 
-
-void	deleteNode(t_my_env **my_env, char *key)
+void	deletenode(t_my_env **my_env, char *key)
 {
-	t_my_env	*tmp;
-	t_my_env	*prev;
-	int			i;
-	int			si;
+	struct s_unset	un;
 
-	prev = NULL;
-	tmp = *my_env;
-	while (tmp != NULL)
+	unsetdata(&un, my_env, 0);
+	while (un.tmp != NULL)
 	{
-		i = -1;
-		si = 0;
-		while (tmp->val[++i])
+		unsetdata(&un, my_env, 1);
+		while (un.tmp->val[++un.i])
 		{
-			if (tmp->val[i] == '=')
-				si = check_node_exist(tmp, key);
-			if (si == 69)
+			if (un.tmp->val[un.i] == '=')
+				un.si = check_node_exist(un.tmp, key);
+			if (un.si == 69)
 				break ;
 		}
-		if (si != 10)
+		if (un.si != 10)
 		{
-			if (prev == NULL)
-			{
-				*my_env = tmp->next;
-				freenode(tmp);
-				tmp = *my_env;
-			}
+			if (un.prev == NULL)
+				if_prv_null(&un, my_env, 1);
 			else
-			{
-				prev->next = tmp->next;
-				freenode(tmp);
-				tmp = prev->next;
-			}
+				if_prv_null(&un, my_env, 0);
 		}
 		else
-		{
-			prev = tmp;
-			tmp = tmp->next;
-		}
+			if_prv_null(&un, my_env, 2);
 	}
 }
 
@@ -103,16 +68,12 @@ void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
 	while (tree->cmd_node->args[i] != NULL)
 	{
 		if (unset_err(tree->cmd_node->args[i]) == 1)
-			deleteNode(my_env, tree->cmd_node->args[i]);
+			deletenode(my_env, tree->cmd_node->args[i]);
 		else
 			*exit_code = 1;
 		i++;
 	}
-	// print_envs(*my_env);
 }
-//-----------------------------------------------------------------------------|
-//-----------------------------------------------------------------------------|
-//-----------------------------------------------------------------------------|
 
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 {
