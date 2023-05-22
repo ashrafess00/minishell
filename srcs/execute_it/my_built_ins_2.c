@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:16 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 22:51:50 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:13:20 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ex_err(char *cmd, int c)
 			printf(" export \'%s\' : not a valid identifier\n", cmd);
 		return (0);
 	}
-	while (cmd[i] != '=')
+	while (cmd[i] != '=' && cmd[i] != '\0')
 		i++;
 	i = i - 1;
 	if (!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
@@ -95,8 +95,8 @@ void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 		exp_nocmd(my_env);
 	else
 	{
-		while (tree->cmd_node->args[++c] != NULL)
-			;
+		while (tree->cmd_node->args[c] != NULL)
+			c++;
 		i = 0;
 		while (tree->cmd_node->args[++i] != NULL)
 		{
