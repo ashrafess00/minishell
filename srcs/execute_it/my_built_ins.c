@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/22 20:02:56 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:08:46 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
 			*exit_code = 1;
 		i++;
 	}
+	*exit_code = 0;
 }
 
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
