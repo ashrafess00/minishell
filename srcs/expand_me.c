@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:56:39 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 13:51:31 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:13:10 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	search_ky_2(struct s_expand *exp)
 	exp->i++;
 	while (exp->tmp->val[exp->i] != '\0')
 	{
-		exp->result[exp->resultIndex] = exp->tmp->val[exp->i];
+		exp->result[exp->result_index] = exp->tmp->val[exp->i];
 		exp->i++;
-		exp->resultIndex++;
+		exp->result_index++;
 	}
 }
 
@@ -30,14 +30,14 @@ void	search_key(char *input, struct s_expand *exp, int c)
 {
 	if (c == 0)
 	{
-		while (input[exp->inputIndex] == '$' && input[exp->inputIndex] != '\0')
-			exp->inputIndex++;
-		while (((input[exp->inputIndex] >= 97 && input[exp->inputIndex] <= 122)
-				|| (input[exp->inputIndex] >= 65
-					&& input[exp->inputIndex] <= 90)) && input[exp->inputIndex])
+		while (input[exp->input_index] == '$' && input[exp->input_index] != '\0')
+			exp->input_index++;
+		while (((input[exp->input_index] >= 97 && input[exp->input_index] <= 122)
+				|| (input[exp->input_index] >= 65
+					&& input[exp->input_index] <= 90)) && input[exp->input_index])
 		{
-			exp->pedi[exp->c] = input[exp->inputIndex];
-			exp->inputIndex++;
+			exp->pedi[exp->c] = input[exp->input_index];
+			exp->input_index++;
 			exp->c++;
 		}
 		exp->pedi[exp->c] = '\0';
@@ -56,9 +56,9 @@ void	inist_to_zero(struct s_expand *exp, int c, char *input)
 	}
 	if (c == 1)
 	{
-		exp->result[exp->resultIndex] = input[exp->inputIndex];
-		exp->resultIndex++;
-		exp->inputIndex++;
+		exp->result[exp->result_index] = input[exp->input_index];
+		exp->result_index++;
+		exp->input_index++;
 	}
 }
 
@@ -97,18 +97,18 @@ char	*expandini(char *input, t_my_env *my_env, int exit_code)
 	exp.i = 0;
 	calcul_c(input, &exp, 0, ex);
 	exp.result = ft_calloc(strlen(input) + (exp.c * 87) + 1, 1);
-	while (input[exp.inputIndex] != '\0')
+	while (input[exp.input_index] != '\0')
 	{
 		calcul_c(input, &exp, 1, ex);
-		if (input[exp.inputIndex] == '$' && exp.fl == 0)
+		if (input[exp.input_index] == '$' && exp.fl == 0)
 		{
 			inist_to_zero(&exp, 0, input);
-			if (input[exp.inputIndex + 1] == '?')
+			if (input[exp.input_index + 1] == '?')
 				calcul_c(input, &exp, 2, ex);
 			else
 				idont_know_what_mdoin(&exp, 0, input, my_env);
 		}
-		else if (input[exp.inputIndex] != '\0')
+		else if (input[exp.input_index] != '\0')
 			inist_to_zero(&exp, 1, input);
 	}
 	free(input);

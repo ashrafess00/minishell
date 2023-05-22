@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 13:47:04 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:14:35 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <dirent.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
-#include <signal.h>
-# include <termios.h>
+# include <signal.h>
 # include "libft.h"
-
 # define PERMISSION_MSG ": permission denied"
 # define FILE_NOT_FOUND_MSG ": No such file or directory"
 # define COMMAND_NOT_FOUND ": command not found"
@@ -40,27 +37,29 @@ typedef enum e_tree_type
 	CMD_NODE = 'C',
 	PIPE_NODE = 'P',
 }	t_tree_type;
+
 struct s_export
 {
-	int i;
-	int j;
-	int k;
-	int fl;
-	int si;
-	int ps;
-	int retu;
-	int brak;
+	int	i;
+	int	j;
+	int	k;
+	int	fl;
+	int	si;
+	int	ps;
+	int	retu;
+	int	brak;
 };
 
 struct s_noopt
 {
-	int i;
-	int j;
-	int fl;
-	int l;
-    int p;
-	int q;
+	int	i;
+	int	j;
+	int	fl;
+	int	l;
+	int	p;
+	int	q;
 };
+
 typedef enum e_special_char
 {
 	WORD = 'a',
@@ -95,11 +94,9 @@ typedef struct s_tin
 typedef struct s_token
 {
 	char			*s;
-	int 			s_index;
-	// int				size;
+	int				s_index;
 	t_special_char	type;
 	struct s_token	*next;
-	// struct s_token *prev;
 }	t_token;
 
 typedef struct s_redir_list
@@ -124,7 +121,7 @@ typedef struct s_tree
 	struct s_tree	*right;
 }	t_tree;
 
-typedef struct	s_my_env
+typedef struct s_my_env
 {
 	char			*val;
 	struct s_my_env	*next;
@@ -132,29 +129,29 @@ typedef struct	s_my_env
 
 struct s_unset
 {
-	int i;
-	int si;
-	t_my_env *tmp;
-	t_my_env *prev;
+	int			i;
+	int			si;
+	t_my_env	*tmp;
+	t_my_env	*prev;
 };
 struct s_echo
 {
-	int i;
-	int pid;
-	int status;
+	int	i;
+	int	pid;
+	int	status;
 };
 struct s_expand
 {
-	int i;
-	int c;
+	int			i;
+	int			c;
 	t_my_env	*tmp;
-	char *result;
-	int resultIndex;
-	char pedi[200];
-	int position;
-	int fl;
-	int inputIndex;
-	int brek;
+	char		*result;
+	int			result_index;
+	char		pedi[200];
+	int			position;
+	int			fl;
+	int			input_index;
+	int			brek;
 };
 //tokenization
 void	add_token(t_token **head, char *s, t_special_char type);
@@ -166,18 +163,18 @@ int		check_add_red_out_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_inp_token(t_token **head, char *line, t_tin *tin);
 int		check_tokens(t_token *tokens, int *exit_code);
 
-
 //parsing
 t_tree	*lets_parse(t_token **tokens);
-t_tree	*cr_tree();
-t_cmd	*cr_cmd();
+t_tree	*cr_tree(void);
+t_cmd	*cr_cmd(void);
 t_cmd	*cr_cmd_node(t_token **tokens);
 
 //=======execution=======
-void	lets_execute(t_tree *tree, t_my_env **env, int is_single_cmd, int *exit_code);
+void	lets_execute(t_tree *tree, t_my_env **env,
+			int is_single_cmd, int *exit_code);
 void	redirect_it(t_tree *tree, int redirect);
-char 	*expandini(char *input, t_my_env *my_env, int exit_code);
-void 	free_pedi(char *pedi);
+char	*expandini(char *input, t_my_env *my_env, int exit_code);
+void	free_pedi(char *pedi);
 //path
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
@@ -187,8 +184,8 @@ int		open_outfile(char *file);
 int		open_outfile_append(char *file);
 int		open_infile(char *file);
 //export 
-char 	**exp_no_opt(char **env);
-char 	**my_env_to_array(t_my_env **my_env);
+char	**exp_no_opt(char **env);
+char	**my_env_to_array(t_my_env **my_env);
 void	deletenode(t_my_env **my_env, char *key);
 
 //built_ins
@@ -221,18 +218,17 @@ char	*get_removed_quotes_str(char *s);
 //utils
 void	new_node(t_my_env **my_env, char *ljadid);
 void	initialize_dt_2(struct s_export *info, int fl);
-void	excpo_case_1(struct s_export *info, t_my_env *tmp, char *ljadid, int fl);
+void	excpo_case_1(struct s_export *info, t_my_env *tmp,
+			char *ljadid, int fl);
 void	tmp_val(t_my_env *tmp, char *ljadid, struct s_export *info, int n);
 void	update_node(t_my_env *t, char *ljadid, struct s_export *in);
 int		ex_err(char *cmd, int c);
 int		check_node_exist(t_my_env *tmp, char *key);
-
-
 void	initialize_dt(struct s_export *info);
 int		unset_err(char *cmd);
-void 	unsetdata(struct s_unset *unset, t_my_env **my_env, int n);
-void 	echo_dt(struct s_echo *echo, int c, int *exit_code);
-void 	echo_err(int *exit_code , int c);
+void	unsetdata(struct s_unset *unset, t_my_env **my_env, int n);
+void	echo_dt(struct s_echo *echo, int c, int *exit_code);
+void	echo_err(int *exit_code, int c);
 void	ex_data(struct s_expand *exp);
 void	calcul_c(char *input, struct s_expand *exp, int c, char *ex);
 void	search_ky_2(struct s_expand *exp);
@@ -244,7 +240,8 @@ void	free_arr(char **arr);
 void	free_tokens(t_token **tokens_head);
 void	free_tree(t_tree **tree);
 void	free_my_env(t_my_env **my_env_head);
-void	idont_know_what_mdoin(struct s_expand *exp, int c, char *input,t_my_env *my_env);
+void	idont_know_what_mdoin(struct s_expand *exp, int c,
+			char *input, t_my_env *my_env);
 void	enter_a_pipe(t_token **tokens);
 void	freenode(t_my_env *node);
 
@@ -254,4 +251,3 @@ void	print_my_tree(t_tree *tree);
 void	print_envs(t_my_env *my_env);
 
 #endif
-
