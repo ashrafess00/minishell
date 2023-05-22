@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 11:44:08 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/21 11:44:08 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:11:17 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*create_string(long number, size_t chars_len, size_t is_neg)
 {
 	char		*number_string;
 	size_t		i;
-	int l;
+	int			l;
 
 	i = 0;
 	number_string = ft_calloc(chars_len + 1, sizeof(char));

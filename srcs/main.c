@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 22:06:07 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:52:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@ int	is_valid_input(char *input)
 
 void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 {
-	t_token		*tokens;
-	t_tree		*tree;
+	t_token	*tokens;
+	t_tree	*tree;
 
 	if (!is_valid_input(input))
 	{
 		free(input);
 		return ;
 	}
-	input = ft_strtrim(input, " ");
 	tokens = lets_tokenize(input);
 	free(input);
 	if (!check_tokens(tokens, exit_code))
@@ -42,131 +41,39 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	tree = lets_parse(&tokens);
 	free_tokens(&tokens);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
-	// printf("exit code : %d\n", *exit_code);
 	free_tree(&tree);
 }
 
-void ctrl_c_handler(int signum) 
+void	ctrl_c_handler(int signum)
 {
-	if(signum == SIGINT)
+	if (signum == SIGINT)
 	{
-    	rl_on_new_line();
-    	rl_replace_line("", 0);
-    	write(1,"\n",1);
-    	rl_redisplay();
-	} 
-}
-
-void free_pedi(char *pedi)
-{
-	int i = 0;
-	while(pedi[i] != '\0')
-	{
-		pedi[i] = '\0';
-		i++;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
+		rl_redisplay();
 	}
 }
-char *expandini(char *input, t_my_env *my_env, char *ex)
+
+void	my_env_cop(char **env, t_my_env **my_env, int *exit_code)
 {
-	int i = 0;
-	int c = 0;
-	t_my_env	*tmp;
-	while(input[i])
-	{
-		if(input[i] == '$')
-			c++;
-		i++;
-	}
-	i = 0;
-    char *result;
-	result = malloc(strlen(input) + (c * 87)  + 1);
-    int resultIndex = 0;
-	char pedi[200];
-	int position = 0;
-	int fl =0;
-    int inputIndex = 0;
-    while (input[inputIndex] != '\0')
-    {
-		position = 0;
-		fl = 0;
-		if(inputIndex > 0)
-		{
-			if(input[inputIndex - 1] == 39)
-				fl = 1;
-		}
-        if (input[inputIndex] == '$' && fl == 0)
-        {
-			c = 0;
-			if(input[inputIndex + 1] == '?')
-			{
-				while(ex[c])
-					result[resultIndex++] = ex[c++];
-				inputIndex += 2;
- 			}
-			else{
-			while(input[inputIndex] == '$' && input[inputIndex] != '\0')
-				inputIndex++;
-            while(((input[inputIndex] >= 97 && input[inputIndex] <= 122) || (input[inputIndex] >= 65 && input[inputIndex] <= 90)) && input[inputIndex])
-			{
-				pedi[c] = input[inputIndex];
-				inputIndex++;
-				c++;
-			}
-			pedi[c] = '\0';
-			tmp = my_env;
-			while(tmp != NULL)
-			{
-				i = 0;
-				while(tmp->val[i] != '\0' && pedi[i] != '\0' && tmp->val[i] == pedi[i])
-					i++;
-				if(pedi[i] == '\0')
-				{
-					i = 0;
-					while(tmp->val[i] != '=' && tmp->val[i])
-						i++;
-					i++;
-					while(tmp->val[i] != '\0')
-					{
-						result[resultIndex] = tmp->val[i];
-						i++;
-						resultIndex++;
-					}
-					break;
-				}
-				tmp = tmp->next;
-			}
-			}
-			free_pedi(pedi);
-        }
-		else if(input[inputIndex] != '\0')
-		{
-        	result[resultIndex] = input[inputIndex];
-        	resultIndex++;
-        	inputIndex++;
-		}
-    }
-	free(input);
-    result[resultIndex] = '\0';
-    return result;
+	copy_env(my_env, env);
+	*exit_code = 0;
+	signal(SIGINT, ctrl_c_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
-
-
-
 
 int	main(int c, char **arg, char **env)
 {
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	char		*ext;
-	static int	exit_code = 0;
+	static int	exit_code;
 
+	my_env = NULL;
+	my_env_cop(env, &my_env, &exit_code);
 	(void)arg;
 	(void)c;
-	my_env = NULL;
-	copy_env(&my_env, env);
-	signal(SIGINT, ctrl_c_handler);
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		our_shell = get_cdir(exit_code);
@@ -179,11 +86,8 @@ int	main(int c, char **arg, char **env)
 		}
 		if (ft_strlen(input) > 0)
 			add_history(input);
-		ext = ft_itoa(exit_code);
-		input = expandini(input, my_env, ext);
-		free(ext);
+		input = expandini(input, my_env, exit_code);
 		tokenize_parse_execute(input, &my_env, &exit_code);
 	}
 	free_my_env(&my_env);
-	return (0);
 }
