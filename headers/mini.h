@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 15:16:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:18:32 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <sys/stat.h>
 # include <errno.h>
 # include <signal.h>
 # include "libft.h"
@@ -245,10 +244,4 @@ void	idont_know_what_mdoin(struct s_expand *exp, int c,
 void	enter_a_pipe(t_token **tokens);
 void	freenode(t_my_env *node);
 
-//print_linked_lists //delete in intra42 v
-void	print_tokens(t_token *head);
-void	print_my_tree(t_tree *tree);
-void	print_envs(t_my_env *my_env);
-
 #endif
-
