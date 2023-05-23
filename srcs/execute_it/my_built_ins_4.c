@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins_4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/21 19:28:30 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/23 12:58:11 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	my_exit(t_tree *tree)
 {
 	redirect_it(tree, DONT_REDIRECT);
+	if (tree->cmd_node->args[1])
+		exit(255);
 	exit(0);
 }
 
