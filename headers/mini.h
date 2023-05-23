@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 20:18:32 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:47:22 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,5 +243,6 @@ void	idont_know_what_mdoin(struct s_expand *exp, int c,
 			char *input, t_my_env *my_env);
 void	enter_a_pipe(t_token **tokens);
 void	freenode(t_my_env *node);
+void	ctrl_c_handler(int signum);
 
 #endif

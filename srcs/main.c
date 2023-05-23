@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 13:52:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:31:20 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int c, char **arg, char **env)
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	static int	exit_code;
+	int static	exit_code = 0;
 
 	my_env = NULL;
 	my_env_cop(env, &my_env, &exit_code);

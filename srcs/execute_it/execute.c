@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/21 22:07:41 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:34:25 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,17 @@ void	cmd_part(t_tree *tree, int *exit_code,
 	{
 		pid = fork();
 		if (pid == 0)
+		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			run_cmd(tree, my_env);
+		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
+			signal(SIGINT, ctrl_c_handler);
+			signal(SIGQUIT, SIG_IGN);
 			*exit_code = WEXITSTATUS(status);
 		}
 	}
