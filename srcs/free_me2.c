@@ -6,11 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:39:56 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/22 13:43:22 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 void	free_redir_list(t_redir_list **redir_list_head)
 {

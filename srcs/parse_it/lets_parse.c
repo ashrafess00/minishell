@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 t_tree	*cr_tree(void)
 {
@@ -53,7 +53,7 @@ void	push_cmd_to_tree(t_tree **tree, t_cmd *cmd)
 	*tree = new_tree;
 }
 
-void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
+void	cr_and_expand_tree(t_tree **tree, t_token **tokens, t_my_env *my_env)
 {
 	t_cmd	*cmd;
 	t_tree	*new_tree;
@@ -61,7 +61,7 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 
 	if (!(*tree))
 	{
-		cmd = cr_cmd_node(tokens);
+		cmd = cr_cmd_node(tokens, my_env);
 		push_cmd_to_tree(tree, cmd);
 	}
 	else
@@ -70,13 +70,13 @@ void	cr_and_expand_tree(t_tree **tree, t_token **tokens)
 		new_tree = cr_tree();
 		new_tree->type = PIPE_NODE;
 		new_tree->left = (*tree);
-		cmd = cr_cmd_node(tokens);
+		cmd = cr_cmd_node(tokens, my_env);
 		push_cmd_to_tree(&(new_tree)->right, cmd);
 		(*tree) = new_tree;
 	}
 }
 
-t_tree	*lets_parse(t_token **tokens)
+t_tree	*lets_parse(t_token **tokens, t_my_env *my_env)
 {
 	t_tree	*tree;
 	t_cmd	*cmd;
@@ -87,7 +87,7 @@ t_tree	*lets_parse(t_token **tokens)
 	tmp = (*tokens);
 	while (tmp)
 	{
-		cr_and_expand_tree(&tree, &tmp);
+		cr_and_expand_tree(&tree, &tmp, my_env);
 		if (tmp)
 			tmp = tmp->next;
 	}

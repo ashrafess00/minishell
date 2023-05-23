@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini.h                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/23 16:47:22 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/23 23:29:25 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_H
-# define MINI_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/readline.h>
@@ -20,8 +20,9 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include "libft.h"
-# define PERMISSION_MSG ": permission denied"
+# define PERMISSION_MSG ": Permission denied"
 # define FILE_NOT_FOUND_MSG ": No such file or directory"
 # define COMMAND_NOT_FOUND ": command not found"
 # define IS_A_DIRECTORY ": is a directory"
@@ -163,10 +164,11 @@ int		check_add_red_inp_token(t_token **head, char *line, t_tin *tin);
 int		check_tokens(t_token *tokens, int *exit_code);
 
 //parsing
-t_tree	*lets_parse(t_token **tokens);
+t_tree	*lets_parse(t_token **tokens, t_my_env *my_env);
 t_tree	*cr_tree(void);
 t_cmd	*cr_cmd(void);
-t_cmd	*cr_cmd_node(t_token **tokens);
+t_cmd	*cr_cmd_node(t_token **tokens, t_my_env *my_env);
+
 
 //=======execution=======
 void	lets_execute(t_tree *tree, t_my_env **env,
@@ -178,6 +180,7 @@ void	free_pedi(char *pedi);
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
 void	write_error(char *file1, char *msg, int exit_status);
+int		is_a_directory(char *program);
 //open files
 int		open_outfile(char *file);
 int		open_outfile_append(char *file);
@@ -208,7 +211,7 @@ int		ft_strcmp(char *s, char *limiter);
 char	**my_env(char **nature);
 int		stln(char **nature, int i);
 char	**expand_arr(char **arr, char *val);
-char	*get_input_from_usr(char *limiter);
+char	*get_input_from_usr(char *limiter, t_my_env *my_env);
 char	*get_cdir(int exit_code);
 int		is_empty(char *input);
 int		is_single_cmd(t_tree *tree);

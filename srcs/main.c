@@ -6,11 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/23 19:31:20 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:25:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 int	is_valid_input(char *input)
 {
@@ -38,7 +38,7 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 		free_tokens(&tokens);
 		return ;
 	}
-	tree = lets_parse(&tokens);
+	tree = lets_parse(&tokens, *my_env);
 	free_tokens(&tokens);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
 	free_tree(&tree);

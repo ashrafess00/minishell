@@ -6,11 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 13:47:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:46:03 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 //mn pipex :)
 void	write_error(char *file1, char *msg, int exit_status)
@@ -27,17 +27,12 @@ void	write_error(char *file1, char *msg, int exit_status)
 	exit(exit_status);
 }
 
-int	is_a_directory(char *program, char **paths)
+int	is_a_directory(char *program)
 {
-	int	i;
-
-	i = -1;
-	while (paths[++i])
-	{
-		if (!ft_strcmp(program, paths[i]))
-			return (1);
-	}
-	return (0);
+	struct stat	file_info;
+	
+	stat(program, &file_info);
+	return (S_ISDIR(file_info.st_mode));
 }
 
 char	*get_path(char *program, char **paths)
@@ -48,7 +43,7 @@ char	*get_path(char *program, char **paths)
 	i = -1;
 	if (!paths)
 		write_error(program, FILE_NOT_FOUND_MSG, STATUS_127);
-	if (is_a_directory(program, paths))
+	if (is_a_directory(program))
 		write_error(program, IS_A_DIRECTORY, 126);
 	while (paths[++i])
 	{

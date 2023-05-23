@@ -6,11 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:35:07 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 13:42:03 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 int	get_before_equal_index(char *s)
 {

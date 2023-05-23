@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:57 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/22 17:50:17 by kslik            ###   ########.fr       */
+/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 void	excpo_case_1(struct s_export *info, t_my_env *tmp, char *ljadid, int fl)
 {

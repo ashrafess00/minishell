@@ -6,11 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/15 20:44:51 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:35:20 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+#include "minishell.h"
 
 int	ft_strcmp(char *s, char *limiter)
 {
@@ -32,7 +32,7 @@ int	ft_strcmp(char *s, char *limiter)
 	return (0);
 }
 
-char	*get_input_from_usr(char *limiter)
+char	*get_input_from_usr(char *limiter, t_my_env *my_env)
 {
 	char	*input;
 	char	*s;
@@ -42,6 +42,8 @@ char	*get_input_from_usr(char *limiter)
 	{
 		ft_printf("> ");
 		s = get_next_line(0);
+		if (s)
+			s = expandini(s, my_env, 0);
 		if (!s)
 			break ;
 		if (!ft_strcmp(s, limiter))
@@ -69,9 +71,9 @@ char	*get_cdir(int exit_code)
 	}
 	our_shell = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
 	if (!exit_code)
-		our_shell = ft_strjoin(our_shell, ft_strdup(")😋~> \e[0;37m"));
+		our_shell = ft_strjoin(our_shell, ft_strdup(")😋~>\e[0;37m"));
 	else
-		our_shell = ft_strjoin(our_shell, ft_strdup(")😿~> \e[0;37m"));
+		our_shell = ft_strjoin(our_shell, ft_strdup(")😿~>\e[0;37m"));
 	our_shell = ft_strjoin(ft_strdup("\e[0;31m/our@shell~:"), our_shell);
 	return (our_shell);
 }

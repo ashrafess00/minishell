@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kslik <kslik@student.42.fr>                +#+  +:+       +#+         #
+#    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/23 16:23:42 by kslik            ###   ########.fr        #
+#    Updated: 2023/05/23 22:12:07 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS = main.c utils.c utils2.c free_me.c free_me2.c manage_envs.c $(TOKENIZE_IT_
 
 
 LIBFT_A	= $(LIBFT_DIR)libft.a
-DEPO = mini.h
+DEPO = minishell.h
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 INCLUDE = -I$(HEADERS) -I$(LIBFT_DIR) 
