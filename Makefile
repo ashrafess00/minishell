@@ -6,11 +6,11 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/22 20:03:06 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/23 13:18:46 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = shell
+NAME = minishell
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
 REDLINE=$(shell brew  --prefix readline)
