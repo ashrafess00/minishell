@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/25 13:37:28 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:46:12 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	lets_execute(t_tree *tree, t_my_env **my_env,
 {
 	int	fds[2];
 
-	*exit_code = -999;
 	if (tree->type == CMD_NODE)
 		cmd_part(tree, exit_code, my_env, is_single_cmd);
 	else

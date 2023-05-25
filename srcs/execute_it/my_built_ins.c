@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/24 16:03:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:44:16 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
 	int	i;
 
 	i = 1;
+	*exit_code = 0;
 	while (tree->cmd_node->args[i] != NULL)
 	{
 		if (unset_err(tree->cmd_node->args[i]) == 1)
@@ -73,7 +74,6 @@ void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
 			*exit_code = 1;
 		i++;
 	}
-	*exit_code = 0;
 }
 
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
@@ -83,7 +83,7 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 	else if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
 		my_cd(tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "exit"))
-		my_exit(tree);
+		my_exit(tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))
 		my_pwd(tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "export"))

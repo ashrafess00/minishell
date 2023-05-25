@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:16 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 12:50:20 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:55:28 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	ex_err(char *cmd, int c)
 	if (cmd[0] == '=' || cmd[0] == '$')
 	{
 		if (c == 2)
-			ft_putstr_fd("our@shell: export: `%s\': not a valid identifier\n", 2);
+			ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
 		return (0);
 	}
 	if (!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)))
 	{
 		if (c == 2)
-			ft_putstr_fd("our@shell: export: `%s\': not a valid identifier\n", 2);
+			ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
 		return (0);
 	}
 	while (cmd[i] != '=' && cmd[i] != '\0')

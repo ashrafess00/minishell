@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 12:38:19 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:43:38 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void	deletenode(t_my_env **my_env, char *key);
 int		is_built_in(t_tree *tree);
 void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
 void	my_echo(t_tree *tree, int *exit_code);
-void	my_exit(t_tree *tree);
+void	my_exit(t_tree *tree, int *exit_code);
 void	my_pwd(t_tree *tree, int *exit_code);
 void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code);
 void	my_cd(t_tree *tree, int *exit_code);
@@ -208,8 +208,6 @@ void	add_my_env_node(t_my_env **head, char *env);
 //========General========
 //utils
 int		ft_strcmp(char *s, char *limiter);
-// char	**my_env(char **nature);
-// int		stln(char **nature, int i);
 char	**expand_arr(char **arr, char *val);
 char	*get_input_from_usr(char *limiter, t_my_env *my_env);
 char	*get_cdir(int exit_code);

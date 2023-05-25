@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:58:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 12:28:56 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:49:42 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	my_cd(t_tree *tree, int *exit_code)
 {
-	
 	redirect_it(tree, DONT_REDIRECT);
 	if (!tree->cmd_node->args[1])
 		return ;
 	if (chdir(tree->cmd_node->args[1]))
 	{
-		// printf("hi there\n");
 		write(2, "our@shell: cd: ", 15);
 		perror(tree->cmd_node->args[1]);
 		*exit_code = 1;
