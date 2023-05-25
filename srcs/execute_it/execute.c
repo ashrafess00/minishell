@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:37:28 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2])
 		dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
 		lets_execute(tree->left, my_env, 0, exit_code);
-		exit(0);
+		exit(*exit_code);
 	}	
 	r_pid = fork();
 	if (r_pid == 0)
@@ -94,7 +94,7 @@ void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2])
 		dup2(fds[0], STDIN_FILENO);
 		close_fds(fds);
 		lets_execute(tree->right, my_env, 0, exit_code);
-		exit(0);
+		exit(*exit_code);
 	}
 	close_fds(fds);
 	waitpid(l_pid, &status, 0);

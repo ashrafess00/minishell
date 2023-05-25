@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:16 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 12:34:37 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:50:20 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	ex_err(char *cmd, int c)
 	if (cmd[0] == '=' || cmd[0] == '$')
 	{
 		if (c == 2)
-			printf("our@shell: export: \'%s\': not a valid identifier\n", cmd);
+			ft_putstr_fd("our@shell: export: `%s\': not a valid identifier\n", 2);
 		return (0);
 	}
 	if (!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)))
 	{
 		if (c == 2)
-			printf("our@shell: export: \'%s\': not a valid identifier\n", cmd);
+			ft_putstr_fd("our@shell: export: `%s\': not a valid identifier\n", 2);
 		return (0);
 	}
 	while (cmd[i] != '=' && cmd[i] != '\0')
@@ -91,6 +91,7 @@ void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 
 	i = -1;
 	c = 0;
+	*exit_code = 0;
 	if (tree->cmd_node->args[1] == NULL)
 		exp_nocmd(my_env);
 	else
@@ -106,5 +107,4 @@ void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 				*exit_code = 1;
 		}
 	}
-	*exit_code = 0;
 }

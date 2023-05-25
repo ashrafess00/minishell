@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/23 23:25:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:06:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int c, char **arg, char **env)
 	{
 		our_shell = get_cdir(exit_code);
 		input = readline(our_shell);
+		// input = readline("minishell> ");
 		free(our_shell);
 		if (!is_valid_input(input))
 		{
