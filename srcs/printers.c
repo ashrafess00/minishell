@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:54:35 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,6 @@ void	print_my_tree(t_tree *tree)
 		printf("%p - left %p - right %p - type %c\n", tree, tree->left, tree->right, tree->type);
 		print_my_tree(tree->left);
 		print_my_tree(tree->right);
-	}
-}
-
-void	print_envs(t_my_env *my_env)
-{
-	while (my_env)
-	{
-		printf("%s\n", my_env->val);
-		my_env = my_env->next;
 	}
 }
 

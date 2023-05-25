@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 22:46:03 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:50:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	write_error(char *file1, char *msg, int exit_status)
 int	is_a_directory(char *program)
 {
 	struct stat	file_info;
-	
+
 	stat(program, &file_info);
 	return (S_ISDIR(file_info.st_mode));
 }

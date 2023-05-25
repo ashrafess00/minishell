@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/23 23:29:25 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:30:56 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define FILE_NOT_FOUND_MSG ": No such file or directory"
 # define COMMAND_NOT_FOUND ": command not found"
 # define IS_A_DIRECTORY ": is a directory"
+# define NOT_A_VALID_INDENTIFIER ": not a valid identifier"
 # define STATUS_1 1
 # define STATUS_126 126
 # define STATUS_127 127
@@ -169,7 +170,6 @@ t_tree	*cr_tree(void);
 t_cmd	*cr_cmd(void);
 t_cmd	*cr_cmd_node(t_token **tokens, t_my_env *my_env);
 
-
 //=======execution=======
 void	lets_execute(t_tree *tree, t_my_env **env,
 			int is_single_cmd, int *exit_code);
@@ -208,8 +208,8 @@ void	add_my_env_node(t_my_env **head, char *env);
 //========General========
 //utils
 int		ft_strcmp(char *s, char *limiter);
-char	**my_env(char **nature);
-int		stln(char **nature, int i);
+// char	**my_env(char **nature);
+// int		stln(char **nature, int i);
 char	**expand_arr(char **arr, char *val);
 char	*get_input_from_usr(char *limiter, t_my_env *my_env);
 char	*get_cdir(int exit_code);

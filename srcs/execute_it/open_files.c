@@ -6,12 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:16:35 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 22:54:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:50:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	open_outfile(char *file)
 {

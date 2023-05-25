@@ -6,14 +6,15 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:22:20 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 23:30:43 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:50:02 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //create node of the redirection with opening files and getting heredoc_data
-t_redir_list	*cr_redir_list_node(char *file_name, t_special_char type, t_my_env *my_env)
+t_redir_list	*cr_redir_list_node(char *file_name,
+	t_special_char type, t_my_env *my_env)
 {
 	t_redir_list	*new_redir_list;
 
@@ -53,12 +54,14 @@ void	check_add_redir_list(t_token **tokens, t_cmd **cmd, t_my_env *my_env)
 	if ((*tokens)->type == RED_OUTPUT)
 	{
 		*tokens = (*tokens)->next;
-		add_redir_list_node(&(*cmd)->redir_list, (*tokens)->s, RED_OUTPUT, my_env);
+		add_redir_list_node(&(*cmd)->redir_list, (*tokens)->s,
+			RED_OUTPUT, my_env);
 	}
 	else if ((*tokens)->type == RED_INPUT)
 	{
 		*tokens = (*tokens)->next;
-		add_redir_list_node(&(*cmd)->redir_list, (*tokens)->s, RED_INPUT, my_env);
+		add_redir_list_node(&(*cmd)->redir_list, (*tokens)->s,
+			RED_INPUT, my_env);
 	}
 	else if ((*tokens)->type == RED_OUTPUT_APPEND)
 	{

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:02:45 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:54:38 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ char	**from_lk_to_arr(t_my_env **my_env)
 		current = current->next;
 	}
 	return (env);
+}
+
+void	print_envs(t_my_env *my_env)
+{
+	while (my_env)
+	{
+		printf("%s\n", my_env->val);
+		my_env = my_env->next;
+	}
 }

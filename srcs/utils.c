@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 23:35:20 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:06:55 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ char	*get_cdir(int exit_code)
 	}
 	our_shell = ft_strjoin(ft_strdup("\e[1;32m("), ft_strdup(s + l_i));
 	if (!exit_code)
-		our_shell = ft_strjoin(our_shell, ft_strdup(")😋~>\e[0;37m"));
+		our_shell = ft_strjoin(our_shell, ft_strdup(")😋~> \e[0;37m"));
 	else
-		our_shell = ft_strjoin(our_shell, ft_strdup(")😿~>\e[0;37m"));
+		our_shell = ft_strjoin(our_shell, ft_strdup(")😿~> \e[0;37m"));
 	our_shell = ft_strjoin(ft_strdup("\e[0;31m/our@shell~:"), our_shell);
 	return (our_shell);
 }
