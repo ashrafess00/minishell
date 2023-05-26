@@ -12,12 +12,15 @@
 
 #include "minishell.h"
 
-int	is_valid_input(char *input)
+int	is_valid_input(char *input, int *exit_code)
 {
 	if (!input)
 		exit(1);
 	if (is_empty(input))
+	{
+		*exit_code = 0;
 		return (0);
+	}
 	return (1);
 }
 
@@ -26,7 +29,7 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	t_token	*tokens;
 	t_tree	*tree;
 
-	if (!is_valid_input(input))
+	if (!is_valid_input(input, exit_code))
 	{
 		free(input);
 		return ;
@@ -49,7 +52,7 @@ void	ctrl_c_handler(int signum)
 	if (signum == SIGINT)
 	{
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_redisplay();
 	}
@@ -79,7 +82,7 @@ int	main(int c, char **arg, char **env)
 		our_shell = get_cdir(exit_code);
 		input = readline(our_shell);
 		free(our_shell);
-		if (!is_valid_input(input))
+		if (!is_valid_input(input, &exit_code))
 		{
 			free(input);
 			continue ;

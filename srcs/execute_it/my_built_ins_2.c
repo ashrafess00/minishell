@@ -42,11 +42,6 @@ int	ex_err(char *cmd, int c)
 			ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
 		return (0);
 	}
-	while (cmd[i] != '=' && cmd[i] != '\0')
-		i++;
-	i = i - 1;
-	if (!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)))
-		return (0);
 	return (1);
 }
 
@@ -55,12 +50,25 @@ int	unset_err(char *cmd)
 	int	i;
 
 	i = 0;
+	if (cmd[0] == '=' || cmd[0] == '$')
+	{
+		ft_putstr_fd("our@shell: unset: not a valid identifier\n", 2);
+		return (0);
+	}
+	if (!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)))
+	{
+		ft_putstr_fd("our@shell: unset: not a valid identifier\n", 2);
+		return (0);
+	}
 	while (cmd[i] != '\0')
 	{
-		if (!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65
-					&& cmd[i] <= 90)))
+		if (ft_isalpha(cmd[i]) == 1)
+			printf("");
+		else if (ft_isdigit(cmd[i]) == 1)
+			printf("");
+		else
 		{
-			printf(" export \'%s\' : not a valid identifier\n", cmd);
+			printf("our@shell: unset \'%s\' : not a valid identifier\n", cmd);
 			return (0);
 		}
 		i++;

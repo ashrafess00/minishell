@@ -99,11 +99,11 @@ char	*expandini(char *input, t_my_env *my_env, int exit_code)
 	ex_data(&exp);
 	exp.i = 0;
 	calcul_c(input, &exp, 0, ex);
-	exp.result = ft_calloc(strlen(input) + (exp.c * 87) + 1, 1);
+	exp.result = ft_calloc(ft_strlen(input) + (exp.c * 87) + 1, 1);
 	while (input[exp.input_index] != '\0')
 	{
 		calcul_c(input, &exp, 1, ex);
-		if (input[exp.input_index] == '$' && exp.fl == 0)
+		if (input[exp.input_index] == '$' && exp.fl == 0 && ft_isalpha(input[exp.input_index + 1]))
 		{
 			inist_to_zero(&exp, 0, input);
 			if (input[exp.input_index + 1] == '?')
