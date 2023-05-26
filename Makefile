@@ -13,7 +13,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-REDLINE=$(shell brew  --prefix readline)
+# REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES
 SRCS_DIR = srcs/
