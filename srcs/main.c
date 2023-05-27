@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 14:52:05 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:00:39 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ctrl_c_handler(int signum)
 	if (signum == SIGINT)
 	{
 		rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_redisplay();
 	}

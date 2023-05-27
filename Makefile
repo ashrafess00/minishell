@@ -6,14 +6,14 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/05/23 22:12:07 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/05/27 22:00:30 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-# REDLINE=$(shell brew  --prefix readline)
+REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES
 SRCS_DIR = srcs/

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:16 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 13:55:28 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:00:18 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int	unset_err(char *cmd)
 	}
 	while (cmd[i] != '\0')
 	{
-		if (ft_isalpha(cmd[i]) == 1)
-			printf("");
-		else if (ft_isdigit(cmd[i]) == 1)
+		if (ft_isalpha(cmd[i]) == 1 || ft_isdigit(cmd[i]) == 1)
 			printf("");
 		else
 		{

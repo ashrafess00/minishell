@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:56:39 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:03:36 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*expandini(char *input, t_my_env *my_env, int exit_code)
 	while (input[exp.input_index] != '\0')
 	{
 		calcul_c(input, &exp, 1, ex);
-		if (input[exp.input_index] == '$' && exp.fl == 0 && ((ft_isalpha(input[exp.input_index + 1]) || input[exp.input_index + 1] == '?')))
+		if (input[exp.input_index] == '$' && exp.fl == 0 && ((ft_isalpha(input[exp.input_index + 1])|| input[exp.input_index + 1] == '?')))
 		{
 			inist_to_zero(&exp, 0, input);
 			if (input[exp.input_index + 1] == '?')
