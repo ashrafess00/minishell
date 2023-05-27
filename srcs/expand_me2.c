@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+int betweensingle(char *input, int index) 
+{
+    int open_qu = 0;
+    int i = 0;
+    
+    while (input[i] != '\0') {
+        if (open_qu == 0 && input[i] == '\'')
+            open_qu = 1;
+        else if (open_qu == 1 && input[i] == '\'')
+            open_qu = 0;
+        
+        if (i == index)
+            return open_qu;
+        
+        i++;
+    }
+    return 0;
+}
 void	ex_data(struct s_expand *exp)
 {
 	exp->i = 0;
@@ -35,12 +53,7 @@ void	calcul_c(char *input, struct s_expand *exp, int c, char *ex)
 	}
 	else if (c == 1)
 	{
-		exp->fl = 0;
-		if (exp->input_index > 0)
-		{
-			if (input[exp->input_index - 1] == 39)
-				exp->fl = 1;
-		}
+		exp->fl = betweensingle(input,exp->input_index);
 	}
 	else if (c == 2)
 	{
