@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 13:27:41 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 22:12:57 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:23:58 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	add_token(t_token **head, char *s, t_special_char type)
 	last = *head;
 	new_token_node = cr_token_node(s, type);
 	if (*head == NULL)
-	{
 		*head = new_token_node;
-	}
 	else
 	{
 		while (last->next)

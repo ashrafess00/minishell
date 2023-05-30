@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 14:43:38 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:17:59 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,8 @@ void	my_cd(t_tree *tree, int *exit_code);
 char	**from_lk_to_arr(t_my_env **my_env);
 void	copy_env(t_my_env **head, char **env);
 void	add_my_env_node(t_my_env **head, char *env);
+void	print_envs(t_my_env *my_env);
+void	update_envs(t_my_env **my_env);
 
 //========General========
 //utils

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/27 22:00:39 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:17:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	}
 	tree = lets_parse(&tokens, *my_env);
 	free_tokens(&tokens);
+	update_envs(my_env);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
 	free_tree(&tree);
 }
@@ -58,10 +59,9 @@ void	ctrl_c_handler(int signum)
 	}
 }
 
-void	my_env_cop(char **env, t_my_env **my_env, int *exit_code)
+void	my_env_cop(char **env, t_my_env **my_env)
 {
 	copy_env(my_env, env);
-	*exit_code = 0;
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
@@ -74,7 +74,7 @@ int	main(int c, char **arg, char **env)
 	int static	exit_code = 0;
 
 	my_env = NULL;
-	my_env_cop(env, &my_env, &exit_code);
+	my_env_cop(env, &my_env);
 	(void)arg;
 	(void)c;
 	while (1)
