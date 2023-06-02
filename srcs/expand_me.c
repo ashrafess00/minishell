@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:56:39 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/27 22:03:36 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:39:36 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,13 @@ void	inist_to_zero(struct s_expand *exp, int c, char *input)
 	}
 }
 
-void	idont_know_what_mdoin(struct s_expand *exp, int c, char *input,
-		t_my_env *my_env)
+static int	check_inp(char *input, struct s_expand exp)
 {
-	if (c == 0)
-	{
-		exp->brek = 0;
-		search_key(input, exp, 0);
-		exp->tmp = my_env;
-		while (exp->tmp != NULL)
-		{
-			exp->i = 0;
-			while (exp->tmp->val[exp->i] != '\0' && exp->pedi[exp->i] != '\0'
-				&& exp->tmp->val[exp->i] == exp->pedi[exp->i])
-				exp->i++;
-			if (exp->pedi[exp->i] == '\0')
-			{
-				search_key(input, exp, 1);
-				exp->brek = 1;
-				break ;
-			}
-			exp->tmp = exp->tmp->next;
-		}
-	}
+	if (input[exp.input_index] == '$' && exp.fl == 0
+		&& ((ft_isalpha(input[exp.input_index + 1])
+				|| input[exp.input_index + 1] == '?')))
+		return (1);
+	return (0);
 }
 
 char	*expandini(char *input, t_my_env *my_env, int exit_code)
@@ -103,7 +87,7 @@ char	*expandini(char *input, t_my_env *my_env, int exit_code)
 	while (input[exp.input_index] != '\0')
 	{
 		calcul_c(input, &exp, 1, ex);
-		if (input[exp.input_index] == '$' && exp.fl == 0 && ((ft_isalpha(input[exp.input_index + 1])|| input[exp.input_index + 1] == '?')))
+		if (check_inp(input, exp))
 		{
 			inist_to_zero(&exp, 0, input);
 			if (input[exp.input_index + 1] == '?')

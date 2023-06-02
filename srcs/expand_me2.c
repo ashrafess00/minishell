@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:18:33 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/27 22:05:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:39:58 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,30 @@ void	calcul_c(char *input, struct s_expand *exp, int c, char *ex)
 		while (ex[exp->c])
 			exp->result[exp->result_index++] = ex[exp->c++];
 		exp->input_index += 2;
+	}
+}
+
+void	idont_know_what_mdoin(struct s_expand *exp, int c, char *input,
+		t_my_env *my_env)
+{
+	if (c == 0)
+	{
+		exp->brek = 0;
+		search_key(input, exp, 0);
+		exp->tmp = my_env;
+		while (exp->tmp != NULL)
+		{
+			exp->i = 0;
+			while (exp->tmp->val[exp->i] != '\0' && exp->pedi[exp->i] != '\0'
+				&& exp->tmp->val[exp->i] == exp->pedi[exp->i])
+				exp->i++;
+			if (exp->pedi[exp->i] == '\0')
+			{
+				search_key(input, exp, 1);
+				exp->brek = 1;
+				break ;
+			}
+			exp->tmp = exp->tmp->next;
+		}
 	}
 }
