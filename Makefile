@@ -6,7 +6,7 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/06/04 13:47:55 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/06/04 13:51:48 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HEADERS = headers/
 TOKENIZE_IT_SRCS = add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c check_tokens.c
 PARSE_IT_SRCS = lets_parse.c cr_nodes.c
 EXECUTE_IT_SRCS = execute.c path.c open_files.c redirections.c my_built_ins.c export.c my_built_ins_2.c my_built_ins_3.c my_built_ins_4.c my_built_ins_5.c my_built_ins_6.c
-SRCS = main.c printers.c utils.c utils2.c free_me.c free_me2.c manage_envs.c manage_envs2.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS) expand_me.c expand_me2.c
+SRCS = main.c utils.c utils2.c free_me.c free_me2.c manage_envs.c manage_envs2.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS) expand_me.c expand_me2.c
 
 
 LIBFT_A	= $(LIBFT_DIR)libft.a
