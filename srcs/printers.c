@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printers.c                                         :+:      :+:    :+:   */
+/*   .printers.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/23 23:54:35 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:45:48 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//dont touch this file 😛
-
 void	print_tokens(t_token *head)
 {
-	// t_token *too = head;
 	while (head)
 	{
 		printf("arg : %-10s", head->s);
@@ -75,5 +72,3 @@ void	print_my_tree(t_tree *tree)
 		print_my_tree(tree->right);
 	}
 }
-
-//dont touch this file 😛
