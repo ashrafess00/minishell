@@ -6,13 +6,12 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:46:37 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/25 13:38:44 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:56:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//mn pipex :)
 void	write_error(char *file1, char *msg, int exit_status)
 {
 	char	*our_shell;

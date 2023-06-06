@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:43:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2022/12/23 14:51:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:57:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	return (src_len);
 }
-
-// int main()
-// {
-// 	char dst[4] = "ash";
-// 	char src[4] = "ess";
-// 	printf("%zu\n", ft_strlcpy(dst, src, 4));
-// 	printf("dst: %s\n", dst);
-// 	printf("src: %s\n", src);
-// }

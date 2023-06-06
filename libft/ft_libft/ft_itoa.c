@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 11:44:08 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/22 14:11:17 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:56:27 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,3 @@ char	*ft_itoa(int n)
 	}
 	return (p);
 }
-
-// #include <stdio.h>
-// #include <limits.h>
-// int	main()
-// {
-// 	printf("%s", ft_itoa(1015));
-// }

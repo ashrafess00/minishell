@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:15:13 by aessaoud          #+#    #+#             */
-/*   Updated: 2022/12/23 14:51:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:57:09 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,3 @@ int	ft_putnbru(unsigned long int num, char *base)
 		count += ft_print_base(num, base, base_len);
 	return (count - 1);
 }
-
-// int main()
-// {
-// 	printf("\n%d\n", ft_putnbr_base(-15, "0123456789", 10));
-// }

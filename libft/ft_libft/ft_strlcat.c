@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:50:20 by aessaoud          #+#    #+#             */
-/*   Updated: 2022/12/23 14:51:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:57:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	dst[dst_size] = '\0';
 	return (res);
 }
-
-// int	main()
-// {
-// 	char	des[10] = "4567";
-// 	char	src[10] = "123";
-// 	printf("%lu\n", strlcat(des, src, 0));
-// 	// printf("%s", des);
-// }
