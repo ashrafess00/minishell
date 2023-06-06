@@ -6,7 +6,7 @@
 #    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/06/04 13:51:48 by aessaoud         ###   ########.fr        #
+#    Updated: 2023/06/06 13:52:47 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,3 +80,5 @@ fclean:
 	@echo OBJECT FILES AND SHELL PROGRAM WERE DELETED
 	
 re: fclean all
+
+.PHONY: all clean fclean re
