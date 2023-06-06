@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/30 16:08:21 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:59:55 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
 	if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
 		my_echo(tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "cd"))
-		my_cd(tree, exit_code);
+		my_cd(tree, my_env, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "exit"))
 		my_exit(tree, exit_code);
 	else if (!ft_strcmp(tree->cmd_node->args[0], "pwd"))

@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/04 13:50:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:03:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,7 @@ void	my_echo(t_tree *tree, int *exit_code);
 void	my_exit(t_tree *tree, int *exit_code);
 void	my_pwd(t_tree *tree, int *exit_code);
 void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code);
-void	my_cd(t_tree *tree, int *exit_code);
-// void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code);
+void	my_cd(t_tree *tree, t_my_env **env, int *exit_code);
 
 //manage envs
 char	**from_lk_to_arr(t_my_env **my_env);

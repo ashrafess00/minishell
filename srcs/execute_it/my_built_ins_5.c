@@ -6,13 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:58:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 14:49:42 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:00:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	my_cd(t_tree *tree, int *exit_code)
+void	my_cd(t_tree *tree, t_my_env **env, int *exit_code)
 {
 	redirect_it(tree, DONT_REDIRECT);
 	if (!tree->cmd_node->args[1])
@@ -24,6 +24,7 @@ void	my_cd(t_tree *tree, int *exit_code)
 		*exit_code = 1;
 		return ;
 	}
+	update_envs(env);
 	*exit_code = 0;
 }
 

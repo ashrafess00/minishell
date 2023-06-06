@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/04 13:48:11 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:04:21 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	tokenize_parse_execute(char *input, t_my_env **my_env, int *exit_code)
 	}
 	tree = lets_parse(&tokens, *my_env);
 	free_tokens(&tokens);
-	update_envs(my_env);
 	lets_execute(tree, my_env, is_single_cmd(tree), exit_code);
 	free_tree(&tree);
 }
