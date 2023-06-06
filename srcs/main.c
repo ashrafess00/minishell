@@ -6,11 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/06 16:58:50 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 22:22:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	exit_code = 0;
 
 int	is_valid_input(char *input, int *exit_code)
 {
@@ -51,6 +53,7 @@ void	ctrl_c_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		exit_code = 1;
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
@@ -70,7 +73,6 @@ int	main(int c, char **arg, char **env)
 	char		*input;
 	char		*our_shell;
 	t_my_env	*my_env;
-	int static	exit_code = 0;
 
 	my_env = NULL;
 	my_env_cop(env, &my_env);

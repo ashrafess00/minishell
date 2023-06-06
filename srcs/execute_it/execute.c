@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/25 14:46:12 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/06 22:43:36 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ void	cmd_part(t_tree *tree, int *exit_code,
 		{
 			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
-			signal(SIGINT, ctrl_c_handler);
-			signal(SIGQUIT, SIG_IGN);
-			*exit_code = WEXITSTATUS(status);
+			// signal(SIGINT, ctrl_c_handler);
+			// signal(SIGQUIT, SIG_IGN);
+			if (WIFEXITED(status))
+				*exit_code = WEXITSTATUS(status);
+			if (WIFSIGNALED(status))
+				*exit_code = WTERMSIG(status) + 128;
 		}
 	}
 }
@@ -99,7 +102,15 @@ void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2])
 	close_fds(fds);
 	waitpid(l_pid, &status, 0);
 	waitpid(r_pid, &status, 0);
-	*exit_code = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		*exit_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
+		*exit_code = WTERMSIG(status) + 128;
+	}
 }
 
 void	lets_execute(t_tree *tree, t_my_env **my_env,
