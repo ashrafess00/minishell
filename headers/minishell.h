@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:12:41 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define COMMAND_NOT_FOUND ": command not found"
 # define IS_A_DIRECTORY ": is a directory"
 # define NOT_A_VALID_INDENTIFIER ": not a valid identifier"
+# define NUMERIC_ARGUMENT_REQUIRED ": numeric argument required"
 # define STATUS_1 1
 # define STATUS_126 126
 # define STATUS_127 127

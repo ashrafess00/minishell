@@ -6,11 +6,27 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 13:56:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:14:30 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_exit_arg(char *arg)
+{
+	int	i;
+
+	i = -1;
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
+	while (arg[++i])
+	{
+		if (!ft_isdigit(arg[i]))
+		{
+			write_error(arg, NUMERIC_ARGUMENT_REQUIRED, 255);
+		}
+	}
+}
 
 void	my_exit(t_tree *tree, unsigned char *exit_code)
 {
@@ -21,6 +37,7 @@ void	my_exit(t_tree *tree, unsigned char *exit_code)
 		exit(*exit_code);
 	else if (tree->cmd_node->args[1])
 	{
+		check_exit_arg(tree->cmd_node->args[1]);
 		exit_codo = ft_atoi(tree->cmd_node->args[1]);
 		exit(exit_codo);
 	}
