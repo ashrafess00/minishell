@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/07 16:52:33 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:55:10 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*get_input_from_usr(char *limiter, t_my_env *my_env)
 
 	input = ft_calloc(1, 1);
 	signal(SIGINT, SIG_IGN);	
+	pipe(fds);
 	pid = fork();
 	if (pid == 0)
 	{
