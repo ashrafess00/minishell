@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:58:16 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/07 16:55:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:56:18 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*get_input_from_usr(char *limiter, t_my_env *my_env)
 		signal(SIGINT, ctrl_c_handler);
 		close(fds[1]);
 		waitpid(pid, &status, 0);
+		//don't forget to use get next line here
 		read(fds[0], input, 1000);
 		close(fds[0]);
 		return (input);

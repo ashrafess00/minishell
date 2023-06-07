@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 14:14:30 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:03:55 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	check_exit_arg(char *arg)
 	while (arg[++i])
 	{
 		if (!ft_isdigit(arg[i]))
-		{
 			write_error(arg, NUMERIC_ARGUMENT_REQUIRED, 255);
-		}
 	}
 }
 
@@ -35,6 +33,11 @@ void	my_exit(t_tree *tree, unsigned char *exit_code)
 	redirect_it(tree, DONT_REDIRECT);
 	if (!tree->cmd_node->args[1])
 		exit(*exit_code);
+	else if (tree->cmd_node->args[1] && tree->cmd_node->args[2])
+	{
+		*exit_code = 1;
+		write(2, "our@shell: exit: too many arguments\n", 37);
+	}
 	else if (tree->cmd_node->args[1])
 	{
 		check_exit_arg(tree->cmd_node->args[1]);
