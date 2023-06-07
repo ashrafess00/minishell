@@ -6,64 +6,75 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:43:12 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:57:23 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_err(unsigned char *exit_code, int c)
+int	is_dash_n(char *s, int dash_n_found, int *dash_n_exist)
 {
-	if (c == 0)
+	int	i;
+
+	i = -1;
+	if (dash_n_found || (s[0] != '-'))
+		return (0);
+	else
 	{
-		perror("Fork Error");
-		*exit_code = 1;
+		i += 1;
+		while (s[++i])
+		{
+			if (s[i] != 'n')
+				return (0);
+		}
 	}
-	else if (c == 1)
-	{
-		printf("\n");
-		exit(0);
-	}
+	*dash_n_exist = 1;
+	return (1);
 }
 
-void	echo_dt(struct s_echo *echo, int c, unsigned char *exit_code)
+typedef struct echo_data
 {
-	if (c == 0)
-	{
-		echo->i = 1;
-		echo->pid = fork();
-	}
-	if (echo->pid == -1)
-		echo_err(exit_code, 0);
+	int	pid;
+	int	status;
+	int	dash_n;
+	int	i;
+	int	dash_n_exist;
+}	t_echo_data;
+
+void	fill_echo_data(t_echo_data *echo_data)
+{
+	echo_data->i = 0;
+	echo_data->dash_n = 0;
+	echo_data->dash_n_exist = 0;
+	echo_data->pid = fork();
 }
 
 void	my_echo(t_tree *tree, unsigned char *exit_code)
 {
-	struct s_echo	ech;
+	t_echo_data	echo_data;
 
-	echo_dt(&ech, 0, exit_code);
-	echo_dt(&ech, 1, exit_code);
-	if (ech.pid == 0)
+	fill_echo_data(&echo_data);
+	if (echo_data.pid == 0)
 	{
 		redirect_it(tree, 1);
-		if (!tree->cmd_node->args[1])
-			echo_err(exit_code, 1);
-		while (!ft_strcmp(tree->cmd_node->args[ech.i], "-n"))
-			ech.i++;
-		ech.i--;
-		while (tree->cmd_node->args[++ech.i])
+		while (tree->cmd_node->args[++echo_data.i])
 		{
-			if (tree->cmd_node->args[ech.i + 1])
-				printf("%s ", tree->cmd_node->args[ech.i]);
-			else
-				printf("%s", tree->cmd_node->args[ech.i]);
+			if (!is_dash_n(tree->cmd_node->args[echo_data.i],
+					echo_data.dash_n, &echo_data.dash_n_exist))
+			{
+				echo_data.dash_n = 1;
+				printf("%s", tree->cmd_node->args[echo_data.i]);
+				if (tree->cmd_node->args[echo_data.i + 1])
+					printf(" ");
+			}
 		}
-		if (ft_strcmp(tree->cmd_node->args[1], "-n"))
+		if (!echo_data.dash_n_exist)
 			printf("\n");
+		*exit_code = 0;
 		exit(0);
 	}
-	waitpid(ech.pid, &ech.status, 0);
-	*exit_code = WEXITSTATUS(ech.status);
+	else
+		waitpid(echo_data.pid, &echo_data.status, 0);
 }
 
 void	unsetdata(struct s_unset *unset, t_my_env **my_env, int n)
