@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:18:33 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 18:55:27 by kslik            ###   ########.fr       */
+/*   Updated: 2023/06/07 19:23:49 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,21 @@
 int	betweensingle(char *input, int index)
 {
 	int	open_qu;
+	int open_qu_d;
 	int	i;
 
 	open_qu = 0;
+	open_qu_d = 0;
 	i = 0;
 	while (input[i] != '\0')
 	{
-		if (open_qu == 0 && input[i] == '\'')
+		if(open_qu_d == 0 && input[i] == '\"' && open_qu == 0)
+			open_qu_d = 1;
+		else if(open_qu == 1 && input[i] == '\"' && open_qu == 0)
+			open_qu_d = 0;
+		if (open_qu == 0 && input[i] == '\'' && open_qu_d == 0)
 			open_qu = 1;
-		else if (open_qu == 1 && input[i] == '\'')
+		else if (open_qu == 1 && input[i] == '\'' && open_qu_d == 0)
 			open_qu = 0;
 		if (i == index)
 			return (open_qu);
