@@ -6,15 +6,15 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 14:28:45 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:24:27 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned char g_exit_code = 0;
+int g_exit_code = 0;
 
-int	is_valid_input(char *input, unsigned char *g_exit_code)
+int	is_valid_input(char *input, int *g_exit_code)
 {
 	if (!input)
 		exit(1);
@@ -26,7 +26,7 @@ int	is_valid_input(char *input, unsigned char *g_exit_code)
 	return (1);
 }
 
-void	tokenize_parse_execute(char *input, t_my_env **my_env, unsigned char *g_exit_code)
+void	tokenize_parse_execute(char *input, t_my_env **my_env, int *g_exit_code)
 {
 	t_token	*tokens;
 	t_tree	*tree;

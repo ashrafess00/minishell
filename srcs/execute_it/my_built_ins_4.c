@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 17:03:55 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_exit_arg(char *arg)
 	}
 }
 
-void	my_exit(t_tree *tree, unsigned char *exit_code)
+void	my_exit(t_tree *tree, int *exit_code)
 {
 	unsigned char	exit_codo;
 
@@ -46,7 +46,7 @@ void	my_exit(t_tree *tree, unsigned char *exit_code)
 	}
 }
 
-void	my_pwd(t_tree *tree, unsigned char *exit_code)
+void	my_pwd(t_tree *tree, int *exit_code)
 {
 	char	cwd[512];
 	int		pid;

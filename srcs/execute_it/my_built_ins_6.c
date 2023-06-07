@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:43:12 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 17:57:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	fill_echo_data(t_echo_data *echo_data)
 	echo_data->pid = fork();
 }
 
-void	my_echo(t_tree *tree, unsigned char *exit_code)
+void	my_echo(t_tree *tree, int *exit_code)
 {
 	t_echo_data	echo_data;
 

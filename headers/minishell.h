@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 14:29:14 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int		check_add_heredoc_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_append_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_out_token(t_token **head, char *line, t_tin *tin);
 int		check_add_red_inp_token(t_token **head, char *line, t_tin *tin);
-int		check_tokens(t_token *tokens, unsigned char *exit_code);
+int		check_tokens(t_token *tokens, int *exit_code);
 
 //parsing
 t_tree	*lets_parse(t_token **tokens, t_my_env *my_env);
@@ -173,7 +173,7 @@ t_cmd	*cr_cmd_node(t_token **tokens, t_my_env *my_env);
 
 //=======execution=======
 void	lets_execute(t_tree *tree, t_my_env **env,
-			int is_single_cmd, unsigned char *exit_code);
+			int is_single_cmd, int *exit_code);
 void	redirect_it(t_tree *tree, int redirect);
 char	*expandini(char *input, t_my_env *my_env, int exit_code);
 void	free_pedi(char *pedi);
@@ -193,12 +193,12 @@ void	deletenode(t_my_env **my_env, char *key);
 
 //built_ins
 int		is_built_in(t_tree *tree);
-void	call_built_in(t_tree *tree, t_my_env **my_env, unsigned char *exit_code);
-void	my_echo(t_tree *tree, unsigned char *exit_code);
-void	my_exit(t_tree *tree, unsigned char *exit_code);
-void	my_pwd(t_tree *tree, unsigned char *exit_code);
-void	my_export(t_tree *tree, t_my_env **my_env, unsigned char *exit_code);
-void	my_cd(t_tree *tree, t_my_env **env, unsigned char *exit_code);
+void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code);
+void	my_echo(t_tree *tree, int *exit_code);
+void	my_exit(t_tree *tree, int *exit_code);
+void	my_pwd(t_tree *tree, int *exit_code);
+void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code);
+void	my_cd(t_tree *tree, t_my_env **env, int *exit_code);
 
 //manage envs
 char	**from_lk_to_arr(t_my_env **my_env);
@@ -229,8 +229,8 @@ int		check_node_exist(t_my_env *tmp, char *key);
 void	initialize_dt(struct s_export *info);
 int		unset_err(char *cmd);
 void	unsetdata(struct s_unset *unset, t_my_env **my_env, int n);
-void	echo_dt(struct s_echo *echo, int c, unsigned char *exit_code);
-void	echo_err(unsigned char *exit_code, int c);
+void	echo_dt(struct s_echo *echo, int c, int *exit_code);
+void	echo_err(int *exit_code, int c);
 void	ex_data(struct s_expand *exp);
 void	calcul_c(char *input, struct s_expand *exp, int c, char *ex);
 void	search_ky_2(struct s_expand *exp);

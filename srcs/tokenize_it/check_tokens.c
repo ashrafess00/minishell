@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:14:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/07 14:31:09 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:24:46 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	enter_a_pipe(t_token **tokens)
 	}
 }
 
-int	check_tokens(t_token *tokens, unsigned char *exit_code)
+int	check_tokens(t_token *tokens, int *exit_code)
 {
 	while (tokens)
 	{
@@ -43,7 +43,7 @@ int	check_tokens(t_token *tokens, unsigned char *exit_code)
 			|| (tokens->type != WORD && tokens->next->type != WORD))
 		{
 			ft_putstr_fd("SYNTAX ERROR!!\n", 2);
-			*exit_code = 1;
+			*exit_code = 258;
 			return (0);
 		}
 		tokens = tokens->next;
