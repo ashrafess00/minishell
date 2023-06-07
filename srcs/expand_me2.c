@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_me2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:18:33 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/02 19:39:58 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:55:27 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	idont_know_what_mdoin(struct s_expand *exp, int c, char *input,
 			while (exp->tmp->val[exp->i] != '\0' && exp->pedi[exp->i] != '\0'
 				&& exp->tmp->val[exp->i] == exp->pedi[exp->i])
 				exp->i++;
-			if (exp->pedi[exp->i] == '\0')
+			if (exp->pedi[exp->i] == '\0' && exp->tmp->val[exp->i] == '=')
 			{
 				search_key(input, exp, 1);
 				exp->brek = 1;
