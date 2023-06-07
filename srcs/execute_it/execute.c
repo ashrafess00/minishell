@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/06 22:43:36 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	}
 }
 
-void	cmd_part(t_tree *tree, int *exit_code,
+void	cmd_part(t_tree *tree, unsigned char *exit_code,
 	t_my_env **my_env, int is_single_cmd)
 {
 	int		status;
@@ -61,8 +61,8 @@ void	cmd_part(t_tree *tree, int *exit_code,
 		{
 			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
-			// signal(SIGINT, ctrl_c_handler);
-			// signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, ctrl_c_handler);
+			signal(SIGQUIT, SIG_IGN);
 			if (WIFEXITED(status))
 				*exit_code = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
@@ -77,7 +77,7 @@ void	close_fds(int fds[2])
 	close(fds[1]);
 }
 
-void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2])
+void	pipe_part(t_tree *tree, unsigned char *exit_code, t_my_env **my_env, int fds[2])
 {
 	int	status;
 	int	l_pid;
@@ -114,7 +114,7 @@ void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2])
 }
 
 void	lets_execute(t_tree *tree, t_my_env **my_env,
-	int is_single_cmd, int *exit_code)
+	int is_single_cmd, unsigned char *exit_code)
 {
 	int	fds[2];
 

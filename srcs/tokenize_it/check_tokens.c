@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:14:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/25 12:54:11 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	enter_a_pipe(t_token **tokens)
 	}
 }
 
-int	check_tokens(t_token *tokens, int *exit_code)
+int	check_tokens(t_token *tokens, unsigned char *exit_code)
 {
 	while (tokens)
 	{

@@ -6,13 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:43:12 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 13:34:27 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_err(int *exit_code, int c)
+void	echo_err(unsigned char *exit_code, int c)
 {
 	if (c == 0)
 	{
@@ -26,7 +26,7 @@ void	echo_err(int *exit_code, int c)
 	}
 }
 
-void	echo_dt(struct s_echo *echo, int c, int *exit_code)
+void	echo_dt(struct s_echo *echo, int c, unsigned char *exit_code)
 {
 	if (c == 0)
 	{
@@ -37,7 +37,7 @@ void	echo_dt(struct s_echo *echo, int c, int *exit_code)
 		echo_err(exit_code, 0);
 }
 
-void	my_echo(t_tree *tree, int *exit_code)
+void	my_echo(t_tree *tree, unsigned char *exit_code)
 {
 	struct s_echo	ech;
 

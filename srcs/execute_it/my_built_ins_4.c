@@ -6,21 +6,27 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/05/25 14:46:59 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:56:59 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	my_exit(t_tree *tree, int *exit_code)
+void	my_exit(t_tree *tree, unsigned char *exit_code)
 {
+	unsigned char	exit_codo;
+
 	redirect_it(tree, DONT_REDIRECT);
-	if (tree->cmd_node->args[1])
-		exit(255);
-	exit(*exit_code);
+	if (!tree->cmd_node->args[1])
+		exit(*exit_code);
+	else if (tree->cmd_node->args[1])
+	{
+		exit_codo = ft_atoi(tree->cmd_node->args[1]);
+		exit(exit_codo);
+	}
 }
 
-void	my_pwd(t_tree *tree, int *exit_code)
+void	my_pwd(t_tree *tree, unsigned char *exit_code)
 {
 	char	cwd[512];
 	int		pid;

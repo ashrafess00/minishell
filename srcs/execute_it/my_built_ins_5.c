@@ -6,13 +6,13 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:58:38 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/06 17:33:02 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_home(t_my_env *env, int *exit_code)
+void	get_home(t_my_env *env, unsigned char *exit_code)
 {
 	char		*home;
 	t_my_env	*tmp;
@@ -37,7 +37,7 @@ void	get_home(t_my_env *env, int *exit_code)
 	}
 }
 
-void	my_cd(t_tree *tree, t_my_env **env, int *exit_code)
+void	my_cd(t_tree *tree, t_my_env **env, unsigned char *exit_code)
 {
 	int			i;
 

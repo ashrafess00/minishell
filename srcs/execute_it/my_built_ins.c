@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 23:48:02 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/06 14:59:55 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	deletenode(t_my_env **my_env, char *key)
 	}
 }
 
-void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
+void	my_unset(t_tree *tree, t_my_env **my_env, unsigned char *exit_code)
 {
 	int	i;
 
@@ -76,13 +76,13 @@ void	my_unset(t_tree *tree, t_my_env **my_env, int *exit_code)
 	}
 }
 
-void	my_envv(t_my_env **my_env, int *exit_code)
+void	my_envv(t_my_env **my_env, unsigned char *exit_code)
 {
 	print_envs(*my_env);
 	*exit_code = 0;
 }
 
-void	call_built_in(t_tree *tree, t_my_env **my_env, int *exit_code)
+void	call_built_in(t_tree *tree, t_my_env **my_env, unsigned char *exit_code)
 {
 	if (!ft_strcmp(tree->cmd_node->args[0], "echo"))
 		my_echo(tree, exit_code);
