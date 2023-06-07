@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:14:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/07 13:51:54 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:20:03 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	enter_a_pipe(t_token **tokens)
 		if (tmp->type == PIPE)
 		{
 			line = readline("pipe> ");
+			if (!line)
+				return ;
 			tmp->next = lets_tokenize(line);
 			free(line);
 		}
