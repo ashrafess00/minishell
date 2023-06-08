@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:02:45 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/05/30 16:53:37 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:03:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,29 @@ char	**from_lk_to_arr(t_my_env **my_env)
 	return (env);
 }
 
-void	print_envs(t_my_env *my_env)
+char	**my_env_to_array(t_my_env **my_env)
 {
-	while (my_env)
+	int			size;
+	int			i;
+	t_my_env	*current;
+	char		**envp;
+
+	size = 0;
+	i = 0;
+	current = *my_env;
+	while (current != NULL)
 	{
-		printf("%s\n", my_env->val);
-		my_env = my_env->next;
+		size++;
+		current = current->next;
 	}
+	envp = (char **)malloc((size + 1) * sizeof(char *));
+	current = *my_env;
+	while (current != NULL)
+	{
+		envp[i] = current->val;
+		current = current->next;
+		i++;
+	}
+	envp[size] = NULL;
+	return (envp);
 }

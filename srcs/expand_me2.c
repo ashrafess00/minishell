@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_me2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:18:33 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 19:23:49 by kslik            ###   ########.fr       */
+/*   Updated: 2023/06/08 16:02:59 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	betweensingle(char *input, int index)
 {
 	int	open_qu;
-	int open_qu_d;
+	int	open_qu_d;
 	int	i;
 
 	open_qu = 0;
@@ -23,9 +23,9 @@ int	betweensingle(char *input, int index)
 	i = 0;
 	while (input[i] != '\0')
 	{
-		if(open_qu_d == 0 && input[i] == '\"' && open_qu == 0)
+		if (open_qu_d == 0 && input[i] == '\"' && open_qu == 0)
 			open_qu_d = 1;
-		else if(open_qu == 1 && input[i] == '\"' && open_qu == 0)
+		else if (open_qu == 1 && input[i] == '\"' && open_qu == 0)
 			open_qu_d = 0;
 		if (open_qu == 0 && input[i] == '\'' && open_qu_d == 0)
 			open_qu = 1;

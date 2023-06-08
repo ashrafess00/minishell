@@ -6,34 +6,11 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 20:14:23 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/07 20:24:46 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:13:28 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	enter_a_pipe(t_token **tokens)
-{
-	char	*line;
-	t_token	*tmp;
-
-	tmp = (*tokens);
-	while (1)
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		if (tmp->type == PIPE)
-		{
-			line = readline("pipe> ");
-			if (!line)
-				return ;
-			tmp->next = lets_tokenize(line);
-			free(line);
-		}
-		else
-			return ;
-	}
-}
 
 int	check_tokens(t_token *tokens, int *exit_code)
 {
@@ -42,7 +19,7 @@ int	check_tokens(t_token *tokens, int *exit_code)
 		if (!tokens->s || (tokens->type != WORD && !tokens->next)
 			|| (tokens->type != WORD && tokens->next->type != WORD))
 		{
-			ft_putstr_fd("SYNTAX ERROR!!\n", 2);
+			ft_putstr_fd("Syntax Error!!\n", 2);
 			*exit_code = 258;
 			return (0);
 		}

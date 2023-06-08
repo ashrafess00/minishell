@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:54:24 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_exit_arg(char *arg)
 
 void	my_exit(t_tree *tree, int *exit_code)
 {
-	unsigned char	exit_codo;
+	unsigned char	u_exit_code;
 
 	redirect_it(tree, DONT_REDIRECT);
 	if (!tree->cmd_node->args[1])
@@ -41,8 +41,8 @@ void	my_exit(t_tree *tree, int *exit_code)
 	else if (tree->cmd_node->args[1])
 	{
 		check_exit_arg(tree->cmd_node->args[1]);
-		exit_codo = ft_atoi(tree->cmd_node->args[1]);
-		exit(exit_codo);
+		u_exit_code = ft_atoi(tree->cmd_node->args[1]);
+		exit(u_exit_code);
 	}
 }
 
@@ -62,33 +62,6 @@ void	my_pwd(t_tree *tree, int *exit_code)
 	}
 	waitpid(pid, &status, 0);
 	*exit_code = WEXITSTATUS(status);
-}
-
-char	**my_env_to_array(t_my_env **my_env)
-{
-	int			size;
-	int			i;
-	t_my_env	*current;
-	char		**envp;
-
-	size = 0;
-	i = 0;
-	current = *my_env;
-	while (current != NULL)
-	{
-		size++;
-		current = current->next;
-	}
-	envp = (char **)malloc((size + 1) * sizeof(char *));
-	current = *my_env;
-	while (current != NULL)
-	{
-		envp[i] = current->val;
-		current = current->next;
-		i++;
-	}
-	envp[size] = NULL;
-	return (envp);
 }
 
 void	initialize_dt(struct s_export *info)
