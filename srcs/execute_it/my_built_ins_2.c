@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:16 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:11:26 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ int	ex_err(char *cmd, int c)
 	if((!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90))))
 	{
 		if(cmd[0] != '_')
-		if(c == 0)
-			ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
+		{
+			if(c == 0)
+			{
+				ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
+				return(0);
+			}
+		}
 	}
 	while(cmd[i] != '=' && cmd[i] != '\0')
 	{
