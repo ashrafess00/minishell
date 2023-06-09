@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/09 15:18:22 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:20:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,6 @@ void	my_env_cop(char **env, t_my_env **my_env)
 	copy_env(my_env, env);
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, SIG_IGN);
-}
-
-void	update_shlvl(char **env)
-{
-	int	i;
-	int	new_shlvl;
-
-	i = -1;
-	while (env[++i])
-	{
-		if (!ft_strncmp(env[i], "SHLVL", 5) && env[i][5] == '=')
-		{
-			new_shlvl = ft_atoi((env[i] + 6)) + 1;
-			env[i] = ft_strjoin(ft_strdup("SHLVL="), ft_itoa(new_shlvl));
-		}
-	}
 }
 
 int	main(int c, char **arg, char **env)
