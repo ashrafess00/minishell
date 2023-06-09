@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:13:28 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	char	*path;
 	char	**paths;
 	char	**env;
-
+ 
 	if (*tree->cmd_node->args)
 		redirect_it(tree, REDIRECT);
 	else
@@ -55,6 +55,7 @@ void	cmd_part(t_tree *tree, int *exit_code,
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
+			signal(SIGQUIT, SIG_IGN);
 			run_cmd(tree, my_env);
 		}
 		else
