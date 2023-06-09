@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_built_ins_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:56:16 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/08 17:55:53 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:57:47 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,28 @@ void	update_or_add_my_env_node(t_my_env **my_env, char *ljadid)
 	new_node(my_env, ljadid);
 }
 
-int	ex_err(char *cmd, int c)
+int	ex_err(char *cmd)
 {
 	int	i;
 
 	i = 1;
-	if((!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90))))
+	if ((!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)
+				|| cmd[0] == '_')))
 	{
-		if(cmd[0] != '_')
+		ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
+		return (0);
+	}
+	while (cmd[i] != '=' && cmd[i] != '\0')
+	{
+		if (!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)
+				|| (cmd[i] >= 49 && cmd[i] <= 57)))
 		{
-			if(c == 0)
+			if (cmd[i] != '_')
 			{
 				ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
-				return(0);
-			}
-		}
-	}
-	while(cmd[i] != '=' && cmd[i] != '\0')
-	{
-		if (!((cmd[i] >= 97 && cmd[i] <= 122)
-			|| (cmd[i] >= 65 && cmd[i] <= 90)
-			|| (cmd[i] >= 49 && cmd[i] <= 57)))
-		{
-			if(cmd[i] != '_' )
-			{
-				if (c == 200)
-					ft_putstr("error");
-				else if(c == 0)
-					ft_putstr_fd("our@shell: export: not a valid identifier\n", 2);
 				return (0);
 			}
-		}	
+		}
 		i++;
 	}
 	return (1);
@@ -65,25 +56,23 @@ int	unset_err(char *cmd)
 {
 	int	i;
 
-	i = 0;
-	if (cmd[0] == '=' || cmd[0] == '$')
+	i = 1;
+	if ((!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)
+				|| cmd[0] == '_')))
 	{
 		ft_putstr_fd("our@shell: unset: not a valid identifier\n", 2);
 		return (0);
 	}
-	else if (!((cmd[0] >= 97 && cmd[0] <= 122) || (cmd[0] >= 65 && cmd[0] <= 90)))
+	while (cmd[i] != '=' && cmd[i] != '\0')
 	{
-		ft_putstr_fd("our@shell: unset: not a valid identifier\n", 2);
-		return (0);
-	}
-	while (cmd[i] != '\0')
-	{
-		if (ft_isalpha(cmd[i]) == 1 || ft_isdigit(cmd[i]) == 1)
-			printf("");
-		else
+		if (!((cmd[i] >= 97 && cmd[i] <= 122) || (cmd[i] >= 65 && cmd[i] <= 90)
+				|| (cmd[i] >= 49 && cmd[i] <= 57)))
 		{
-			printf("our@shell: unset \'%s\' : not a valid identifier\n", cmd);
-			return (0);
+			if (cmd[i] != '_')
+			{
+				ft_putstr_fd("our@shell: unset: not a valid identifier\n", 2);
+				return (0);
+			}
 		}
 		i++;
 	}
@@ -124,9 +113,9 @@ void	my_export(t_tree *tree, t_my_env **my_env, int *exit_code)
 		c = 0;
 		while (tree->cmd_node->args[++i] != NULL)
 		{
-			if (ex_err(tree->cmd_node->args[i], c) == 1)
+			if (ex_err(tree->cmd_node->args[i]) == 1)
 				update_or_add_my_env_node(my_env, tree->cmd_node->args[i]);
-			else if(c == 0)
+			else if (c == 0)
 			{
 				*exit_code = 1;
 				c++;

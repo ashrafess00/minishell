@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/09 13:55:06 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:50:53 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ void	excpo_case_1(struct s_export *info, t_my_env *tmp,
 			char *ljadid, int fl);
 void	tmp_val(t_my_env *tmp, char *ljadid, struct s_export *info, int n);
 void	update_node(t_my_env *t, char *ljadid, struct s_export *in);
-int		ex_err(char *cmd, int c);
+int		ex_err(char *cmd);
 int		check_node_exist(t_my_env *tmp, char *key);
 void	initialize_dt(struct s_export *info);
 int		unset_err(char *cmd);
