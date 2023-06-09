@@ -6,7 +6,7 @@
 /*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:18:33 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/09 15:45:52 by kslik            ###   ########.fr       */
+/*   Updated: 2023/06/09 19:52:00 by kslik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	betweensingle(char *input, int index)
 void	ex_data(struct s_expand *exp)
 {
 	exp->i = 0;
-	exp->c = 0;
+	exp->c = 1;
 	exp->result_index = 0;
 	exp->fl = 0;
 	exp->input_index = 0;
