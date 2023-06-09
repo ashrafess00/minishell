@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kslik <kslik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:33:18 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/09 13:13:28 by kslik            ###   ########.fr       */
+/*   Updated: 2023/06/09 14:04:20 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	char	*path;
 	char	**paths;
 	char	**env;
- 
+
 	if (*tree->cmd_node->args)
 		redirect_it(tree, REDIRECT);
 	else
@@ -38,17 +38,29 @@ void	run_cmd(t_tree *tree, t_my_env **my_env)
 	}
 }
 
+int	is_built_in_or_not_single_cmd(t_tree *tree, int is_single_cmd,
+t_my_env **my_env, int *exit_code)
+{
+	if (is_built_in(tree))
+	{
+		call_built_in(tree, my_env, exit_code);
+		return (1);
+	}
+	else if (!is_single_cmd)
+	{
+		run_cmd(tree, my_env);
+		return (1);
+	}
+	return (0);
+}
+
 void	cmd_part(t_tree *tree, int *exit_code,
 	t_my_env **my_env, int is_single_cmd)
 {
 	int		status;
 	pid_t	pid;
 
-	if (is_built_in(tree))
-		call_built_in(tree, my_env, exit_code);
-	else if (!is_single_cmd)
-		run_cmd(tree, my_env);
-	else
+	if (!is_built_in_or_not_single_cmd(tree, is_single_cmd, my_env, exit_code))
 	{
 		pid = fork();
 		if (pid == 0)
@@ -69,48 +81,6 @@ void	cmd_part(t_tree *tree, int *exit_code,
 			if (WIFSIGNALED(status))
 				*exit_code = WTERMSIG(status) + 128;
 		}
-	}
-}
-
-void	close_fds(int fds[2])
-{
-	close(fds[0]);
-	close(fds[1]);
-}
-
-void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2])
-{
-	int	status;
-	int	l_pid;
-	int	r_pid;
-
-	l_pid = fork();
-	if (l_pid == 0)
-	{
-		dup2(fds[1], STDOUT_FILENO);
-		close_fds(fds);
-		lets_execute(tree->left, my_env, 0, exit_code);
-		exit(*exit_code);
-	}	
-	r_pid = fork();
-	if (r_pid == 0)
-	{
-		dup2(fds[0], STDIN_FILENO);
-		close_fds(fds);
-		lets_execute(tree->right, my_env, 0, exit_code);
-		exit(*exit_code);
-	}
-	close_fds(fds);
-	waitpid(l_pid, &status, 0);
-	waitpid(r_pid, &status, 0);
-	if (WIFEXITED(status))
-		*exit_code = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		write(1, "\n", 1);
-		*exit_code = WTERMSIG(status) + 128;
 	}
 }
 

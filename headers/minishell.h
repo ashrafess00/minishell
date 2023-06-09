@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/08 14:20:15 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:55:06 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ void	lets_execute(t_tree *tree, t_my_env **env,
 void	redirect_it(t_tree *tree, int redirect);
 char	*expandini(char *input, t_my_env *my_env, int exit_code);
 void	free_pedi(char *pedi);
+void	pipe_part(t_tree *tree, int *exit_code, t_my_env **my_env, int fds[2]);
 //path
 char	*get_path(char *program, char **paths);
 char	**get_path_from_env(char **env);
