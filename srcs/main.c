@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:09 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/08 16:57:01 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:20:49 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	main(int c, char **arg, char **env)
 	t_my_env	*my_env;
 
 	my_env = NULL;
+	update_shlvl(env);
 	my_env_cop(env, &my_env);
 	(void)arg;
 	(void)c;

@@ -29,7 +29,7 @@ HEADERS = headers/
 TOKENIZE_IT_SRCS = add_special_chars_tokens.c tokenizing_funcs.c create_tokens.c check_tokens.c
 PARSE_IT_SRCS = lets_parse.c cr_nodes.c
 EXECUTE_IT_SRCS = execute.c execute2.c path.c open_files.c redirections.c my_built_ins.c export.c my_built_ins_2.c my_built_ins_3.c my_built_ins_4.c my_built_ins_5.c my_built_ins_6.c
-SRCS = main.c utils.c utils2.c free_me.c free_me2.c manage_envs.c manage_envs2.c herdoc.c printers.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS) expand_me.c expand_me2.c
+SRCS = main.c utils.c utils2.c free_me.c free_me2.c manage_envs.c manage_envs2.c manage_envs3.c herdoc.c printers.c $(TOKENIZE_IT_SRCS) $(PARSE_IT_SRCS) $(EXECUTE_IT_SRCS) expand_me.c expand_me2.c
 
 
 LIBFT_A	= $(LIBFT_DIR)libft.a
