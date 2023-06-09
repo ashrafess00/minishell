@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:38:22 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/09 18:57:10 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:02:19 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,9 +248,5 @@ void	idont_know_what_mdoin(struct s_expand *exp, int c,
 			char *input, t_my_env *my_env);
 void	freenode(t_my_env *node);
 void	ctrl_c_handler(int signum);
-
-//printers
-void	print_my_tree(t_tree *tree);
-void	print_tokens(t_token *head);
 
 #endif

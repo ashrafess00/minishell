@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:43:12 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/07 20:23:40 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:18:51 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	fill_echo_data(t_echo_data *echo_data)
 	echo_data->dash_n = 0;
 	echo_data->dash_n_exist = 0;
 	echo_data->pid = fork();
+	if (echo_data->pid == -1)
+		exit (1);
 }
 
 void	my_echo(t_tree *tree, int *exit_code)
@@ -70,11 +72,10 @@ void	my_echo(t_tree *tree, int *exit_code)
 		}
 		if (!echo_data.dash_n_exist)
 			printf("\n");
-		*exit_code = 0;
 		exit(0);
 	}
-	else
-		waitpid(echo_data.pid, &echo_data.status, 0);
+	waitpid(echo_data.pid, &echo_data.status, 0);
+	*exit_code = 0;
 }
 
 void	unsetdata(struct s_unset *unset, t_my_env **my_env, int n)

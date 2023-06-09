@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:57:59 by kslik             #+#    #+#             */
-/*   Updated: 2023/06/08 13:54:24 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:21:16 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,20 @@ void	my_exit(t_tree *tree, int *exit_code)
 
 	redirect_it(tree, DONT_REDIRECT);
 	if (!tree->cmd_node->args[1])
+	{
+		printf("exit\n");
 		exit(*exit_code);
+	}
 	else if (tree->cmd_node->args[1] && tree->cmd_node->args[2])
 	{
 		*exit_code = 1;
-		write(2, "our@shell: exit: too many arguments\n", 37);
+		ft_putstr_fd("our@shell: exit: too many arguments\n", 2);
 	}
 	else if (tree->cmd_node->args[1])
 	{
 		check_exit_arg(tree->cmd_node->args[1]);
 		u_exit_code = ft_atoi(tree->cmd_node->args[1]);
+		printf("exit\n");
 		exit(u_exit_code);
 	}
 }
