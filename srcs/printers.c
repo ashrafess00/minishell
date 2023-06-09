@@ -6,16 +6,14 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 18:46:01 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/08 17:39:00 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:57:28 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//anms7oha mn b3da hah
 void	print_tokens(t_token *head)
 {
-	//anms7oha mn b3da hah
 	while (head)
 	{
 		printf("arg : %-10s", head->s);
@@ -54,7 +52,6 @@ void	print_my_tree(t_tree *tree)
 		{
 			printf("[%s] ", tree->cmd_node->args[i]);
 		}
-		//anms7oha mn b3da hah
 		printf("\nRedirection List:\n");
 		{
 			while (tree->cmd_node->redir_list)
@@ -74,5 +71,4 @@ void	print_my_tree(t_tree *tree)
 		print_my_tree(tree->left);
 		print_my_tree(tree->right);
 	}
-	//anms7oha mn b3da hah
 }
