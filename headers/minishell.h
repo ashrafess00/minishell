@@ -207,6 +207,7 @@ void	copy_env(t_my_env **head, char **env);
 void	add_my_env_node(t_my_env **head, char *env);
 void	print_envs(t_my_env *my_env);
 void	update_envs(t_my_env **my_env);
+void	update_shlvl(char **env);
 
 //========General========
 //utils
