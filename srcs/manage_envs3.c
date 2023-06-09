@@ -6,7 +6,7 @@
 /*   By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:22:03 by aessaoud          #+#    #+#             */
-/*   Updated: 2023/06/09 15:37:23 by aessaoud         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:55:47 by aessaoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	update_shlvl(char **env)
 {
 	int	i;
 	int	new_shlvl;
-	char	shl[8];
 
 	i = -1;
 	while (env[++i])

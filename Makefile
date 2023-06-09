@@ -3,17 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kslik <kslik@student.42.fr>                +#+  +:+       +#+         #
+#    By: aessaoud <aessaoud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:42:29 by aessaoud          #+#    #+#              #
-#    Updated: 2023/06/09 15:34:52 by kslik            ###   ########.fr        #
+#    Updated: 2023/06/09 15:55:37 by aessaoud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-# CFLAGS = -Werror -Wextra -Wall
-CFLAGS=
+CFLAGS = -Werror -Wextra -Wall
 REDLINE=$(shell brew  --prefix readline)
 
 # DIRECTORIES
